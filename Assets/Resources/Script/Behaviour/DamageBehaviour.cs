@@ -7,6 +7,7 @@ public class DamageBehaviour : MonoBehaviour
     // Start is called before the first frame update
     public float _ActiveFrame = 0.2f;
     public int _Damage;
+    public bool _isStatic;
 
     void Start()
     {

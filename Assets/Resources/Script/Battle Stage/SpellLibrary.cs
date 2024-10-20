@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellLibrary : MonoBehaviour
@@ -70,26 +71,46 @@ public class SpellLibrary : MonoBehaviour
 
         GameObject Projectile = null;
 
-        int xInstance = (int)(_Player.TilePosition.x + CastingProjectile.p_StartingPosition.x);
-        int yInstance = (int)(_Player.TilePosition.y + CastingProjectile.p_StartingPosition.y);
 
-        xInstance = Mathf.Clamp(xInstance, 0, 7);
 
-        for (int i = 0; i < CastingProjectile.p_NbProjectile; i++)
+        for (int y = 0; y < CastingProjectile.p_NbProjectile.y; y++)
         {
-            if (yInstance >= 0 && yInstance <= 3)
+            for (int x = 0; x < CastingProjectile.p_NbProjectile.x; x++)
             {
-                Projectile = Instantiate(ProjectileSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
+                int xInstance = 0;
+                int yInstance = 0;
+
+                if (!CastingProjectile._isStatic)
+                {
+                   xInstance = (int)(_Player.TilePosition.x + CastingProjectile.p_StartingPosition.x + x);
+                   yInstance = (int)(_Player.TilePosition.y + CastingProjectile.p_StartingPosition.y + y);
+                }
+                else
+                {
+                  xInstance = (int)(CastingProjectile.p_StartingPosition.x + x);
+                  yInstance = (int)(CastingProjectile.p_StartingPosition.y + y);
+                }
+
+                xInstance = Mathf.Clamp(xInstance, 0, 7);
+
+                if (yInstance >= 0 && yInstance <= 3)
+                {
+                    Projectile = Instantiate(ProjectileSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
+                }
+
+                if (Projectile.TryGetComponent(out ProjectileBehaviour behaviour))
+                {
+                    behaviour._Speed = CastingProjectile.p_speed;
+                    behaviour._Direction = (ProjectileBehaviour.Direction)CastingProjectile.SpellDirection;
+                    behaviour._Damage = CastingProjectile._Damage;
+                    behaviour._isPercing = CastingProjectile.p_IsLaser;
+                    behaviour._isComingBack = CastingProjectile._isComingBack;
+                    behaviour._isFriendly = CastingProjectile._isFriendly;
+                }
             }
 
-            if (Projectile.TryGetComponent(out ProjectileBehaviour behaviour))
-            {
-                behaviour._Speed = CastingProjectile.p_speed;
-                behaviour._Direction = (ProjectileBehaviour.Direction)CastingProjectile.SpellDirection;
-                behaviour._Damage = CastingProjectile._Damage;
-                behaviour._isPercing = CastingProjectile.p_IsLaser;
-            }
         }
+        /// 
 
         this._Player.CurrentMana -= CastingProjectile.ManaCost;
         return true;
@@ -101,12 +122,25 @@ public class SpellLibrary : MonoBehaviour
         this._Player.Iscasting(CastingInstance.castingTime);
         GameObject Instant = null;
 
+
+        /////CastingInstance._isStatic; if not static
         for (int y = 0; y < CastingInstance._NbInstance.y; y++)
         {
             for (int x = 0; x < CastingInstance._NbInstance.x; x++)
             {
-                int xInstance = (int)(_Player.TilePosition.x + CastingInstance.StartingPosition.x + x);
-                int yInstance = (int)(_Player.TilePosition.y + CastingInstance.StartingPosition.y + y);
+                int xInstance = 0;
+                int yInstance = 0;
+
+                if (!CastingInstance._isStatic)
+                {
+                    xInstance = (int)(_Player.TilePosition.x + CastingInstance.StartingPosition.x + x);
+                    yInstance = (int)(_Player.TilePosition.y + CastingInstance.StartingPosition.y + y);
+                }
+                else
+                {
+                   xInstance = (int)(CastingInstance.StartingPosition.x + x);
+                   yInstance = (int)(CastingInstance.StartingPosition.y + y);
+                }
 
                 if (xInstance >= 0 && xInstance <= 7
                   && yInstance >= 0 && yInstance <= 3)
@@ -119,6 +153,7 @@ public class SpellLibrary : MonoBehaviour
                         behaviour._ActiveFrame = CastingInstance._LifeSpan;
                     }
                 }
+                ///
             }
         }
         this._Player.CurrentMana -= CastingInstance.ManaCost;

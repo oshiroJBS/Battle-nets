@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     public float LastManaMax;
     public float CurrentMana;
     public float ManaRecuperation = 0.5f;
+    [SerializeField] private Image ShuffleIcon;
     [SerializeField] private Image ManaGauge;
     [SerializeField] private Image ManaSplitter;
 
@@ -57,6 +58,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        this.ShuffleIcon.gameObject.SetActive(false);
         this.retryScreen.SetActive(false);
         HP = HPMax;
 
@@ -206,6 +208,19 @@ public class Player : MonoBehaviour
         {
             ResetOnce = false;
             Invoke("DeckReset", resetTimer);
+
+            ShuffleIcon.gameObject.SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.V) && ResetOnce)
+        {
+            SpellA = null; A_Cost = null;
+            SpellB = null; B_Cost = null;
+
+            ResetOnce = false;
+            Invoke("DeckReset", resetTimer);
+
+            ShuffleIcon.gameObject.SetActive(true);
         }
 
         txt_SpellA.text = SpellA + A_Cost;
@@ -296,6 +311,7 @@ public class Player : MonoBehaviour
 
     private void DeckReset()
     {
+        ShuffleIcon.gameObject.SetActive(false);
         ResetOnce = true;
         p_Deck = new ArrayList(_StartingDeck);
 

@@ -17,6 +17,8 @@ MonoBehaviour:
   _Damage: 40
   p_speed: 40
   p_StartingPosition: {x: 1, y: 0}
-  p_NbProjectile: 1
+  p_NbProjectile: {x: 1, y: 1}
   p_IsLaser: 1
+  _isComingBack: 0
+  _isStatic: 0
   SpellDirection: 0

@@ -11,4 +11,6 @@ public class InstanceScriptableObject : SpellScriptableObject
     public Vector2 StartingPosition;
     public int _Damage;
     public float _LifeSpan;
+    public float CastingInstance;
+    public bool _isStatic;
 }

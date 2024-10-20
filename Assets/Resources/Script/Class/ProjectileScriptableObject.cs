@@ -11,8 +11,12 @@ public class ProjectileScriptableObject : SpellScriptableObject
     public float p_speed;
     public Vector2 p_StartingPosition;
 
-    public int p_NbProjectile;
+    public Vector2 p_NbProjectile;
     public bool p_IsLaser;
+    public bool _isComingBack;
+    public bool _isStatic;
+    public bool _isFriendly;
+
 
     public enum Direction
     {
