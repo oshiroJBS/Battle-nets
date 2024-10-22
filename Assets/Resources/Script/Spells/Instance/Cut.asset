@@ -18,3 +18,5 @@ MonoBehaviour:
   StartingPosition: {x: 1, y: -1}
   _Damage: 40
   _LifeSpan: 0.2
+  CastingInstance: 0
+  _isStatic: 0

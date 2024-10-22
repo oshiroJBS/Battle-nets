@@ -145,7 +145,7 @@ public class SpellLibrary : MonoBehaviour
                 if (xInstance >= 0 && xInstance <= 7
                   && yInstance >= 0 && yInstance <= 3)
                 {
-                    Instant = GameObject.Instantiate(DamageSphere, _Player.Position((int)(_Player.TilePosition.x + CastingInstance.StartingPosition.x + x), (int)(_Player.TilePosition.y + CastingInstance.StartingPosition.y + y)), Quaternion.identity);
+                    Instant = GameObject.Instantiate(DamageSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
 
                     if (Instant.TryGetComponent(out DamageBehaviour behaviour))
                     {

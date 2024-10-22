@@ -165,6 +165,7 @@ public class Player : MonoBehaviour
         this.m_Player.position = Position(newX, newY);
     }
 
+
     private void weapon()
     {
         if (this.CurrentMana < 0.5f) { return; }

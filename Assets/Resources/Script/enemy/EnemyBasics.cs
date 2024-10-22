@@ -5,9 +5,9 @@ public class EnemyBasics : MonoBehaviour
 {
     private Player _Player;
 
-    [SerializeField] private float HPMax = 100;
+    public float HPMax = 100;
     [HideInInspector] public float HP;
-    [SerializeField] private TextMeshProUGUI HPDisplay;
+    public TextMeshProUGUI HPDisplay;
 
 
     [SerializeField] private TilesManager _TileManager;
@@ -19,7 +19,7 @@ public class EnemyBasics : MonoBehaviour
     private bool _CanAttack = false;
 
     /*[SerializeField] */
-    private float Yposition = 0.7f;
+    private float Yposition = 0.6f;
     private float _TimerMouvement = 0f;
 
 
@@ -38,39 +38,44 @@ public class EnemyBasics : MonoBehaviour
     [SerializeField] private Material _HurtMaterial;
 
 
-    private void Awake()
+    virtual protected private void Awake()
     {
+        //initialization
         HP = HPMax;
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_TileManager == null) _TileManager = GameObject.FindObjectOfType<TilesManager>();
-
-        this._TileX = Random.Range(0, 3);
-        this._TileY = Random.Range(0, 3);
-
-        //this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
-
-        //while (_TileManager.Tiles[_NormedTileX][_TileY].childCount > 1)
-        //{
-        //    this._TileX = Random.Range(0, 3);
-        //    this._TileY = Random.Range(0, 3);
-        //    _NormedTileX = this._TileX + 4;
-        //    this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
-        //}
     }
 
-    void Start()
+    virtual protected void Start()
     {
         _TimerMouvement = 0;
         _StartingMaterial = this.GetComponent<MeshRenderer>().material;
+
+        this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
+        //
+
+        this._TileX = Random.Range(0, 3);
+        this._TileY = Random.Range(0, 3);
+        _NormedTileX = this._TileX + 4;
+        //new starting point if occupied
+        while (_TileManager.Tiles[_NormedTileX][_TileY].childCount > 1)
+        {
+            this._TileX = Random.Range(0, 3);
+            this._TileY = Random.Range(0, 3);
+            _NormedTileX = this._TileX + 4;
+            this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
+        }
+        //
     }
 
     // Update is called once per frame
-    void Update()
+    virtual protected void Update()
     {
         HP = Mathf.Clamp(HP, 0, HPMax);
 
         HPDisplay.text = HP.ToString();
 
+        ///scene reset
         if (this.HP <= 0)
         {
             if (!this._Player.retryScreen.activeSelf)
@@ -79,6 +84,7 @@ public class EnemyBasics : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+        ///
 
         _TimerMouvement += Time.deltaTime;
         _TimerAttack += Time.deltaTime;
@@ -127,7 +133,7 @@ public class EnemyBasics : MonoBehaviour
         Instantiate(this.projectile, Position(_NormedTileX - 1, _TileY), Quaternion.identity);
     }
 
-    private void OnTriggerEnter(Collider other)
+    virtual protected private void OnTriggerEnter(Collider other)
     {
         GetComponent<MeshRenderer>().material = _HurtMaterial;
         Invoke("ResetMaterial", 0.3f);
@@ -138,10 +144,13 @@ public class EnemyBasics : MonoBehaviour
     {
         GetComponent<MeshRenderer>().material = _StartingMaterial;
     }
+
     private void Move()
     {
         Vector2 PositionByPlayer = _Player.TilePosition - this._TilePosition;
         PositionByPlayer.x = _NormedTileX - _Player.TilePosition.x;
+        bool moved = false;
+
         if (PositionByPlayer != _TargetOfMouvement)
         {
             int newX;
@@ -154,9 +163,11 @@ public class EnemyBasics : MonoBehaviour
                 if (_TileManager.Tiles[_NormedTileX][newY].childCount == 0)
                 {
                     this._TileY = newY;
+                    moved = true;
                 }
             }
-            else if (PositionByPlayer.x != _TargetOfMouvement.x)
+           
+            if (PositionByPlayer.x != _TargetOfMouvement.x && !moved)
             {
                 newX = Mathf.Clamp(this._TileX + (int)Mathf.Clamp(_TargetOfMouvement.x - PositionByPlayer.x, -1, 1), 0, 3);
 
@@ -168,6 +179,7 @@ public class EnemyBasics : MonoBehaviour
                     }
                 }
             }
+
             _CanAttack = false;
         }
         else

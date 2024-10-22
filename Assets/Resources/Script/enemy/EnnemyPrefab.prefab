@@ -213,13 +213,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00889f4add9be94bb47d2a8202bacb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HPMax: 100
   HP: 100
   HPDisplay: {fileID: 1017893213738000228}
   _TileManager: {fileID: 0}
   projectile: {fileID: 4648252368489437962, guid: 6add46ce5b36b3344b3aba5a3d2eee88, type: 3}
   _NeedPosition: 1
-  _CooldownAttack: 0.5
-  _CooldownMouvement: 1.5
+  _CooldownAttack: 2
+  _CooldownMouvement: 1
   _TargetOfMouvement: {x: 4, y: 0}
   _HurtMaterial: {fileID: 2100000, guid: cad4a78d2f453b64fa088e89a1c9c086, type: 2}
 --- !u!54 &-6253444793708869857
