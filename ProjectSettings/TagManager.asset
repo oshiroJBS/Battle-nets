@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Dammage
   - Wall
+  - Tile
   layers:
   - Default
   - TransparentFX

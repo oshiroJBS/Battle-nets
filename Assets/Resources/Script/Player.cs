@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private int newX = 0;
     private int newY = 1;
     public Vector2 TilePosition;// the player's position in Tiles Unit
+    public Vector2 lastTilePosition;// the player's position in Tiles Unit
 
     ///UI ///
     public GameObject retryScreen;
@@ -71,7 +72,7 @@ public class Player : MonoBehaviour
 
         p_Deck = new ArrayList(_StartingDeck);
 
-        // firts Spells
+        // first Spells
         SpellA = GetNewSpell();
         A_Cost = _Library.GetCost(SpellA);
 
@@ -79,7 +80,7 @@ public class Player : MonoBehaviour
         B_Cost = _Library.GetCost(SpellB);
         //
         CurrentMana = 0f;
-
+        this.lastTilePosition = new Vector2(newX, newY);
         ResetOnce = true;
     }
 
@@ -120,7 +121,7 @@ public class Player : MonoBehaviour
         }
 
         this.TilePosition = new Vector2(newX, newY);
-        this.m_Player.parent = _TileManager.Tiles[newX][newY];
+        this.lastTilePosition = TilePosition;
     }
 
     ////////////////////// FONCTION ///////////////////////////////////
@@ -162,7 +163,22 @@ public class Player : MonoBehaviour
                 newX = 3;
             }
         }
-        this.m_Player.position = Position(newX, newY);
+        if (newX != lastTilePosition.x || newY != lastTilePosition.y)
+        {
+            if (GetClosestObject(Position(newX, newY), "Tile").childCount != 0)
+            {
+                this.m_Player.position = Position((int)lastTilePosition.x, (int)lastTilePosition.y);
+                newX = (int)lastTilePosition.x;
+                newY = (int)lastTilePosition.y;
+                Debug.Log("obstacle");
+
+            }
+            else
+            {
+                this.m_Player.position = Position(newX, newY);
+                this.m_Player.parent = _TileManager.Tiles[newX][newY];
+            }
+        }
     }
 
 
@@ -177,7 +193,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            if (_Library.cast(SpellA))
+            if (_Library.cast(SpellA, TilePosition))
             {
                 SpellA = GetNewSpell();
                 A_Cost = _Library.GetCost(SpellA);
@@ -192,7 +208,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (_Library.cast(SpellB))
+            if (_Library.cast(SpellB, TilePosition))
             {
                 SpellB = GetNewSpell();
                 B_Cost = _Library.GetCost(SpellB);
@@ -320,5 +336,36 @@ public class Player : MonoBehaviour
         A_Cost = _Library.GetCost(SpellA);
         SpellB = GetNewSpell();
         B_Cost = _Library.GetCost(SpellB);
+    }
+
+
+    public static Transform GetClosestObject(Vector3 position, string Tag = "", float ScaleMin = 0.001f) // used to search for object
+    {
+        float closestDistance = Mathf.Infinity;
+        Transform closestObject = null;
+        GameObject[] Object;
+
+        if (Tag == "")
+        {
+            Tag = "Untagged";
+            Debug.Log("warning, No tag as been set for GetClosetObject");
+        }
+
+        Object = GameObject.FindGameObjectsWithTag(Tag);
+
+        for (var i = 0; i < Object.Length; i++)
+        {
+            float dist = Vector3.Distance(position, Object[i].transform.position);
+            if (dist < closestDistance)
+            {
+                closestDistance = dist;
+                if (Object[i].transform.localScale.x >= ScaleMin)
+                {
+                    closestObject = Object[i].transform;
+                }
+            }
+        }
+        Debug.Log(closestObject.name);
+        return closestObject;
     }
 }

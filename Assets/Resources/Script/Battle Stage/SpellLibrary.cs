@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpellLibrary : MonoBehaviour
@@ -11,6 +10,8 @@ public class SpellLibrary : MonoBehaviour
 
     [SerializeField] private GameObject DamageSphere = null;
     [SerializeField] private GameObject ProjectileSphere = null;
+
+    public Vector2 VNull { get { return new Vector2(0, 0); } }
 
     private void Start()
     {
@@ -40,7 +41,7 @@ public class SpellLibrary : MonoBehaviour
         return "";
     }
 
-    public bool cast(string spellToCast, bool isEnnemi = false)
+    public bool cast(string spellToCast, Vector2 Positon)
     {
         if (spellToCast == null) { return false; }
 
@@ -50,28 +51,37 @@ public class SpellLibrary : MonoBehaviour
             {
                 if (_Library[i] is ProjectileScriptableObject)
                 {
-                    return CreateProjectileOnCast((ProjectileScriptableObject)_Library[i], isEnnemi);
+                    return CreateProjectileOnCast((ProjectileScriptableObject)_Library[i], Positon);
                 }
                 else if (_Library[i] is InstanceScriptableObject)
                 {
-                    return CreateInstanceOncast((InstanceScriptableObject)_Library[i], isEnnemi);
+                    return CreateInstanceOncast((InstanceScriptableObject)_Library[i], Positon);
                 }
                 return false;
             }
         }
+
         Debug.LogError("Spell is not in library");
         return false;
     }
 
-    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, bool isEnnemi)
+    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon)
     {
-        if (this._Player.CurrentMana < CastingProjectile.ManaCost) { return false; }
-
-        this._Player.Iscasting(CastingProjectile.castingTime);
+        ///BAsic
+        int SpellDirection = 1;
+        if (Positon == _Player.TilePosition)
+        {
+            if (this._Player.CurrentMana < CastingProjectile.ManaCost) { return false; }
+            this._Player.Iscasting(CastingProjectile.castingTime);
+            this._Player.CurrentMana -= CastingProjectile.ManaCost;
+        }
+        else
+        {
+            SpellDirection = -1;
+        }
 
         GameObject Projectile = null;
-
-
+        ///
 
         for (int y = 0; y < CastingProjectile.p_NbProjectile.y; y++)
         {
@@ -82,13 +92,13 @@ public class SpellLibrary : MonoBehaviour
 
                 if (!CastingProjectile._isStatic)
                 {
-                   xInstance = (int)(_Player.TilePosition.x + CastingProjectile.p_StartingPosition.x + x);
-                   yInstance = (int)(_Player.TilePosition.y + CastingProjectile.p_StartingPosition.y + y);
+                    xInstance = (int)(Positon.x + (CastingProjectile.p_StartingPosition.x + x) * SpellDirection);
+                    yInstance = (int)(Positon.y + (CastingProjectile.p_StartingPosition.y + y) * SpellDirection);
                 }
                 else
                 {
-                  xInstance = (int)(CastingProjectile.p_StartingPosition.x + x);
-                  yInstance = (int)(CastingProjectile.p_StartingPosition.y + y);
+                    xInstance = (int)((CastingProjectile.p_StartingPosition.x + x) * SpellDirection);
+                    yInstance = (int)((CastingProjectile.p_StartingPosition.y + y) * SpellDirection);
                 }
 
                 xInstance = Mathf.Clamp(xInstance, 0, 7);
@@ -100,7 +110,7 @@ public class SpellLibrary : MonoBehaviour
 
                 if (Projectile.TryGetComponent(out ProjectileBehaviour behaviour))
                 {
-                    behaviour._Speed = CastingProjectile.p_speed;
+                    behaviour._Speed = CastingProjectile.p_speed * SpellDirection;
                     behaviour._Direction = (ProjectileBehaviour.Direction)CastingProjectile.SpellDirection;
                     behaviour._Damage = CastingProjectile._Damage;
                     behaviour._isPercing = CastingProjectile.p_IsLaser;
@@ -112,18 +122,27 @@ public class SpellLibrary : MonoBehaviour
         }
         /// 
 
-        this._Player.CurrentMana -= CastingProjectile.ManaCost;
         return true;
     }
 
-    private bool CreateInstanceOncast(InstanceScriptableObject CastingInstance, bool isEnnemi)
+    private bool CreateInstanceOncast(InstanceScriptableObject CastingInstance, Vector2 Positon)
     {
-        if (this._Player.CurrentMana < CastingInstance.ManaCost) { return false; }
-        this._Player.Iscasting(CastingInstance.castingTime);
+        ///Basic
+        int SpellDirection = 1;
+        if (Positon == _Player.TilePosition)
+        {
+            if (this._Player.CurrentMana < CastingInstance.ManaCost) { return false; }
+            this._Player.Iscasting(CastingInstance.castingTime);
+            this._Player.CurrentMana -= CastingInstance.ManaCost;
+        }
+        else
+        {
+            SpellDirection = -1;
+        }
+
         GameObject Instant = null;
+        ///
 
-
-        /////CastingInstance._isStatic; if not static
         for (int y = 0; y < CastingInstance._NbInstance.y; y++)
         {
             for (int x = 0; x < CastingInstance._NbInstance.x; x++)
@@ -131,16 +150,18 @@ public class SpellLibrary : MonoBehaviour
                 int xInstance = 0;
                 int yInstance = 0;
 
+                ///CastingInstance._isStatic; if not static
                 if (!CastingInstance._isStatic)
                 {
-                    xInstance = (int)(_Player.TilePosition.x + CastingInstance.StartingPosition.x + x);
-                    yInstance = (int)(_Player.TilePosition.y + CastingInstance.StartingPosition.y + y);
+                    xInstance = (int)(Positon.x + (CastingInstance.StartingPosition.x + x) * SpellDirection);
+                    yInstance = (int)(Positon.y + (CastingInstance.StartingPosition.y + y) * SpellDirection);
                 }
                 else
                 {
-                   xInstance = (int)(CastingInstance.StartingPosition.x + x);
-                   yInstance = (int)(CastingInstance.StartingPosition.y + y);
+                    xInstance = (int)((CastingInstance.StartingPosition.x + x) * SpellDirection);
+                    yInstance = (int)((CastingInstance.StartingPosition.y + y) * SpellDirection);
                 }
+                ///
 
                 if (xInstance >= 0 && xInstance <= 7
                   && yInstance >= 0 && yInstance <= 3)
@@ -153,10 +174,9 @@ public class SpellLibrary : MonoBehaviour
                         behaviour._ActiveFrame = CastingInstance._LifeSpan;
                     }
                 }
-                ///
             }
         }
-        this._Player.CurrentMana -= CastingInstance.ManaCost;
+
         return true;
     }
 

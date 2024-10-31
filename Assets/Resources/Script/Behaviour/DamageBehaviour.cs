@@ -24,6 +24,10 @@ public class DamageBehaviour : MonoBehaviour
         {
             enemy.HP -= _Damage;
         }
+        else if (other.TryGetComponent<obstacleBehaviour>(out obstacleBehaviour obstacle))
+        {
+            obstacle.HP -= _Damage;
+        }
     }
 
     private void End()

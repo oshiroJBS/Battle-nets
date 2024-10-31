@@ -76,8 +76,6 @@ public class ProjectileBehaviour : MonoBehaviour
         _Speed = -1 * m_StartingSpeed;
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Player>(out Player player) && !_isFriendly)
@@ -94,8 +92,15 @@ public class ProjectileBehaviour : MonoBehaviour
         else if (other.TryGetComponent<EnemyBasics>(out EnemyBasics enemy))
         {
             enemy.HP -= _Damage;
-            if (enemy.HP < 0)
-                enemy.HP = 0;
+
+            if (!this._isPercing)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        else if (other.TryGetComponent<obstacleBehaviour>(out obstacleBehaviour obstacle))
+        {
+            obstacle.HP -= _Damage;
 
             if (!this._isPercing)
             {

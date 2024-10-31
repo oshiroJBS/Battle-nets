@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Prefab\Map\obstacleBehaviour.cs" />
     <Compile Include="Assets\Resources\Script\Class\SpellScriptableObject.cs" />
     <Compile Include="Assets\UIBars\Scripts\UIBarScript.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\DamageBehaviour.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\UIBars\Scripts\ControlBar.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\SpellLibrary.cs" />
     <Compile Include="Assets\Resources\Script\Class\InstanceScriptableObject.cs" />
-    <Compile Include="Assets\Resources\Prefab\Map\obstacleBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

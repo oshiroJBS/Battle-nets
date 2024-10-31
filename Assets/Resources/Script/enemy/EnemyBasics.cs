@@ -9,17 +9,21 @@ public class EnemyBasics : MonoBehaviour
     [HideInInspector] public float HP;
     public TextMeshProUGUI HPDisplay;
 
+    public string _SpellToCast = "Discharge";
 
     [SerializeField] private TilesManager _TileManager;
+    private SpellLibrary _Library = null;
+
     [SerializeField] private GameObject projectile;
 
     [SerializeField] private bool _NeedPosition = true;
     [SerializeField] private float _CooldownAttack = 0.5f;
     private float _TimerAttack = 0f;
     private bool _CanAttack = false;
+    [SerializeField] private float _AttackStagger = 0.2f;
 
     /*[SerializeField] */
-    private float Yposition = 0.6f;
+    private const float _Yposition = 0.6f;
     private float _TimerMouvement = 0f;
 
 
@@ -38,15 +42,16 @@ public class EnemyBasics : MonoBehaviour
     [SerializeField] private Material _HurtMaterial;
 
 
-    virtual protected private void Awake()
+    private void Awake()
     {
         //initialization
         HP = HPMax;
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_TileManager == null) _TileManager = GameObject.FindObjectOfType<TilesManager>();
+        if (_Library == null) _Library = GameObject.FindObjectOfType<SpellLibrary>();
     }
 
-    virtual protected void Start()
+    private void Start()
     {
         _TimerMouvement = 0;
         _StartingMaterial = this.GetComponent<MeshRenderer>().material;
@@ -69,7 +74,7 @@ public class EnemyBasics : MonoBehaviour
     }
 
     // Update is called once per frame
-    virtual protected void Update()
+    private void Update()
     {
         HP = Mathf.Clamp(HP, 0, HPMax);
 
@@ -95,20 +100,6 @@ public class EnemyBasics : MonoBehaviour
             _TimerMouvement = 0;
         }
 
-        if (_TimerAttack >= _CooldownAttack)
-        {
-            if (!_NeedPosition)
-            {
-                _CanAttack = true;
-            }
-
-            if (_CanAttack)
-            {
-                this.Attack();
-            }
-            _TimerAttack = 0;
-        }
-
         _NormedTileX = this._TileX + 4;
 
         if (_NormedTileX >= this._TileManager.Tiles.Length)
@@ -119,6 +110,21 @@ public class EnemyBasics : MonoBehaviour
         if (_TileY >= this._TileManager.Tiles[_NormedTileX].Length)
         {
             this._TileY = this._TileManager.Tiles[_NormedTileX].Length - 1;
+        }
+
+        if (_TimerAttack >= _CooldownAttack)
+        {
+            if (!_NeedPosition)
+            {
+                _CanAttack = true;
+            }
+
+            if (_CanAttack)
+            {
+                _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY));
+                _TimerAttack = 0;
+                _TimerMouvement -= _AttackStagger;
+            }
         }
 
         this.transform.position = this.Position(_NormedTileX, _TileY);
@@ -133,7 +139,7 @@ public class EnemyBasics : MonoBehaviour
         Instantiate(this.projectile, Position(_NormedTileX - 1, _TileY), Quaternion.identity);
     }
 
-    virtual protected private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         GetComponent<MeshRenderer>().material = _HurtMaterial;
         Invoke("ResetMaterial", 0.3f);
@@ -166,7 +172,7 @@ public class EnemyBasics : MonoBehaviour
                     moved = true;
                 }
             }
-           
+
             if (PositionByPlayer.x != _TargetOfMouvement.x && !moved)
             {
                 newX = Mathf.Clamp(this._TileX + (int)Mathf.Clamp(_TargetOfMouvement.x - PositionByPlayer.x, -1, 1), 0, 3);
@@ -190,6 +196,6 @@ public class EnemyBasics : MonoBehaviour
 
     private Vector3 Position(int Xtile, int Ytile)
     {
-        return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, Yposition, this._TileManager.Tiles[Xtile][Ytile].position.z);
+        return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, _Yposition, this._TileManager.Tiles[Xtile][Ytile].position.z);
     }
 }
