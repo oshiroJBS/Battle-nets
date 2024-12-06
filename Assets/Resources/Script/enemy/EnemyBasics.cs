@@ -121,7 +121,7 @@ public class EnemyBasics : MonoBehaviour
 
             if (_CanAttack)
             {
-                _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY));
+                _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY), true);
                 _TimerAttack = 0;
                 _TimerMouvement -= _AttackStagger;
             }
@@ -143,7 +143,6 @@ public class EnemyBasics : MonoBehaviour
     {
         GetComponent<MeshRenderer>().material = _HurtMaterial;
         Invoke("ResetMaterial", 0.3f);
-        Debug.Log("Hurt");
     }
 
     private void ResetMaterial()

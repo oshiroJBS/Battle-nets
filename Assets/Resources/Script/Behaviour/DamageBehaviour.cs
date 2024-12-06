@@ -7,7 +7,8 @@ public class DamageBehaviour : MonoBehaviour
     // Start is called before the first frame update
     public float _ActiveFrame = 0.2f;
     public int _Damage;
-    public bool _isStatic;
+    public bool _isStatic = false;
+    public bool _isFriendly = false;
 
     void Start()
     {
@@ -16,9 +17,11 @@ public class DamageBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Player>(out Player player))
+        if (other.TryGetComponent<Player>(out Player player) && !_isFriendly)
         {
             player.HP -= _Damage;
+            if (player.HP < 0)
+                player.HP = 0;
         }
         else if (other.TryGetComponent<EnemyBasics>(out EnemyBasics enemy))
         {

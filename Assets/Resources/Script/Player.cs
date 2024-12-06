@@ -170,7 +170,6 @@ public class Player : MonoBehaviour
                 this.m_Player.position = Position((int)lastTilePosition.x, (int)lastTilePosition.y);
                 newX = (int)lastTilePosition.x;
                 newY = (int)lastTilePosition.y;
-                Debug.Log("obstacle");
 
             }
             else
@@ -199,11 +198,6 @@ public class Player : MonoBehaviour
                 A_Cost = _Library.GetCost(SpellA);
             }
 
-            if (SpellA != null)
-            {
-                Debug.Log("Spell A :" + SpellA.ToString());
-                Debug.Log(A_Cost);
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -212,12 +206,6 @@ public class Player : MonoBehaviour
             {
                 SpellB = GetNewSpell();
                 B_Cost = _Library.GetCost(SpellB);
-            }
-
-            if (SpellB != null)
-            {
-                Debug.Log("Spell B :" + SpellB.ToString());
-                Debug.Log(B_Cost);
             }
         }
 
@@ -365,7 +353,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        Debug.Log(closestObject.name);
         return closestObject;
     }
 }

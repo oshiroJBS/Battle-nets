@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SpellLibrary : MonoBehaviour
@@ -41,7 +42,7 @@ public class SpellLibrary : MonoBehaviour
         return "";
     }
 
-    public bool cast(string spellToCast, Vector2 Positon)
+    public bool cast(string spellToCast, Vector2 Positon, bool Enemy = false)
     {
         if (spellToCast == null) { return false; }
 
@@ -51,11 +52,15 @@ public class SpellLibrary : MonoBehaviour
             {
                 if (_Library[i] is ProjectileScriptableObject)
                 {
-                    return CreateProjectileOnCast((ProjectileScriptableObject)_Library[i], Positon);
+                    ProjectileScriptableObject pso = (ProjectileScriptableObject)_Library[i];
+                    StartCoroutine(CastProjectile(pso, Positon, Enemy));
+                    return true;
                 }
                 else if (_Library[i] is InstanceScriptableObject)
                 {
-                    return CreateInstanceOncast((InstanceScriptableObject)_Library[i], Positon);
+                    InstanceScriptableObject iso = (InstanceScriptableObject)_Library[i];
+                    StartCoroutine(CastInstance(iso, Positon, Enemy));
+                    return true;
                 }
                 return false;
             }
@@ -65,17 +70,80 @@ public class SpellLibrary : MonoBehaviour
         return false;
     }
 
-    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon)
+    IEnumerator CastProjectile(ProjectileScriptableObject pso, Vector2 CastingPositon, bool enemy)
+    {
+        bool first = true;
+        Vector2 Positon = CastingPositon;
+
+        if (!enemy)
+        {
+            if (this._Player.CurrentMana < pso.ManaCost) { yield break; }
+            this._Player.Iscasting(pso.castingTime);
+            this._Player.CurrentMana -= pso.ManaCost;
+        }
+
+        for (int i = 0; i < pso.nbWave; i++)
+        {
+            if (!pso.isWaveStatic && !enemy)
+            {
+                Positon = _Player.TilePosition;
+            }
+
+            if (first && pso.fstWaveCooldown)
+            {
+                first = false;
+                yield return new WaitForSeconds(pso.waveCooldown);
+            }
+            CreateProjectileOnCast(pso, Positon, enemy);
+ 
+            yield return new WaitForSeconds(pso.waveCooldown);
+        }
+        StopCoroutine("CastProjectile");
+
+        //return returnValue;
+    }
+
+    IEnumerator CastInstance(InstanceScriptableObject iso, Vector2 CastingPositon, bool enemy)
+    {
+        bool first = true;
+        Vector2 Positon = CastingPositon;
+
+        if (!enemy)
+        {
+            if (this._Player.CurrentMana < iso.ManaCost) { yield break; }
+            this._Player.Iscasting(iso.castingTime);
+            this._Player.CurrentMana -= iso.ManaCost;
+        }
+
+        for (int i = 0; i < iso.nbWave; i++)
+        {
+
+            if (!iso.isWaveStatic && !enemy)
+            {
+                Positon = _Player.TilePosition;
+            }
+
+            if (first && iso.fstWaveCooldown)
+            {
+                first = false;
+                yield return new WaitForSeconds(iso.waveCooldown);
+            }
+
+            CreateInstanceOncast(iso, Positon, enemy);
+
+            yield return new WaitForSeconds(iso.waveCooldown);
+        }
+        StopCoroutine("CastInstance");
+
+        //return returnValue;
+    }
+
+    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon, bool enemy)
     {
         ///BAsic
         int SpellDirection = 1;
-        if (Positon == _Player.TilePosition)
-        {
-            if (this._Player.CurrentMana < CastingProjectile.ManaCost) { return false; }
-            this._Player.Iscasting(CastingProjectile.castingTime);
-            this._Player.CurrentMana -= CastingProjectile.ManaCost;
-        }
-        else
+
+        if (enemy)
         {
             SpellDirection = -1;
         }
@@ -125,17 +193,12 @@ public class SpellLibrary : MonoBehaviour
         return true;
     }
 
-    private bool CreateInstanceOncast(InstanceScriptableObject CastingInstance, Vector2 Positon)
+    private bool CreateInstanceOncast(InstanceScriptableObject CastingInstance, Vector2 Positon, bool enemy)
     {
         ///Basic
         int SpellDirection = 1;
-        if (Positon == _Player.TilePosition)
-        {
-            if (this._Player.CurrentMana < CastingInstance.ManaCost) { return false; }
-            this._Player.Iscasting(CastingInstance.castingTime);
-            this._Player.CurrentMana -= CastingInstance.ManaCost;
-        }
-        else
+
+        if (enemy)
         {
             SpellDirection = -1;
         }
@@ -172,6 +235,7 @@ public class SpellLibrary : MonoBehaviour
                     {
                         behaviour._Damage = CastingInstance._Damage;
                         behaviour._ActiveFrame = CastingInstance._LifeSpan;
+                        behaviour._isFriendly = CastingInstance._isFriendly;
                     }
                 }
             }

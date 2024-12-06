@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ManaCost: 2
   castingTime: 0.2
+  nbWave: 1
+  waveCooldown: 0.2
+  fstWaveCooldown: 0
+  isWaveStatic: 1
   _Damage: 40
   p_speed: 30
   p_StartingPosition: {x: 1, y: 0}

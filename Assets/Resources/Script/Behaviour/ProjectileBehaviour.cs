@@ -13,7 +13,7 @@ public class ProjectileBehaviour : MonoBehaviour
     public float _Speed = 1f;
     public bool _isComingBack = false;
     public bool _isPercing = false;
-    public bool _isFriendly;
+    public bool _isFriendly = true;
 
     private float m_StartingSpeed;
     private float m_Limit = 15;

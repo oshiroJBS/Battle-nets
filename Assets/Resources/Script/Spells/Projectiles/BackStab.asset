@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ManaCost: 3
   castingTime: 0.5
+  nbWave: 2
+  waveCooldown: 0.2
+  fstWaveCooldown: 0
+  isWaveStatic: 1
   _Damage: 25
   p_speed: 35
-  p_StartingPosition: {x: 7, y: 0}
+  p_StartingPosition: {x: 2, y: 0}
   p_NbProjectile: {x: 0, y: 4}
   p_IsLaser: 1
   _isComingBack: 0
   _isStatic: 1
+  _isFriendly: 0
   SpellDirection: 1

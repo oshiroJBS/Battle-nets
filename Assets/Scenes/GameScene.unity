@@ -4493,7 +4493,7 @@ PrefabInstance:
       objectReference: {fileID: 1252562410}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _SpellToCast

@@ -5,6 +5,10 @@ public class ProjectileScriptableObject : SpellScriptableObject
 {
     public int ManaCost;
     public float castingTime = 0.2f;
+    public int nbWave = 1;
+    public float waveCooldown = 0.2f;
+    public bool fstWaveCooldown = false;
+    public bool isWaveStatic = true;
 
     public int _Damage;
 
@@ -22,6 +26,5 @@ public class ProjectileScriptableObject : SpellScriptableObject
     {
         Forward, Backward, Up, Down
     }
-
     public Direction SpellDirection;
 }
