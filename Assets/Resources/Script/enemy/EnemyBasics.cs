@@ -14,8 +14,6 @@ public class EnemyBasics : MonoBehaviour
     [SerializeField] private TilesManager _TileManager;
     private SpellLibrary _Library = null;
 
-    [SerializeField] private GameObject projectile;
-
     [SerializeField] private bool _NeedPosition = true;
     [SerializeField] private float _CooldownAttack = 0.5f;
     private float _TimerAttack = 0f;
@@ -29,6 +27,7 @@ public class EnemyBasics : MonoBehaviour
 
     [SerializeField] private float _CooldownMouvement = 0.5f;
     [SerializeField] private Vector2 _TargetOfMouvement;
+    private Vector2 _TargetTile;
 
     //Tiles
     private int _TileX = 0;
@@ -38,8 +37,35 @@ public class EnemyBasics : MonoBehaviour
     private int _NormedTileX;
     //
 
+    //Status
+    public int _Shield = 0;
+
+    public int _FireStack = 0;
+    private const float _FireTick = 0.5f;
+    private float _FireTimer = 0.7f;
+
+    public int _PoisonStack = 0;
+    private const float _PoisonTick = 0.7f;
+    private float _PoisonTimer = 0.7f;
+
+    public bool _isStun = false;
+    public float stunCooldown;
+    private float stunTimer;
+
+    public int charmCount = 0;
+    public bool isCharmed = false;
+    //
+
     private Material _StartingMaterial;
     [SerializeField] private Material _HurtMaterial;
+
+    // image
+
+    [SerializeField] private UnityEngine.UI.Image CharmIcon;
+    [SerializeField] private UnityEngine.UI.Image BurnIcon;
+    [SerializeField] private TextMeshProUGUI BurnText;
+    [SerializeField] private UnityEngine.UI.Image PoisonIcon;
+    [SerializeField] private TextMeshProUGUI PoisonText;
 
 
     private void Awake()
@@ -53,6 +79,7 @@ public class EnemyBasics : MonoBehaviour
 
     private void Start()
     {
+        CharmIcon.fillAmount = 0;
         _TimerMouvement = 0;
         _StartingMaterial = this.GetComponent<MeshRenderer>().material;
 
@@ -62,6 +89,7 @@ public class EnemyBasics : MonoBehaviour
         this._TileX = Random.Range(0, 3);
         this._TileY = Random.Range(0, 3);
         _NormedTileX = this._TileX + 4;
+
         //new starting point if occupied
         while (_TileManager.Tiles[_NormedTileX][_TileY].childCount > 1)
         {
@@ -76,6 +104,7 @@ public class EnemyBasics : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!_Library._InGame) { return; }
         HP = Mathf.Clamp(HP, 0, HPMax);
 
         HPDisplay.text = HP.ToString();
@@ -83,48 +112,89 @@ public class EnemyBasics : MonoBehaviour
         ///scene reset
         if (this.HP <= 0)
         {
-            if (!this._Player.retryScreen.activeSelf)
-            {
-                _Player.ActivateRetryScreen();
-            }
             Destroy(this.gameObject);
         }
         ///
 
-        _TimerMouvement += Time.deltaTime;
-        _TimerAttack += Time.deltaTime;
-
-        if (_TimerMouvement >= _CooldownMouvement)
+        if (_isStun)
         {
-            this.Move();
-            _TimerMouvement = 0;
-        }
+            stunTimer += Time.deltaTime;
 
-        _NormedTileX = this._TileX + 4;
-
-        if (_NormedTileX >= this._TileManager.Tiles.Length)
-        {
-            this._NormedTileX = this._TileManager.Tiles.Length - 1;
-        }
-
-        if (_TileY >= this._TileManager.Tiles[_NormedTileX].Length)
-        {
-            this._TileY = this._TileManager.Tiles[_NormedTileX].Length - 1;
-        }
-
-        if (_TimerAttack >= _CooldownAttack)
-        {
-            if (!_NeedPosition)
+            if (stunTimer >= stunCooldown)
             {
-                _CanAttack = true;
+                _isStun = false;
+                stunTimer = 0;
+                stunCooldown = 0;
+            }
+            Debug.Log("Stunned" + stunTimer);
+        }
+        else
+        {
+            _TimerMouvement += Time.deltaTime;
+            _TimerAttack += Time.deltaTime;
+
+            if (_TimerMouvement >= _CooldownMouvement)
+            {
+                this.Move();
+                _TimerMouvement = 0;
             }
 
-            if (_CanAttack)
+            //Attack
+            if (_TimerAttack >= _CooldownAttack)
             {
-                _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY), true);
-                _TimerAttack = 0;
-                _TimerMouvement -= _AttackStagger;
+                if (!_NeedPosition)
+                {
+                    _CanAttack = true;
+                }
+
+                if (_CanAttack)
+                {
+                    _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY), true);
+                    _TimerAttack = 0;
+                    _TimerMouvement -= _AttackStagger;
+                }
             }
+        }
+
+        if (_PoisonStack != 0)
+        {
+            _PoisonTimer += Time.deltaTime;
+
+            if (_PoisonTimer >= _PoisonTick)
+            {
+                HP -= _PoisonStack;
+                _PoisonTimer = 0;
+                _PoisonStack -= 5;
+            }
+
+            if (_PoisonStack < 0)
+                _PoisonStack = 0;
+
+        }
+
+        if (_FireStack != 0)
+        {
+            if (_FireStack >= 10)
+            {
+                GetDamaged(40);
+                _FireStack -= 10;
+            }
+
+            _FireTimer += Time.deltaTime;
+
+            if (_FireTimer >= _FireTick)
+            {
+                _FireTimer = 0;
+                _FireStack--;
+            }
+
+            if (_FireStack == 0)
+            {
+                GetDamaged(10);
+            }
+
+            if (_FireStack < 0)
+                _FireStack = 0;
         }
 
         this.transform.position = this.Position(_NormedTileX, _TileY);
@@ -134,15 +204,67 @@ public class EnemyBasics : MonoBehaviour
         this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
     }
 
-    private void Attack()
-    {
-        Instantiate(this.projectile, Position(_NormedTileX - 1, _TileY), Quaternion.identity);
-    }
 
-    private void OnTriggerEnter(Collider other)
+    public void GetDamaged(int damage)
     {
         GetComponent<MeshRenderer>().material = _HurtMaterial;
+
+        _Shield -= damage;
+
+        if (_Shield < 0)
+        {
+            HP += _Shield; // Lose difference beetween Shied and damage
+            _Shield = 0;
+        }
+
+        if (charmCount >= 3 && !isCharmed)
+        {
+            isCharmed = false;
+            charmCount = 0;
+            CharmIcon.fillAmount = 0;
+        }
+
+        _TimerMouvement -= 0.2f;
+        _TimerAttack -= 0.2f;
+
         Invoke("ResetMaterial", 0.3f);
+    }
+
+    public void GetCharmed()
+    {
+        charmCount++;
+
+        if (charmCount >= 3)
+        {
+            isCharmed = true;
+            charmCount = 3;
+        }
+        CharmIcon.fillAmount = charmCount / 3f;
+    }
+
+    public void gainShield(int ShieldGained)
+    {
+        _Shield += ShieldGained;
+    }
+
+    public void ForcedMovement(int x, int y)
+    {
+        if (x == 0 && y == 0) return;
+
+        if (_TileManager.Tiles[Mathf.Clamp(_NormedTileX + x, 4, 7)][Mathf.Clamp(_TileY + y, 0, 3)].childCount == 0)// + 4 for going in the "Ennemy grid"
+        {
+            _TileX = Mathf.Clamp(_TileX + x, 0, 3);
+            _TileY = Mathf.Clamp(_TileY + y, 0, 3);
+
+            _TilePosition = new Vector2(_TileX, _TileY);
+            _NormedTileX = this._TileX + 4;
+            this.transform.position = this.Position(_NormedTileX, _TileY);
+            this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
+        }
+        else
+        {
+            ForcedMovement(x - Mathf.Clamp(x, -1, 1), y - Mathf.Clamp(y, -1, 1));
+        }
     }
 
     private void ResetMaterial()
@@ -156,14 +278,32 @@ public class EnemyBasics : MonoBehaviour
         PositionByPlayer.x = _NormedTileX - _Player.TilePosition.x;
         bool moved = false;
 
-        if (PositionByPlayer != _TargetOfMouvement)
+        if (_TileX == 0 && isCharmed)
+        {
+            isCharmed = false;
+            charmCount = 0;
+            CharmIcon.fillAmount = 0;
+            stunCooldown += 0.3f;
+            _isStun = true;
+        }
+
+        if (isCharmed)
+        {
+            _TargetTile = new Vector2(4, _TileY);
+        }
+        else
+        {
+            _TargetTile = _Player.TilePosition + _TargetOfMouvement;
+        }
+
+        if (_NormedTileX != _TargetTile.x || _TilePosition.y != _TargetTile.y)
         {
             int newX;
             int newY;
 
-            if (PositionByPlayer.y != _TargetOfMouvement.y)
+            if (_TilePosition.y != _TargetTile.y)
             {
-                newY = Mathf.Clamp(this._TileY + (int)Mathf.Clamp(PositionByPlayer.y - _TargetOfMouvement.y, -1, 1), 0, 3);
+                newY = Mathf.Clamp(this._TileY + (int)Mathf.Clamp(_TargetTile.y - _TileY, -1, 1), 0, 3);
 
                 if (_TileManager.Tiles[_NormedTileX][newY].childCount == 0)
                 {
@@ -172,16 +312,13 @@ public class EnemyBasics : MonoBehaviour
                 }
             }
 
-            if (PositionByPlayer.x != _TargetOfMouvement.x && !moved)
+            if (_TilePosition.x != _TargetTile.x && !moved)
             {
-                newX = Mathf.Clamp(this._TileX + (int)Mathf.Clamp(_TargetOfMouvement.x - PositionByPlayer.x, -1, 1), 0, 3);
+                newX = Mathf.Clamp(this._TileX + (int)Mathf.Clamp(_TargetTile.x - _NormedTileX, -1, 1), 0, 3);
 
-                if (newX + 4 < _TileManager.Tiles.Length && newX + 4 >= 4)
+                if (_TileManager.Tiles[newX + 4][_TileY].childCount == 0)// + 4 for going in the "Ennemy grid"
                 {
-                    if (_TileManager.Tiles[newX + 4][_TileY].childCount == 0)// + 4 for going in the "Ennemy grid"
-                    {
-                        this._TileX = newX;
-                    }
+                    this._TileX = newX;
                 }
             }
 
@@ -190,6 +327,18 @@ public class EnemyBasics : MonoBehaviour
         else
         {
             _CanAttack = true;
+        }
+
+        _NormedTileX = this._TileX + 4;
+
+        if (_NormedTileX >= this._TileManager.Tiles.Length)
+        {
+            this._NormedTileX = this._TileManager.Tiles.Length - 1;
+        }
+
+        if (_TileY >= this._TileManager.Tiles[_NormedTileX].Length)
+        {
+            this._TileY = this._TileManager.Tiles[_NormedTileX].Length - 1;
         }
     }
 

@@ -12,18 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
   m_Name: Discharge
   m_EditorClassIdentifier: 
+  CharacterDeckStarter: kou
   ManaCost: 1
   castingTime: 0.2
+  _Damage: 0
   nbWave: 1
-  waveCooldown: 0.5
+  waveCooldown: 0
   fstWaveCooldown: 0
   isWaveStatic: 0
-  _Damage: 40
+  _StartingPosition: {x: 1, y: 0}
+  _NbObject: {x: 1, y: 1}
+  _ForcedMouvement: {x: 0, y: 0}
+  RandomTPonHit: 0
+  MoveToEnnemyGridForTime: 0
+  RandomTPonCAst: 0
+  _TpOnCast: {x: 0, y: 0}
+  StunTime: 0
+  _isFriendly: 0
+  _isStatic: 0
+  _Charm: 1
+  _FireStack: 0
+  _PoisonStack: 0
+  Icon: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
   p_speed: 40
-  p_StartingPosition: {x: 1, y: 0}
-  p_NbProjectile: {x: 1, y: 1}
   p_IsLaser: 1
   _isComingBack: 0
-  _isStatic: 0
-  _isFriendly: 0
   SpellDirection: 0

@@ -60,6 +60,7 @@
     <Compile Include="Assets\Resources\Script\Class\SpellScriptableObject.cs" />
     <Compile Include="Assets\UIBars\Scripts\UIBarScript.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\DamageBehaviour.cs" />
+    <Compile Include="Assets\GUIcanvas.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Resources\Script\Player.cs" />
     <Compile Include="Assets\UIBars\Scripts\CriteriaRule.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="Assets\UIBars\Scripts\ControlBar.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\SpellLibrary.cs" />
     <Compile Include="Assets\Resources\Script\Class\InstanceScriptableObject.cs" />
+    <Compile Include="Assets\Resources\Script\TalentManager.cs" />
+    <Compile Include="Assets\Free RPG Icons Pack\Scenes\SetDemoImage_FreeRPGIconsPack.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -86,6 +89,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Free RPG Icons Pack\Scenes\Read Me.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />

@@ -1,11 +1,11 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public string _characterName;
     [SerializeField] private float HPMax = 100;
     [HideInInspector] public float HP;
     [SerializeField] private TextMeshProUGUI HPText;
@@ -31,6 +31,23 @@ public class Player : MonoBehaviour
     private int newY = 1;
     public Vector2 TilePosition;// the player's position in Tiles Unit
     public Vector2 lastTilePosition;// the player's position in Tiles Unit
+    public Vector2 PosBeforeEnemySpace;// the player's position in Tiles Unit
+
+    //Player Status
+    public bool _isStun = false;
+    public float stunCooldown;
+    private float stunTimer;
+
+    public int Shield = 0;
+
+    public int _FireStack = 0;
+    private const float _FireTick = 0.5f;
+    private float _FireTimer = 0.7f;
+
+    public int _PoisonStack = 0;
+    private const float _PoisonTick = 0.7f;
+    private float _PoisonTimer = 0.7f;
+    //
 
     ///UI ///
     public GameObject retryScreen;
@@ -45,9 +62,10 @@ public class Player : MonoBehaviour
 
     //Mana
     public float ManaMax = 3f;
-    public float LastManaMax;
+    private float LastManaMax;
     public float CurrentMana;
     public float ManaRecuperation = 0.5f;
+
     [SerializeField] private Image ShuffleIcon;
     [SerializeField] private Image ManaGauge;
     [SerializeField] private Image ManaSplitter;
@@ -56,6 +74,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Image LifeGauge;
 
     private bool IsCasting;
+    private bool IsOnEnnemyTile = false;
+
+
 
     void Start()
     {
@@ -65,10 +86,8 @@ public class Player : MonoBehaviour
 
         this.m_Player.position = Position(newX, newY);
 
-        _StartingDeck.Add("Discharge");
-        _StartingDeck.Add("Alo");
-        _StartingDeck.Add("Cut");
-        _StartingDeck.Add("Lightning");
+
+        _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
 
         p_Deck = new ArrayList(_StartingDeck);
 
@@ -87,29 +106,16 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Reload Scene
+        if (!_Library._InGame) { return; }
+        if (this.retryScreen.activeSelf) { return; }
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneManager.LoadScene("GameScene");
-        }
 
         LifeGauge.fillAmount = HP / HPMax;
         HPText.text = HP + " / " + HPMax;
 
-        if (this.HP <= 0)
-        {
-            if (!this.retryScreen.activeSelf)
-            {
-                ActivateRetryScreen();
-            }
-            return; // is Player Dead ?
-        }
-        if (this.retryScreen.activeSelf) { return; }
-
         ManaGestion();
 
-        if (!IsCasting)
+        if (!IsCasting && !_isStun)
         {
             Mouvement();
             spellManager();
@@ -119,12 +125,61 @@ public class Player : MonoBehaviour
                 weapon();
             }
         }
+        else if (_isStun)
+        {
+            stunTimer += Time.deltaTime;
+
+            if (stunTimer >= stunCooldown)
+            {
+                _isStun = false;
+                stunTimer = 0;
+            }
+        }
+
+        if (_PoisonStack != 0)
+        {
+            _PoisonTimer += Time.deltaTime;
+
+            if (_PoisonTimer >= _PoisonTick)
+            {
+                HP -= _PoisonStack;
+                _PoisonTimer = 0;
+                _PoisonStack -= 5;
+            }
+            if (_PoisonStack < 0) 
+                _PoisonStack = 0;  
+        }
+
+        if (_FireStack != 0)
+        {
+            if (_FireStack >= 10)
+            {
+                GetDamaged(40);
+                _FireStack -= 10;
+            }
+
+            _FireTimer += Time.deltaTime;
+
+            if (_FireTimer >= _FireTick)
+            {
+                _FireTimer = 0;
+                _FireStack--;
+            }
+
+            if (_FireStack == 0)
+            {
+                GetDamaged(10);
+            }
+
+            if (_FireStack < 0)
+                _FireStack = 0;
+        }
 
         this.TilePosition = new Vector2(newX, newY);
         this.lastTilePosition = TilePosition;
     }
 
-    ////////////////////// FONCTION ///////////////////////////////////
+    ////////////////////////// FONCTION ///////////////////////////////////
 
     private void Mouvement()
     {
@@ -175,11 +230,12 @@ public class Player : MonoBehaviour
             else
             {
                 this.m_Player.position = Position(newX, newY);
+
+                if(!IsOnEnnemyTile)
                 this.m_Player.parent = _TileManager.Tiles[newX][newY];
             }
         }
     }
-
 
     private void weapon()
     {
@@ -217,7 +273,7 @@ public class Player : MonoBehaviour
             ShuffleIcon.gameObject.SetActive(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.V) && ResetOnce)
+        if (Input.GetKeyDown(KeyCode.D) && ResetOnce)
         {
             SpellA = null; A_Cost = null;
             SpellB = null; B_Cost = null;
@@ -245,19 +301,12 @@ public class Player : MonoBehaviour
             int SpellID = Random.Range(0, p_Deck.Count - 1);
 
             // this._Library.
+            ToInitialize = ((SpellScriptableObject)p_Deck[SpellID]).name;
 
-            ToInitialize = (string)p_Deck[SpellID];
-
-            Debug.Log("New spell slot : " + ToInitialize);
             p_Deck.Remove(p_Deck[SpellID]);
         }
 
         return ToInitialize;
-    }
-
-    public void ActivateRetryScreen()
-    {
-        this.retryScreen.SetActive(true);
     }
 
     private void ManaGestion()
@@ -298,6 +347,51 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void MouveToEnnemySpace(int x, int y,float Timer)
+    {
+        if (IsOnEnnemyTile) return;
+
+        PosBeforeEnemySpace = new Vector2(newX, newY);
+
+        newX = Mathf.Clamp(newX + x, 0, 7);
+        newY = Mathf.Clamp(newY + y, 0, 3);
+
+        this.m_Player.position = Position(newX, newY);
+        this.TilePosition = new Vector2(newX, newY);
+        this.lastTilePosition = TilePosition;
+
+        IsOnEnnemyTile = true;
+        Invoke("ReturnToPlayerGrid", Timer);
+    }
+
+    private void ReturnToPlayerGrid()
+    {
+        newX = (int)PosBeforeEnemySpace.x;
+        newY = (int)PosBeforeEnemySpace.y;
+
+        this.m_Player.position = Position(newX, newY);
+        this.m_Player.parent = _TileManager.Tiles[newX][newY];
+
+        this.TilePosition = new Vector2(newX, newY);
+        this.lastTilePosition = TilePosition;
+
+        IsOnEnnemyTile = false;
+    }
+
+    public void ForcedMovement(int x, int y)
+    {
+        if (IsOnEnnemyTile) return;
+
+        newX = Mathf.Clamp(newX + x, 0, 3);
+        newY = Mathf.Clamp(newY + y, 0, 3);
+
+        this.m_Player.position = Position(newX, newY);
+        this.m_Player.parent = _TileManager.Tiles[newX][newY];
+
+        this.TilePosition = new Vector2(newX, newY);
+        this.lastTilePosition = TilePosition;
+    }
+
     public Vector3 Position(int Xtile, int Ytile)
     {
         return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
@@ -324,6 +418,22 @@ public class Player : MonoBehaviour
         A_Cost = _Library.GetCost(SpellA);
         SpellB = GetNewSpell();
         B_Cost = _Library.GetCost(SpellB);
+    }
+
+    public void gainShield(int ShieldGained)
+    {
+        Shield += ShieldGained;
+    }
+
+    public void GetDamaged(int damage)
+    {
+        Shield -= damage;
+
+        if (Shield < 0)
+        {
+            HP += Shield; // Lose difference beetween Shied and damage
+            Shield = 0;
+        }
     }
 
 

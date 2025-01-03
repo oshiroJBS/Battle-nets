@@ -7,6 +7,7 @@ public class ProjectileBehaviour : MonoBehaviour
     //public string _Direction = "Forward";
     //public AnimatorController spellAnimation;
 
+    private SpellLibrary _Library;
 
 
     public int _Damage = 0;
@@ -18,7 +19,12 @@ public class ProjectileBehaviour : MonoBehaviour
     private float m_StartingSpeed;
     private float m_Limit = 15;
     private float _cooldown = 0.5f;
-
+    public Vector2 _ForcedMouvement = new Vector2(0, 0);
+    public float StunTime = 0f;
+    public bool Charm = false;
+    public bool RandomTPonHit = false;
+    public int _FireStack = 0;
+    public int _PoisonStack = 0;
 
     public enum Direction
     {
@@ -29,6 +35,11 @@ public class ProjectileBehaviour : MonoBehaviour
 
     // Update is called once per frame
 
+    private void Awake()
+    {
+        if (_Library == null) _Library = GameObject.FindObjectOfType<SpellLibrary>();
+    }
+
     private void Start()
     {
         //AnimatorController A = GetComponentInChildren<AnimatorController>();
@@ -37,6 +48,8 @@ public class ProjectileBehaviour : MonoBehaviour
     }
     void Update()
     {
+        if (!_Library._InGame) { return; }
+
         switch (_Direction)
         {
             case Direction.Forward:
@@ -80,22 +93,59 @@ public class ProjectileBehaviour : MonoBehaviour
     {
         if (other.TryGetComponent<Player>(out Player player) && !_isFriendly)
         {
-            player.HP -= _Damage;
+            player.GetDamaged(_Damage);
+            player._FireStack += _FireStack;
+            player._PoisonStack += _PoisonStack;
+
             if (player.HP < 0)
                 player.HP = 0;
+
+            if (RandomTPonHit)
+            {
+                _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
+                _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
+            }
+
+            player.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);
 
             if (!this._isPercing)
             {
                 Destroy(this.gameObject);
             }
+
+            if (StunTime > 0)
+            {
+                player.stunCooldown = StunTime;
+                player._isStun = true;
+            }
         }
         else if (other.TryGetComponent<EnemyBasics>(out EnemyBasics enemy))
         {
-            enemy.HP -= _Damage;
+            enemy.GetDamaged(_Damage);
+            enemy._FireStack += _FireStack;
+            enemy._PoisonStack += _PoisonStack;
+
+            if (Charm)
+            {
+                enemy.GetCharmed();
+            }
+
+            if (RandomTPonHit)
+            {
+                _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
+                _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
+            }
+            enemy.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);
 
             if (!this._isPercing)
             {
                 Destroy(this.gameObject);
+            }
+
+            if (StunTime > 0)
+            {
+                enemy.stunCooldown += StunTime;
+                enemy._isStun = true;
             }
         }
         else if (other.TryGetComponent<obstacleBehaviour>(out obstacleBehaviour obstacle))

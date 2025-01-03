@@ -12,16 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a6946680ead145b4fc0c49bdd45db, type: 3}
   m_Name: Cut
   m_EditorClassIdentifier: 
+  CharacterDeckStarter: 
   ManaCost: 1
   castingTime: 0.2
+  _Damage: 30
   nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 0
-  _NbInstance: {x: 2, y: 3}
-  StartingPosition: {x: 1, y: -1}
-  _Damage: 30
-  _LifeSpan: 0.2
-  CastingInstance: 0
-  _isStatic: 0
+  _StartingPosition: {x: 1, y: -1}
+  _NbObject: {x: 1, y: 3}
+  _ForcedMouvement: {x: 0, y: 0}
+  RandomTPonHit: 0
+  MoveToEnnemyGridForTime: 0.6
+  RandomTPonCAst: 0
+  _TpOnCast: {x: 4, y: 0}
+  StunTime: 0
   _isFriendly: 1
+  _isStatic: 1
+  _Charm: 0
+  _FireStack: 0
+  _PoisonStack: 0
+  Icon: {fileID: 21300000, guid: d98fbe17966d8ef449b25b99024bf36f, type: 3}
+  _LifeSpan: 0.2

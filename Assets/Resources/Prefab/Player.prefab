@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3332950053079395940}
   - component: {fileID: 5781237971737095621}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ReloadCv
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795995a50809e8c448d8e56525e23c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterName: 
   HPMax: 100
   HP: 200
   HPText: {fileID: 0}
@@ -315,11 +316,17 @@ MonoBehaviour:
   _Library: {fileID: 0}
   m_Player: {fileID: 6338459541055406067}
   TilePosition: {x: 0, y: 0}
+  lastTilePosition: {x: 0, y: 0}
+  PosBeforeEnemySpace: {x: 0, y: 0}
+  _isStun: 0
+  stunCooldown: 0
+  Shield: 0
+  _FireStack: 0
+  _PoisonStack: 0
   retryScreen: {fileID: 0}
   txt_SpellA: {fileID: 0}
   txt_SpellB: {fileID: 0}
   ManaMax: 3
-  LastManaMax: 0
   CurrentMana: 0
   ManaRecuperation: 0.3
   ShuffleIcon: {fileID: 3966755658660906876}
