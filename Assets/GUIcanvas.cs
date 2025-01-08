@@ -2,15 +2,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class GUIcanvas : MonoBehaviour
 {
     public GameObject titleScreen;
+    public GameObject charaScreen;
     public GameObject retryScreen;
     public GameObject pauseScreen;
     public GameObject countDownScreen;
     public GameObject optionScreen;
 
-    public GameObject SkillScreen;
+    public GameObject SpellScreen;
+    public GameObject LVScreen;
+    public GameObject BasicSkillScreen;
 
     public TextMeshProUGUI[] SkillButtonTXT;
     public Image[] SkillButtonIMG;
@@ -20,6 +24,13 @@ public class GUIcanvas : MonoBehaviour
 
     private Player _player;
     private SpellLibrary _SpellLibrary;
+
+    [HideInInspector] public int tempExp;
+    private int playerExp;
+    private int playerLV = 1;
+    private int ExpBarMax = 5;
+    public Image lvBar;
+    public TextMeshProUGUI LVtxt;
 
     private bool inCooldown = false;
     private float cooldown = 3;
@@ -81,8 +92,7 @@ public class GUIcanvas : MonoBehaviour
         if (GameObject.FindObjectOfType<EnemyBasics>() == null && _SpellLibrary._InGame)
         {
             _SpellLibrary._InGame = false;
-            CreateSkillPanels();
-            SkillScreen.SetActive(true);
+            GainLevel();
         }
         //
 
@@ -103,6 +113,72 @@ public class GUIcanvas : MonoBehaviour
         _SpellLibrary._InGame = true;
     }
 
+    public void SelectCharacter()
+    {
+        ActiveScreen(charaScreen);
+    }
+    private void GainLevel()
+    {
+        bool canGainSkill = false;
+        for (int i = 0; i < tempExp; i++)
+        {
+            lvBar.fillAmount = playerExp / ExpBarMax;
+
+            playerExp++;
+            if (playerExp >= ExpBarMax)
+            {
+                playerLV++;
+                playerExp = 0;
+                ExpBarMax += 3;
+                canGainSkill = true;
+            }
+            LVtxt.text = "Level " + playerLV.ToString();
+        }
+
+        if (canGainSkill)
+        {
+            BasicSkillScreen.SetActive(true);
+        }
+        else
+        {
+            Invoke("CreateSkillPanels",3f);
+        }
+
+        tempExp = 0;
+    }
+
+    public void GainBasicSkill(int skill)
+    {
+        switch (skill)
+        {
+            default:
+                break;
+
+            case 0:
+                _player.HPMax += 100;
+                break;
+            case 1:
+                _player.HP += 200;
+                break;
+            case 2:
+                _player.WeaponModifier+= 5;
+                break;
+            case 3:
+                _player.Defence+= 3;
+                break;
+            case 4:
+                _player.ManaRecuperation += 0.1f;
+                break;
+            case 5:
+                _player.ManaMax += 1;
+                break;
+        }
+        BasicSkillScreen.SetActive(false);
+
+        CreateSpellPanels();
+    }
+
+
     private void NewLevel()
     {
         OffAllScreen();
@@ -122,7 +198,7 @@ public class GUIcanvas : MonoBehaviour
         switch (_difficulty)
         {
             case 1:
-                NbEnnemy = Random.Range(1, 3);
+                NbEnnemy = Random.Range(2, 3);
 
                 for (int i = 0; i < NbEnnemy; i++)
                 {
@@ -133,7 +209,7 @@ public class GUIcanvas : MonoBehaviour
                 break;
 
             case 2:
-                NbEnnemy = Random.Range(2, 4);
+                NbEnnemy = Random.Range(3, 5);
 
                 for (int i = 0; i < NbEnnemy; i++)
                 {
@@ -144,7 +220,7 @@ public class GUIcanvas : MonoBehaviour
                 break;
 
             case 3:
-                NbEnnemy = Random.Range(2, 5);
+                NbEnnemy = Random.Range(4, 5);
 
                 for (int i = 0; i < NbEnnemy; i++)
                 {
@@ -154,7 +230,7 @@ public class GUIcanvas : MonoBehaviour
                 break;
 
             case 4:
-                NbEnnemy = Random.Range(3, 5);
+                NbEnnemy = 5;
 
                 for (int i = 0; i < NbEnnemy; i++)
                 {
@@ -175,9 +251,9 @@ public class GUIcanvas : MonoBehaviour
         }
     }
 
-    private void CreateSkillPanels()
+    private void CreateSpellPanels()
     {
-        int LastSpell = 300;
+        int LastSpell = int.MaxValue;
         int RandSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count);
 
         for (int i = 0; i < SkillButtonTXT.Length; i++)
@@ -188,23 +264,24 @@ public class GUIcanvas : MonoBehaviour
             }
 
             string SpellName = ((SpellScriptableObject)_SpellLibrary._SpellAvailable[RandSpell]).name;
-            Debug.Log(SpellName);
             SkillButtonTXT[i].text = SpellName;
             NewSpellNames[i] = SpellName;
             SkillButtonIMG[i].sprite = _SpellLibrary.GetIcone(SpellName);
 
             LastSpell = RandSpell;
         }
+
+        SpellScreen.SetActive(true);
     }
 
-    public void GainSkill(int ButtonNB)
+    public void GainNewSpell(int ButtonNB)
     {
         _SpellLibrary.AddSpellToPlayerDeck(NewSpellNames[ButtonNB]);
         NewLevel();
         _SpellLibrary._InGame = true;
     }
 
-    #region Screen
+    #region Screens
 
 
     public void EndGame()
@@ -255,11 +332,14 @@ public class GUIcanvas : MonoBehaviour
     private void OffAllScreen()
     {
         titleScreen.SetActive(false);
+        charaScreen.SetActive(false);
         retryScreen.SetActive(false);
         pauseScreen.SetActive(false);
         countDownScreen.SetActive(false);
         optionScreen.SetActive(false);
-        SkillScreen.SetActive(false);
+        SpellScreen.SetActive(false);
+        LVScreen.SetActive(false);
+        BasicSkillScreen.SetActive(false);
     }
 
     #endregion

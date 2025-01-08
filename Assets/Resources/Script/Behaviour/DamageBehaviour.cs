@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DamageBehaviour : MonoBehaviour
@@ -37,7 +35,6 @@ public class DamageBehaviour : MonoBehaviour
                 _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
                 _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
             }
-
             player.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);
 
 
@@ -66,7 +63,9 @@ public class DamageBehaviour : MonoBehaviour
                 _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
                 _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
             }
+
             enemy.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);
+
 
             if (StunTime > 0)
             {
@@ -83,5 +82,5 @@ public class DamageBehaviour : MonoBehaviour
     private void End()
     {
         Destroy(gameObject);
-    } 
+    }
 }

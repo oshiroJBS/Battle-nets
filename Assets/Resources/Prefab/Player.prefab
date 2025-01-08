@@ -307,12 +307,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 795995a50809e8c448d8e56525e23c5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _characterName: 
+  _characterName: kou
   HPMax: 100
   HP: 200
   HPText: {fileID: 0}
   _TileManager: {fileID: 0}
-  DamageSphere: {fileID: 4648252368489437962, guid: 7f9dfb9793240e840ac2ac846b1159cd, type: 3}
+  _DamageSphere: {fileID: 3705531699066638752, guid: 7f9dfb9793240e840ac2ac846b1159cd, type: 3}
+  _ProjectileSphere: {fileID: 7088488543538899924, guid: 6add46ce5b36b3344b3aba5a3d2eee88, type: 3}
   _Library: {fileID: 0}
   m_Player: {fileID: 6338459541055406067}
   TilePosition: {x: 0, y: 0}
@@ -322,7 +323,9 @@ MonoBehaviour:
   stunCooldown: 0
   Shield: 0
   _FireStack: 0
+  _FireText: {fileID: 0}
   _PoisonStack: 0
+  _PoisonText: {fileID: 0}
   retryScreen: {fileID: 0}
   txt_SpellA: {fileID: 0}
   txt_SpellB: {fileID: 0}

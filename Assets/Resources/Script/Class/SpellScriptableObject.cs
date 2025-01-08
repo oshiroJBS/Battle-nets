@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SpellScriptableObject : ScriptableObject
 {
+    [Header("Health Settings")]
     public string CharacterDeckStarter;
 
     public int ManaCost;
@@ -22,7 +23,7 @@ public class SpellScriptableObject : ScriptableObject
     public bool RandomTPonHit = false;
 
     public float MoveToEnnemyGridForTime;
-    public bool RandomTPonCAst = false;
+    public bool RandomTpOnCast = false;
     public Vector2 _TpOnCast = new Vector2(0,0);
     public float StunTime = 0f;
 

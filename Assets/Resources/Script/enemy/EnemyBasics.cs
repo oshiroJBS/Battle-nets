@@ -4,15 +4,18 @@ using UnityEngine;
 public class EnemyBasics : MonoBehaviour
 {
     private Player _Player;
+    private TalentManager _Manager;
 
     public float HPMax = 100;
     [HideInInspector] public float HP;
     public TextMeshProUGUI HPDisplay;
+    [SerializeField] private int ExpValue = 0;
 
-    public string _SpellToCast = "Discharge";
+    public SpellScriptableObject _SpellToCast;
 
     [SerializeField] private TilesManager _TileManager;
     private SpellLibrary _Library = null;
+    private GUIcanvas _GUI = null;
 
     [SerializeField] private bool _NeedPosition = true;
     [SerializeField] private float _CooldownAttack = 0.5f;
@@ -42,11 +45,11 @@ public class EnemyBasics : MonoBehaviour
 
     public int _FireStack = 0;
     private const float _FireTick = 0.5f;
-    private float _FireTimer = 0.7f;
+    private float _FireTimer = 0f;
 
     public int _PoisonStack = 0;
-    private const float _PoisonTick = 0.7f;
-    private float _PoisonTimer = 0.7f;
+    private const float _PoisonTick = 0.8f;
+    private float _PoisonTimer = 0f;
 
     public bool _isStun = false;
     public float stunCooldown;
@@ -54,6 +57,7 @@ public class EnemyBasics : MonoBehaviour
 
     public int charmCount = 0;
     public bool isCharmed = false;
+    private int _Stuck = 0;
     //
 
     private Material _StartingMaterial;
@@ -75,10 +79,14 @@ public class EnemyBasics : MonoBehaviour
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_TileManager == null) _TileManager = GameObject.FindObjectOfType<TilesManager>();
         if (_Library == null) _Library = GameObject.FindObjectOfType<SpellLibrary>();
+        if (_GUI == null) _GUI = GameObject.FindObjectOfType<GUIcanvas>();
+        if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
     }
 
     private void Start()
     {
+        BurnIcon.gameObject.SetActive(false);
+        PoisonIcon.gameObject.SetActive(false);
         CharmIcon.fillAmount = 0;
         _TimerMouvement = 0;
         _StartingMaterial = this.GetComponent<MeshRenderer>().material;
@@ -109,10 +117,12 @@ public class EnemyBasics : MonoBehaviour
 
         HPDisplay.text = HP.ToString();
 
+
         ///scene reset
         if (this.HP <= 0)
         {
-            Destroy(this.gameObject);
+            Debug.Log("isDying");
+            Die();
         }
         ///
 
@@ -130,16 +140,19 @@ public class EnemyBasics : MonoBehaviour
         }
         else
         {
-            _TimerMouvement += Time.deltaTime;
-            _TimerAttack += Time.deltaTime;
-
-            if (_TimerMouvement >= _CooldownMouvement)
+            if (_CooldownMouvement != 0)
             {
-                this.Move();
-                _TimerMouvement = 0;
+                _TimerMouvement += Time.deltaTime;
+
+                if (_TimerMouvement >= _CooldownMouvement)
+                {
+                    this.Move();
+                    _TimerMouvement = 0;
+                }
             }
 
             //Attack
+            _TimerAttack += Time.deltaTime;
             if (_TimerAttack >= _CooldownAttack)
             {
                 if (!_NeedPosition)
@@ -149,7 +162,7 @@ public class EnemyBasics : MonoBehaviour
 
                 if (_CanAttack)
                 {
-                    _Library.cast(_SpellToCast, new Vector2(_NormedTileX, _TileY), true);
+                    _Library.cast(_SpellToCast.name, new Vector2(_NormedTileX, _TileY), true);
                     _TimerAttack = 0;
                     _TimerMouvement -= _AttackStagger;
                 }
@@ -158,6 +171,8 @@ public class EnemyBasics : MonoBehaviour
 
         if (_PoisonStack != 0)
         {
+            PoisonIcon.gameObject.SetActive(true);
+
             _PoisonTimer += Time.deltaTime;
 
             if (_PoisonTimer >= _PoisonTick)
@@ -170,10 +185,17 @@ public class EnemyBasics : MonoBehaviour
             if (_PoisonStack < 0)
                 _PoisonStack = 0;
 
+            PoisonText.text = _PoisonStack.ToString();
+        }
+        else
+        {
+            PoisonIcon.gameObject.SetActive(false);
         }
 
         if (_FireStack != 0)
         {
+            BurnIcon.gameObject.SetActive(true);
+
             if (_FireStack >= 10)
             {
                 GetDamaged(40);
@@ -195,6 +217,21 @@ public class EnemyBasics : MonoBehaviour
 
             if (_FireStack < 0)
                 _FireStack = 0;
+
+            BurnText.text = _FireStack.ToString();
+        }
+        else
+        {
+            BurnIcon.gameObject.SetActive(false);
+        }
+
+        if (charmCount != 0)
+        {
+            CharmIcon.transform.parent.gameObject.SetActive(true);
+        }
+        else
+        {
+            CharmIcon.transform.parent.gameObject.SetActive(false);
         }
 
         this.transform.position = this.Position(_NormedTileX, _TileY);
@@ -216,6 +253,7 @@ public class EnemyBasics : MonoBehaviour
             HP += _Shield; // Lose difference beetween Shied and damage
             _Shield = 0;
         }
+
 
         if (charmCount >= 3 && !isCharmed)
         {
@@ -285,6 +323,18 @@ public class EnemyBasics : MonoBehaviour
             CharmIcon.fillAmount = 0;
             stunCooldown += 0.3f;
             _isStun = true;
+            _Stuck = 0;
+            return;
+        }
+        else if (_Stuck >= 2)
+        {
+            isCharmed = false;
+            charmCount = 0;
+            CharmIcon.fillAmount = 0;
+            stunCooldown += 0.3f;
+            _isStun = true;
+            _Stuck = 0;
+            return;
         }
 
         if (isCharmed)
@@ -319,7 +369,13 @@ public class EnemyBasics : MonoBehaviour
                 if (_TileManager.Tiles[newX + 4][_TileY].childCount == 0)// + 4 for going in the "Ennemy grid"
                 {
                     this._TileX = newX;
+                    moved = true;
                 }
+            }
+
+            if (!moved && isCharmed)
+            {
+                _Stuck += 1;
             }
 
             _CanAttack = false;
@@ -345,5 +401,11 @@ public class EnemyBasics : MonoBehaviour
     private Vector3 Position(int Xtile, int Ytile)
     {
         return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, _Yposition, this._TileManager.Tiles[Xtile][Ytile].position.z);
+    }
+
+    private void Die()
+    {
+        _GUI.tempExp += ExpValue;
+        Destroy(this.gameObject);
     }
 }

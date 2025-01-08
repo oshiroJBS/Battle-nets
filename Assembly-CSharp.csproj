@@ -62,7 +62,9 @@
     <Compile Include="Assets\Resources\Script\Behaviour\DamageBehaviour.cs" />
     <Compile Include="Assets\GUIcanvas.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\ProjectileBehaviour.cs" />
+    <Compile Include="Assets\Resources\Script\TalentManager.cs" />
     <Compile Include="Assets\Resources\Script\Player.cs" />
+    <Compile Include="Assets\Free RPG Icons Pack\Scenes\SetDemoImage_FreeRPGIconsPack.cs" />
     <Compile Include="Assets\UIBars\Scripts\CriteriaRule.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\TilesManager.cs" />
     <Compile Include="Assets\Resources\Script\enemy\EnemyBasics.cs" />
@@ -71,8 +73,25 @@
     <Compile Include="Assets\UIBars\Scripts\ControlBar.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\SpellLibrary.cs" />
     <Compile Include="Assets\Resources\Script\Class\InstanceScriptableObject.cs" />
-    <Compile Include="Assets\Resources\Script\TalentManager.cs" />
-    <Compile Include="Assets\Free RPG Icons Pack\Scenes\SetDemoImage_FreeRPGIconsPack.cs" />
+    <Compile Include="Assets\Resources\Script\Class\TalentScriptableObject.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example4.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -817,6 +836,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="InspectorEnhancements.Runtime.csproj">
+      <Project>{A6344ABC-D4C1-B42B-34A7-936A7C22B591}</Project>
+      <Name>InspectorEnhancements.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="InspectorEnhancements.Editor.csproj">
+      <Project>{F5706FB6-636F-FB2D-0C99-2FA96D3405B2}</Project>
+      <Name>InspectorEnhancements.Editor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -20,21 +20,21 @@ MonoBehaviour:
   waveCooldown: 0.4
   fstWaveCooldown: 1
   isWaveStatic: 1
-  _StartingPosition: {x: 0, y: 0}
-  _NbObject: {x: 0, y: 0}
+  _StartingPosition: {x: 7, y: 0}
+  _NbObject: {x: 1, y: 4}
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
-  RandomTPonCAst: 0
+  RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 0
-  _isStatic: 0
+  _isStatic: 1
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
   Icon: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
   p_speed: 17
-  p_IsLaser: 1
+  p_IsLaser: 0
   _isComingBack: 0
   SpellDirection: 1

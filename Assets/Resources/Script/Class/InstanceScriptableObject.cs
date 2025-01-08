@@ -6,4 +6,5 @@ using UnityEngine;
 public class InstanceScriptableObject : SpellScriptableObject
 {
     public float _LifeSpan;
+    public bool isRandom = false;
 }

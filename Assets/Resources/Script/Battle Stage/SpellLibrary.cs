@@ -9,6 +9,7 @@ public class SpellLibrary : MonoBehaviour
     public ArrayList _SpellAvailable;
 
     private Player _Player;
+    private TalentManager _Manager;
 
     [SerializeField] private GameObject DamageSphere = null;
     [SerializeField] private GameObject ProjectileSphere = null;
@@ -29,6 +30,8 @@ public class SpellLibrary : MonoBehaviour
     private void Start()
     {
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
+        if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
+        Debug.Log(_Manager.GetDamageMultiplier());
     }
 
 
@@ -63,6 +66,11 @@ public class SpellLibrary : MonoBehaviour
         {
             if (_Library[i].name == spellToCast)
             {
+                if (_Library[i].ManaCost > _Player.CurrentMana)
+                {
+                    return false;
+                }
+
                 if (_Library[i] is ProjectileScriptableObject)
                 {
                     ProjectileScriptableObject pso = (ProjectileScriptableObject)_Library[i];
@@ -72,7 +80,7 @@ public class SpellLibrary : MonoBehaviour
 
                     StartCoroutine(CastProjectile(pso, Positon, Enemy));
 
-                    if (pso.RandomTPonCAst)
+                    if (pso.RandomTpOnCast)
                     {
                         int randx = UnityEngine.Random.Range(0, 3);
                         int randy = UnityEngine.Random.Range(0, 3);
@@ -90,7 +98,7 @@ public class SpellLibrary : MonoBehaviour
 
                     StartCoroutine(CastInstance(iso, Positon, Enemy));
 
-                    if (iso.RandomTPonCAst)
+                    if (iso.RandomTpOnCast)
                     {
                         int randx = UnityEngine.Random.Range(0, 3);
                         int randy = UnityEngine.Random.Range(0, 3);
@@ -114,7 +122,6 @@ public class SpellLibrary : MonoBehaviour
 
         if (!enemy)
         {
-            if (this._Player.CurrentMana < pso.ManaCost) { yield break; }
             this._Player.Iscasting(pso.castingTime);
             this._Player.CurrentMana -= pso.ManaCost;
         }
@@ -143,11 +150,11 @@ public class SpellLibrary : MonoBehaviour
     IEnumerator CastInstance(InstanceScriptableObject iso, Vector2 CastingPositon, bool enemy)
     {
         bool first = true;
+
         Vector2 Positon = CastingPositon;
 
         if (!enemy)
         {
-            if (this._Player.CurrentMana < iso.ManaCost) { yield break; }
             this._Player.Iscasting(iso.castingTime);
             this._Player.CurrentMana -= iso.ManaCost;
         }
@@ -177,8 +184,6 @@ public class SpellLibrary : MonoBehaviour
 
     private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon, bool enemy)
     {
-
-        Debug.Log("casting");
         ///BAsic
         int SpellDirection = 1;
 
@@ -236,7 +241,7 @@ public class SpellLibrary : MonoBehaviour
                     else
                     {
                         behaviour._isFriendly = CastingProjectile._isFriendly;
-                        behaviour._Damage = CastingProjectile._Damage;
+                        behaviour._Damage = (int)((CastingProjectile._Damage + _Manager.GetDamageModifier()) * _Manager.GetDamageMultiplier());
                     }
                 }
             }
@@ -268,15 +273,24 @@ public class SpellLibrary : MonoBehaviour
                 int yInstance = 0;
 
                 ///CastingInstance._isStatic; if not static
-                if (!CastingInstance._isStatic)
+                ///
+                if (CastingInstance.isRandom)
                 {
-                    xInstance = (int)(Positon.x + (CastingInstance._StartingPosition.x + x) * SpellDirection);
-                    yInstance = (int)(Positon.y + (CastingInstance._StartingPosition.y + y) * SpellDirection);
+                    xInstance = Random.Range(0, 4);
+                    yInstance = Random.Range(0, 4);
                 }
                 else
                 {
-                    xInstance = (int)((CastingInstance._StartingPosition.x + x) * SpellDirection);
-                    yInstance = (int)((CastingInstance._StartingPosition.y + y) * SpellDirection);
+                    if (!CastingInstance._isStatic)
+                    {
+                        xInstance = (int)(Positon.x + (CastingInstance._StartingPosition.x + x) * SpellDirection);
+                        yInstance = (int)(Positon.y + (CastingInstance._StartingPosition.y + y) * SpellDirection);
+                    }
+                    else
+                    {
+                        xInstance = (int)((CastingInstance._StartingPosition.x + x) * SpellDirection);
+                        yInstance = (int)((CastingInstance._StartingPosition.y + y) * SpellDirection);
+                    }
                 }
                 ///
 
@@ -287,7 +301,6 @@ public class SpellLibrary : MonoBehaviour
 
                     if (Instant.TryGetComponent(out DamageBehaviour behaviour))
                     {
-                        behaviour._Damage = CastingInstance._Damage;
                         behaviour._ActiveFrame = CastingInstance._LifeSpan;
                         behaviour._ForcedMouvement = CastingInstance._ForcedMouvement;
                         behaviour.StunTime = CastingInstance.StunTime;
@@ -297,9 +310,15 @@ public class SpellLibrary : MonoBehaviour
                         behaviour._PoisonStack = CastingInstance._PoisonStack;
 
                         if (enemy)
+                        {
                             behaviour._isFriendly = false;
+                            behaviour._Damage = CastingInstance._Damage;
+                        }
                         else
+                        {
                             behaviour._isFriendly = CastingInstance._isFriendly;
+                            behaviour._Damage = (int)((CastingInstance._Damage + _Manager.GetDamageModifier()) * _Manager.GetDamageMultiplier());
+                        }
 
                     }
                 }
@@ -324,7 +343,6 @@ public class SpellLibrary : MonoBehaviour
                 _SpellAvailable.Remove(_Library[i]);
             }
         }
-        Debug.Log(_SpellAvailable.Count);
 
         return NameList;
     }

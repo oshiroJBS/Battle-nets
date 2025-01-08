@@ -2,21 +2,31 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
     public string _characterName;
-    [SerializeField] private float HPMax = 100;
+    public float HPMax = 100;
     [HideInInspector] public float HP;
+    public float ManaMax = 3f;
+    [HideInInspector] public float ManaRecuperation = 0.6f;
+    [HideInInspector] public int Shield = 0;
+    [HideInInspector] public float WeaponModifier;
+    [HideInInspector] public float Defence;
+
+
     [SerializeField] private TextMeshProUGUI HPText;
 
     [SerializeField] private TilesManager _TileManager = null;
 
     //for weapon
-    [SerializeField] private GameObject DamageSphere = null;
+    [SerializeField] private DamageBehaviour _DamageSphere = null;
+    [SerializeField] private ProjectileBehaviour _ProjectileSphere = null;
 
     //Spell related
     public SpellLibrary _Library = null;
+    private TalentManager _Manager;
 
     private const float resetTimer = 1.5f;
     private bool ResetOnce = true;
@@ -24,33 +34,35 @@ public class Player : MonoBehaviour
     public ArrayList _StartingDeck = new ArrayList();
     private ArrayList p_Deck;
 
-    //Player
+    //Player Position
     [SerializeField] private Transform m_Player = null;
 
     private int newX = 0;
     private int newY = 1;
-    public Vector2 TilePosition;// the player's position in Tiles Unit
-    public Vector2 lastTilePosition;// the player's position in Tiles Unit
-    public Vector2 PosBeforeEnemySpace;// the player's position in Tiles Unit
+    [HideInInspector] public Vector2 TilePosition;// the player's position in Tiles Unit
+    [HideInInspector] public Vector2 lastTilePosition;// the player's position in Tiles Unit
+    [HideInInspector] public Vector2 PosBeforeEnemySpace;// the player's position in Tiles Unit
+    //
 
     //Player Status
-    public bool _isStun = false;
-    public float stunCooldown;
+    [HideInInspector] public bool _isStun = false;
+    [HideInInspector] public float stunCooldown;
     private float stunTimer;
 
-    public int Shield = 0;
-
-    public int _FireStack = 0;
+    [HideInInspector] public int _FireStack = 0;
     private const float _FireTick = 0.5f;
-    private float _FireTimer = 0.7f;
+    private float _FireTimer = 0f;
+    private const int FireDamage = 40;
+    [SerializeField] private TextMeshProUGUI _FireText;
 
-    public int _PoisonStack = 0;
-    private const float _PoisonTick = 0.7f;
-    private float _PoisonTimer = 0.7f;
+
+    [HideInInspector] public int _PoisonStack = 0;
+    private const float _PoisonTick = 0.8f;
+    private float _PoisonTimer = 0f;
+    [SerializeField] private TextMeshProUGUI _PoisonText;
     //
 
     ///UI ///
-    public GameObject retryScreen;
 
     //Spell text
     [SerializeField] private TextMeshProUGUI txt_SpellA = null;
@@ -61,10 +73,8 @@ public class Player : MonoBehaviour
     private string B_Cost;
 
     //Mana
-    public float ManaMax = 3f;
     private float LastManaMax;
-    public float CurrentMana;
-    public float ManaRecuperation = 0.5f;
+    [HideInInspector] public float CurrentMana;
 
     [SerializeField] private Image ShuffleIcon;
     [SerializeField] private Image ManaGauge;
@@ -76,38 +86,27 @@ public class Player : MonoBehaviour
     private bool IsCasting;
     private bool IsOnEnnemyTile = false;
 
-
-
     void Start()
     {
+        if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
+
         this.ShuffleIcon.gameObject.SetActive(false);
-        this.retryScreen.SetActive(false);
         HP = HPMax;
 
         this.m_Player.position = Position(newX, newY);
 
 
-        _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
-
-        p_Deck = new ArrayList(_StartingDeck);
-
-        // first Spells
-        SpellA = GetNewSpell();
-        A_Cost = _Library.GetCost(SpellA);
-
-        SpellB = GetNewSpell();
-        B_Cost = _Library.GetCost(SpellB);
+        ResetOnce = true;
         //
+
         CurrentMana = 0f;
         this.lastTilePosition = new Vector2(newX, newY);
-        ResetOnce = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!_Library._InGame) { return; }
-        if (this.retryScreen.activeSelf) { return; }
 
 
         LifeGauge.fillAmount = HP / HPMax;
@@ -122,7 +121,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                weapon();
+                Iscasting(weapon(_characterName));
             }
         }
         else if (_isStun)
@@ -138,6 +137,8 @@ public class Player : MonoBehaviour
 
         if (_PoisonStack != 0)
         {
+            _PoisonText.transform.parent.gameObject.SetActive(true);
+
             _PoisonTimer += Time.deltaTime;
 
             if (_PoisonTimer >= _PoisonTick)
@@ -146,15 +147,23 @@ public class Player : MonoBehaviour
                 _PoisonTimer = 0;
                 _PoisonStack -= 5;
             }
-            if (_PoisonStack < 0) 
-                _PoisonStack = 0;  
+            if (_PoisonStack < 0)
+                _PoisonStack = 0;
+
+            _PoisonText.text = _PoisonStack.ToString();
+        }
+        else
+        {
+            _PoisonText.transform.parent.gameObject.SetActive(false);
         }
 
         if (_FireStack != 0)
         {
+            _FireText.transform.parent.gameObject.SetActive(true);
+
             if (_FireStack >= 10)
             {
-                GetDamaged(40);
+                GetDamaged((int)((FireDamage + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
                 _FireStack -= 10;
             }
 
@@ -168,18 +177,44 @@ public class Player : MonoBehaviour
 
             if (_FireStack == 0)
             {
-                GetDamaged(10);
+                GetDamaged((int)((10 + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
             }
 
             if (_FireStack < 0)
                 _FireStack = 0;
+
+            _FireText.text = _FireText.ToString();
+        }
+        else
+        {
+            _FireText.transform.parent.gameObject.SetActive(false);
         }
 
         this.TilePosition = new Vector2(newX, newY);
         this.lastTilePosition = TilePosition;
     }
 
+
+
+
+
     ////////////////////////// FONCTION ///////////////////////////////////
+
+    public void createDeck(string name)
+    {
+        this._characterName = name;
+        _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
+        p_Deck = new ArrayList(_StartingDeck);
+
+        // first Spells
+        SpellA = GetNewSpell();
+        A_Cost = _Library.GetCost(SpellA);
+
+        SpellB = GetNewSpell();
+        B_Cost = _Library.GetCost(SpellB);
+    }
+
+    #region basic (mouvement + weapon)
 
     private void Mouvement()
     {
@@ -231,19 +266,76 @@ public class Player : MonoBehaviour
             {
                 this.m_Player.position = Position(newX, newY);
 
-                if(!IsOnEnnemyTile)
-                this.m_Player.parent = _TileManager.Tiles[newX][newY];
+                if (!IsOnEnnemyTile)
+                    this.m_Player.parent = _TileManager.Tiles[newX][newY];
             }
         }
     }
 
-    private void weapon()
+    private float weapon(string name)
     {
-        if (this.CurrentMana < 0.5f) { return; }
-        this.CurrentMana -= 0.5f;
-        Instantiate(DamageSphere, Position(newX + 1, newY), Quaternion.identity);
+        float weaponCD = 0f;
+
+        switch (name)
+        {
+            default:
+                ProjectileBehaviour Projectile = null;
+                DamageBehaviour Instance = null;
+                break;
+
+            case "kou":
+                if (this.CurrentMana < 1f) { break; }
+                this.CurrentMana -= 1f;
+
+                Projectile = Instantiate(_ProjectileSphere, Position((int)TilePosition.x + 1, (int)TilePosition.y), Quaternion.identity);
+                Projectile._Damage = ModifyWeaponDamage(30);
+                Projectile._Speed = 40f;
+                Projectile._Direction = ProjectileBehaviour.Direction.Forward;
+                Projectile._isPercing = true;
+
+                weaponCD = 0.3f;
+                break;
+
+            case "pina":
+                if (this.CurrentMana < 0.5f) { break; }
+                this.CurrentMana -= 0.5f;
+
+                for (int i = -1; i < 2; i++)
+                {
+                    Projectile = Instantiate(_ProjectileSphere, Position((int)TilePosition.x + 1, (int)TilePosition.y + i), Quaternion.identity);
+                    Projectile._Damage = ModifyWeaponDamage(20);
+                    Projectile._Speed = 30f;
+                    Projectile._Direction = ProjectileBehaviour.Direction.Forward;
+                    Projectile.Charm = true;
+                }
+
+                weaponCD = 0.3f;
+                break;
+            case "cyon":
+                if (this.CurrentMana < 1f) { break; }
+
+                this.CurrentMana -= 1f;
+                Instance = Instantiate(_DamageSphere,Position((int)TilePosition.x + 4, (int)TilePosition.y), Quaternion.identity);
+                Instance._Damage = ModifyWeaponDamage(30);
+                Instance.StunTime= 0.5f;
+                Instance._ActiveFrame = 0.2f;
+                Instance.tag = "cyon";
+
+                weaponCD = 0.2f;
+                break;
+        }
+        return weaponCD;
     }
 
+    private int ModifyWeaponDamage(int weaponDamage)
+    {
+        weaponDamage = weaponDamage + _Manager.GetWeponDamageModifier();        
+        return weaponDamage;
+    }
+
+    #endregion
+
+    #region spell and cast
     private void spellManager()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -311,7 +403,7 @@ public class Player : MonoBehaviour
 
     private void ManaGestion()
     {
-        CurrentMana += Time.fixedDeltaTime * ManaRecuperation;
+        CurrentMana += Time.deltaTime * ManaRecuperation;
         CurrentMana = Mathf.Clamp(CurrentMana, 0, ManaMax);
 
         ManaGauge.fillAmount = CurrentMana / ManaMax;
@@ -347,7 +439,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void MouveToEnnemySpace(int x, int y,float Timer)
+    public void Iscasting(float castingTime)
+    {
+        IsCasting = true;
+        Invoke("StopCast", castingTime);
+    }
+
+    public void StopCast()
+    {
+        IsCasting = false;
+    }
+
+    #endregion
+
+    #region special mouvement
+    public void MouveToEnnemySpace(int x, int y, float Timer)
     {
         if (IsOnEnnemyTile) return;
 
@@ -397,28 +503,8 @@ public class Player : MonoBehaviour
         return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
     }
 
-    public void Iscasting(float castingTime)
-    {
-        IsCasting = true;
-        Invoke("StopCast", castingTime);
-    }
+    #endregion 
 
-    public void StopCast()
-    {
-        IsCasting = false;
-    }
-
-    private void DeckReset()
-    {
-        ShuffleIcon.gameObject.SetActive(false);
-        ResetOnce = true;
-        p_Deck = new ArrayList(_StartingDeck);
-
-        SpellA = GetNewSpell();
-        A_Cost = _Library.GetCost(SpellA);
-        SpellB = GetNewSpell();
-        B_Cost = _Library.GetCost(SpellB);
-    }
 
     public void gainShield(int ShieldGained)
     {
@@ -436,6 +522,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void DeckReset()
+    {
+        ShuffleIcon.gameObject.SetActive(false);
+        ResetOnce = true;
+        p_Deck = new ArrayList(_StartingDeck);
+
+        SpellA = GetNewSpell();
+        A_Cost = _Library.GetCost(SpellA);
+        SpellB = GetNewSpell();
+        B_Cost = _Library.GetCost(SpellB);
+    }
 
     public static Transform GetClosestObject(Vector3 position, string Tag = "", float ScaleMin = 0.001f) // used to search for object
     {
