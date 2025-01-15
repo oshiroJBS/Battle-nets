@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
     public string _characterName;
     public float HPMax = 100;
-    [HideInInspector] public float HP;
+    [HideInInspector] public float HP = 100;
     public float ManaMax = 3f;
     [HideInInspector] public float ManaRecuperation = 0.6f;
     [HideInInspector] public int Shield = 0;
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
 
         this.ShuffleIcon.gameObject.SetActive(false);
-        HP = HPMax;
+
 
         this.m_Player.position = Position(newX, newY);
 
@@ -161,18 +161,22 @@ public class Player : MonoBehaviour
         {
             _FireText.transform.parent.gameObject.SetActive(true);
 
-            if (_FireStack >= 10)
-            {
-                GetDamaged((int)((FireDamage + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
-                _FireStack -= 10;
-            }
+
 
             _FireTimer += Time.deltaTime;
 
             if (_FireTimer >= _FireTick)
             {
+                if (_FireStack >= 10)
+                {
+                    GetDamaged((int)((FireDamage + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
+                    _FireStack -= 10;
+                }
+                else
+                {
+                    _FireStack--;
+                }
                 _FireTimer = 0;
-                _FireStack--;
             }
 
             if (_FireStack == 0)
@@ -200,8 +204,36 @@ public class Player : MonoBehaviour
 
     ////////////////////////// FONCTION ///////////////////////////////////
 
-    public void createDeck(string name)
+    public void InstantiatePlayer(string name)
     {
+        switch (name)
+        {
+            default:
+                break;
+
+            case "kou":
+                HPMax = 900;
+                ManaMax = 3f;
+                ManaRecuperation = 0.6f;
+                Defence = 0;
+                break;
+
+            case "pina":
+                HPMax = 700;
+                ManaMax = 4f;
+                ManaRecuperation = 0.8f;
+                Defence = 0;
+                break;
+
+            case "cyon":
+                HPMax = 1000;
+                ManaMax = 3f;
+                ManaRecuperation = 0.75f;
+                Defence = 0;
+                break;
+        }
+
+        HP = HPMax;
         this._characterName = name;
         _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
         p_Deck = new ArrayList(_StartingDeck);
@@ -305,6 +337,7 @@ public class Player : MonoBehaviour
                     Projectile = Instantiate(_ProjectileSphere, Position((int)TilePosition.x + 1, (int)TilePosition.y + i), Quaternion.identity);
                     Projectile._Damage = ModifyWeaponDamage(20);
                     Projectile._Speed = 30f;
+                    Projectile._isPercing |= true;
                     Projectile._Direction = ProjectileBehaviour.Direction.Forward;
                     Projectile.Charm = true;
                 }
@@ -315,9 +348,9 @@ public class Player : MonoBehaviour
                 if (this.CurrentMana < 1f) { break; }
 
                 this.CurrentMana -= 1f;
-                Instance = Instantiate(_DamageSphere,Position((int)TilePosition.x + 4, (int)TilePosition.y), Quaternion.identity);
+                Instance = Instantiate(_DamageSphere, Position((int)TilePosition.x + 4, (int)TilePosition.y), Quaternion.identity);
                 Instance._Damage = ModifyWeaponDamage(30);
-                Instance.StunTime= 0.5f;
+                Instance.StunTime = 0.5f;
                 Instance._ActiveFrame = 0.2f;
                 Instance.tag = "cyon";
 
@@ -329,13 +362,20 @@ public class Player : MonoBehaviour
 
     private int ModifyWeaponDamage(int weaponDamage)
     {
-        weaponDamage = weaponDamage + _Manager.GetWeponDamageModifier();        
+        weaponDamage = weaponDamage + _Manager.GetWeponDamageModifier();
         return weaponDamage;
     }
 
     #endregion
 
     #region spell and cast
+
+    public void clearStatus()
+    {
+        _FireStack = 0;
+        _PoisonStack = 0;
+    }
+
     private void spellManager()
     {
         if (Input.GetKeyDown(KeyCode.A))
@@ -522,7 +562,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void DeckReset()
+    public void DeckReset()
     {
         ShuffleIcon.gameObject.SetActive(false);
         ResetOnce = true;

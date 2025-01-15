@@ -48,6 +48,7 @@ public class GUIcanvas : MonoBehaviour
     [SerializeField] private GameObject[] EnemyLv5;
     // Start is called before the first frame update
 
+    private bool LevelEnded = true;
 
     void Start()
     {
@@ -89,10 +90,11 @@ public class GUIcanvas : MonoBehaviour
         // End Pause
 
         //level
-        if (GameObject.FindObjectOfType<EnemyBasics>() == null && _SpellLibrary._InGame)
+        if (GameObject.FindObjectOfType<EnemyBasics>() == null && !LevelEnded)
         {
-            _SpellLibrary._InGame = false;
-            GainLevel();
+            Debug.Log("levelUP");
+            LevelEnded = true;
+            Invoke("GainLevel", 2f);
         }
         //
 
@@ -117,9 +119,15 @@ public class GUIcanvas : MonoBehaviour
     {
         ActiveScreen(charaScreen);
     }
+
     private void GainLevel()
     {
+        _player.clearStatus();
+        ActiveScreen(LVScreen);
+
+        _SpellLibrary._InGame = false;
         bool canGainSkill = false;
+
         for (int i = 0; i < tempExp; i++)
         {
             lvBar.fillAmount = playerExp / ExpBarMax;
@@ -141,7 +149,7 @@ public class GUIcanvas : MonoBehaviour
         }
         else
         {
-            Invoke("CreateSkillPanels",3f);
+            Invoke("CreateSpellPanels", 3f);
         }
 
         tempExp = 0;
@@ -161,10 +169,10 @@ public class GUIcanvas : MonoBehaviour
                 _player.HP += 200;
                 break;
             case 2:
-                _player.WeaponModifier+= 5;
+                _player.WeaponModifier += 5;
                 break;
             case 3:
-                _player.Defence+= 3;
+                _player.Defence += 3;
                 break;
             case 4:
                 _player.ManaRecuperation += 0.1f;
@@ -249,29 +257,41 @@ public class GUIcanvas : MonoBehaviour
                 }
                 break;
         }
+
+        LevelEnded = false;
     }
 
     private void CreateSpellPanels()
     {
-        int LastSpell = int.MaxValue;
-        int RandSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count);
+        int FirstSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count - 1);
 
-        for (int i = 0; i < SkillButtonTXT.Length; i++)
-        {
-            while (RandSpell == LastSpell)
-            {
-                RandSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count - 1);
-            }
+        string SpellName = ((SpellScriptableObject)_SpellLibrary._SpellAvailable[FirstSpell]).name;
+        SkillButtonTXT[0].text = SpellName;
+        NewSpellNames[0] = SpellName;
+        SkillButtonIMG[0].sprite = _SpellLibrary.GetIcone(SpellName);
 
-            string SpellName = ((SpellScriptableObject)_SpellLibrary._SpellAvailable[RandSpell]).name;
-            SkillButtonTXT[i].text = SpellName;
-            NewSpellNames[i] = SpellName;
-            SkillButtonIMG[i].sprite = _SpellLibrary.GetIcone(SpellName);
 
-            LastSpell = RandSpell;
-        }
+    GetSecond: int SecondSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count);
 
-        SpellScreen.SetActive(true);
+        if (SecondSpell == FirstSpell)
+            goto GetSecond;
+
+        SpellName = ((SpellScriptableObject)_SpellLibrary._SpellAvailable[SecondSpell]).name;
+        SkillButtonTXT[1].text = SpellName;
+        NewSpellNames[1] = SpellName;
+        SkillButtonIMG[1].sprite = _SpellLibrary.GetIcone(SpellName);
+
+    GetThird: int thirdSpell = Random.Range(0, _SpellLibrary._SpellAvailable.Count);
+
+        if (thirdSpell == SecondSpell || thirdSpell == FirstSpell)
+            goto GetThird;
+
+        SpellName = ((SpellScriptableObject)_SpellLibrary._SpellAvailable[thirdSpell]).name;
+        SkillButtonTXT[2].text = SpellName;
+        NewSpellNames[2] = SpellName;
+        SkillButtonIMG[2].sprite = _SpellLibrary.GetIcone(SpellName);
+
+        ActiveScreen(SpellScreen);
     }
 
     public void GainNewSpell(int ButtonNB)
@@ -279,6 +299,7 @@ public class GUIcanvas : MonoBehaviour
         _SpellLibrary.AddSpellToPlayerDeck(NewSpellNames[ButtonNB]);
         NewLevel();
         _SpellLibrary._InGame = true;
+        _player.DeckReset();
     }
 
     #region Screens

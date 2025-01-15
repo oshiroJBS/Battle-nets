@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class SpellLibrary : MonoBehaviour
 {
@@ -132,6 +133,11 @@ public class SpellLibrary : MonoBehaviour
             {
                 Positon = _Player.TilePosition;
             }
+            else if (pso._aimed && enemy)
+            {
+
+                Positon.x = _Player.TilePosition.x;
+            }
 
             if (first && pso.fstWaveCooldown)
             {
@@ -162,9 +168,14 @@ public class SpellLibrary : MonoBehaviour
         for (int i = 0; i < iso.nbWave; i++)
         {
 
-            if (!iso.isWaveStatic && !enemy)
+            if ((!iso.isWaveStatic && !enemy))
             {
                 Positon = _Player.TilePosition;
+            }
+            else if (iso._aimed && enemy)
+            {
+
+                Positon.x = _Player.TilePosition.x;
             }
 
             if (first && iso.fstWaveCooldown)
@@ -199,6 +210,14 @@ public class SpellLibrary : MonoBehaviour
         {
             for (int x = 0; x < CastingProjectile._NbObject.x; x++)
             {
+                //if ((CastingProjectile._StartingPosition.x < 0 || CastingProjectile._StartingPosition.x > 7
+                // || CastingProjectile._StartingPosition.y < 0 || CastingProjectile._StartingPosition.y > 3)
+                // && CastingProjectile._isStatic)
+                //{
+
+                //}
+
+
                 int xInstance = 0;
                 int yInstance = 0;
 
@@ -213,12 +232,13 @@ public class SpellLibrary : MonoBehaviour
                     yInstance = (int)((CastingProjectile._StartingPosition.y + y) * SpellDirection);
                 }
 
-                xInstance = Mathf.Clamp(xInstance, 0, 7);
 
-                if (yInstance >= 0 && yInstance <= 3)
+                if (xInstance >= 0 && xInstance <= 7
+                    && yInstance >= 0 && yInstance <= 3)
                 {
                     Projectile = Instantiate(ProjectileSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
                 }
+
 
                 if (Projectile.TryGetComponent(out ProjectileBehaviour behaviour))
                 {
@@ -232,6 +252,7 @@ public class SpellLibrary : MonoBehaviour
                     behaviour.RandomTPonHit = CastingProjectile.RandomTPonHit;
                     behaviour._FireStack = CastingProjectile._FireStack;
                     behaviour._PoisonStack = CastingProjectile._PoisonStack;
+                    behaviour._Shield = CastingProjectile._Shield;
 
                     if (enemy)
                     {
@@ -308,6 +329,7 @@ public class SpellLibrary : MonoBehaviour
                         behaviour.RandomTPonHit = CastingInstance.RandomTPonHit;
                         behaviour._FireStack = CastingInstance._FireStack;
                         behaviour._PoisonStack = CastingInstance._PoisonStack;
+                        behaviour._Shield = CastingInstance._Shield;
 
                         if (enemy)
                         {
@@ -319,7 +341,6 @@ public class SpellLibrary : MonoBehaviour
                             behaviour._isFriendly = CastingInstance._isFriendly;
                             behaviour._Damage = (int)((CastingInstance._Damage + _Manager.GetDamageModifier()) * _Manager.GetDamageMultiplier());
                         }
-
                     }
                 }
             }

@@ -11,6 +11,7 @@ public class SpellScriptableObject : ScriptableObject
     public int ManaCost;
     public float castingTime = 0.2f;
     public int _Damage;
+    public int _Shield;
 
     public int nbWave = 1;
     public float waveCooldown = 0.2f;
@@ -27,7 +28,9 @@ public class SpellScriptableObject : ScriptableObject
     public Vector2 _TpOnCast = new Vector2(0,0);
     public float StunTime = 0f;
 
-    public bool _isFriendly;
+    public bool _isFriendly =true;
+    [Header("only if friendly off")]
+    public bool _aimed =false;
     public bool _isStatic;
 
     public bool _Charm = false;

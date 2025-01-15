@@ -56,11 +56,25 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example4.cs" />
     <Compile Include="Assets\Resources\Prefab\Map\obstacleBehaviour.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example1.cs" />
     <Compile Include="Assets\Resources\Script\Class\SpellScriptableObject.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example1.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example1.cs" />
     <Compile Include="Assets\UIBars\Scripts\UIBarScript.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example2.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\DamageBehaviour.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example2.cs" />
+    <Compile Include="Assets\Resources\Script\Class\TalentScriptableObject.cs" />
     <Compile Include="Assets\GUIcanvas.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example3.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example3.cs" />
     <Compile Include="Assets\Resources\Script\Behaviour\ProjectileBehaviour.cs" />
     <Compile Include="Assets\Resources\Script\TalentManager.cs" />
     <Compile Include="Assets\Resources\Script\Player.cs" />
@@ -68,30 +82,16 @@
     <Compile Include="Assets\UIBars\Scripts\CriteriaRule.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\TilesManager.cs" />
     <Compile Include="Assets\Resources\Script\enemy\EnemyBasics.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example2.cs" />
     <Compile Include="Assets\UIBars\Scripts\UpdateAnimationRule.cs" />
     <Compile Include="Assets\Resources\Script\Class\ProjectileScriptableObject.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example1.cs" />
     <Compile Include="Assets\UIBars\Scripts\ControlBar.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\SpellLibrary.cs" />
     <Compile Include="Assets\Resources\Script\Class\InstanceScriptableObject.cs" />
-    <Compile Include="Assets\Resources\Script\Class\TalentScriptableObject.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example4.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example3.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example1.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example2.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example2.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example1.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example3.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example2.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example1.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideLabel\HL_Example2.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example3.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example1.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example3.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example2.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example2.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

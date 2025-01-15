@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: ExpValue
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _SpellToCast
@@ -21,11 +21,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _AttackStagger
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _CooldownAttack
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _CooldownMouvement

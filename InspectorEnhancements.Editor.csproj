@@ -56,31 +56,31 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\ComplexFieldDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\Factories\FieldDrawerFactories\FieldDrawerFactory.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\CollectionDropdownDrawer.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFieldDrawer\BaseFieldDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\ConditionalDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFieldDrawer\Base\IFieldDrawer.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Editors\CompositeInspectorEditor.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\Base\ITypeDrawer.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IMethodRenderer\MethodRenderer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IParameterRenderer\Base\IParameterRenderer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\Base\ITypeDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\UnityNativeFieldDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IParameterRenderer\ParameterRenderer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFieldDrawer\Base\IFieldDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\HideLabelDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\InlinePropertyDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\Factories\FieldDrawerFactories\FieldDrawerFactory.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Editors\CustomInspectorElements\Base\ICustomInspectorElement.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\UnityStructFieldDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\RequiredDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\ParameterMethodRenderer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\ComplexFieldDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Editors\CustomInspectorElements\MethodButtonElement.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IMethodRenderer\Base\IMethodRenderer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFoldoutProvider\FoldoutProvider.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\Factories\MethodButtonElementFactory\MethodButtonElementFactory.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\PrimitiveFieldDrawer.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFoldoutProvider\Base\IFoldoutProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IMethodRenderer\Base\IMethodRenderer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\ParameterMethodRenderer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\IFoldoutProvider\FoldoutProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\UnityStructFieldDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IParameterRenderer\Base\IParameterRenderer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\CollectionDropdownDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\ITypeDrawer\UnityNativeFieldDrawer.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\ConditionalDrawer.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\EditorGUILayoutMethodResolver\EditorGUILayoutMethodProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\HideLabelDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\RequiredDrawer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Editors\CustomInspectorElements\Base\ICustomInspectorElement.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\FieldDrawing\MemberRenderers\IParameterRenderer\ParameterRenderer.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Editors\CustomInspectorElements\MethodButtonElement.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Helpers\Factories\MethodButtonElementFactory\MethodButtonElementFactory.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Editor\Drawers\InlinePropertyDrawer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Nenn\InspectorEnhancements\Editor\InspectorEnhancements.Editor.asmdef" />

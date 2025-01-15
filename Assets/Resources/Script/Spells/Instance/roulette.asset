@@ -15,9 +15,9 @@ MonoBehaviour:
   CharacterDeckStarter: 
   ManaCost: 1
   castingTime: 0.2
-  _Damage: 30
+  _Damage: 20
   nbWave: 12
-  waveCooldown: 0.4
+  waveCooldown: 0.5
   fstWaveCooldown: 0
   isWaveStatic: 0
   _StartingPosition: {x: 0, y: 0}
@@ -28,11 +28,11 @@ MonoBehaviour:
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
-  _isFriendly: 0
+  _isFriendly: 1
   _isStatic: 0
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
-  Icon: {fileID: 362099136, guid: 132358e9bf26b60458b731bf001e31db, type: 3}
+  Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
   _LifeSpan: 0.2
   isRandom: 1

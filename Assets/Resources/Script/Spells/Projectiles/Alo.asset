@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
-  m_Name: Alo
+  m_Name: alo
   m_EditorClassIdentifier: 
   CharacterDeckStarter: kou
   ManaCost: 2
@@ -25,7 +25,7 @@ MonoBehaviour:
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
-  RandomTPonCAst: 0
+  RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
-  Icon: {fileID: 21300000, guid: 43ad51e043491b94d8f6c62d55ac5ede, type: 3}
+  Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
   p_speed: 30
   p_IsLaser: 1
   _isComingBack: 1

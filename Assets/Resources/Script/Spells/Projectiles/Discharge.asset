@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
-  m_Name: Discharge
+  m_Name: discharge
   m_EditorClassIdentifier: 
   CharacterDeckStarter: kou
   ManaCost: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
-  Icon: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
+  Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
   p_speed: 40
   p_IsLaser: 0
   _isComingBack: 0

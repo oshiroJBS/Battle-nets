@@ -11,6 +11,7 @@ public class ProjectileBehaviour : MonoBehaviour
 
 
     public int _Damage = 0;
+    public int _Shield = 0;
     public float _Speed = 1f;
     public bool _isComingBack = false;
     public bool _isPercing = false;
@@ -96,6 +97,7 @@ public class ProjectileBehaviour : MonoBehaviour
             player.GetDamaged(_Damage);
             player._FireStack += _FireStack;
             player._PoisonStack += _PoisonStack;
+            player.Shield += _Shield;
 
             if (player.HP < 0)
                 player.HP = 0;
@@ -124,6 +126,7 @@ public class ProjectileBehaviour : MonoBehaviour
             enemy.GetDamaged(_Damage);
             enemy._FireStack += _FireStack;
             enemy._PoisonStack += _PoisonStack;
+            enemy._Shield += _Shield;
 
             if (Charm)
             {
@@ -132,8 +135,8 @@ public class ProjectileBehaviour : MonoBehaviour
 
             if (RandomTPonHit)
             {
-                _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
-                _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
+                _ForcedMouvement.x = Random.Range(-3, 3);
+                _ForcedMouvement.y = Random.Range(-3, 3);
             }
             enemy.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);
 

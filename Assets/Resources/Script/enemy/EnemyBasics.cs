@@ -196,18 +196,20 @@ public class EnemyBasics : MonoBehaviour
         {
             BurnIcon.gameObject.SetActive(true);
 
-            if (_FireStack >= 10)
-            {
-                GetDamaged(40);
-                _FireStack -= 10;
-            }
-
             _FireTimer += Time.deltaTime;
 
             if (_FireTimer >= _FireTick)
             {
+                if (_FireStack >= 10)
+                {
+                    GetDamaged(40);
+                    _FireStack -= 10;
+                }
+                else
+                {
+                    _FireStack--;
+                }
                 _FireTimer = 0;
-                _FireStack--;
             }
 
             if (_FireStack == 0)

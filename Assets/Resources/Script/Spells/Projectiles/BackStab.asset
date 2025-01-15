@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
-  m_Name: BackStab
+  m_Name: backStab
   m_EditorClassIdentifier: 
   CharacterDeckStarter: 
   ManaCost: 3
   castingTime: 0.5
   _Damage: 30
   nbWave: 2
-  waveCooldown: 0.4
+  waveCooldown: 0.5
   fstWaveCooldown: 1
   isWaveStatic: 1
   _StartingPosition: {x: 7, y: 0}
@@ -33,8 +33,8 @@ MonoBehaviour:
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
-  Icon: {fileID: 21300000, guid: f2901efd8bb16bc408ad37f017fbf9bc, type: 3}
-  p_speed: 17
+  Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
+  p_speed: 15
   p_IsLaser: 0
   _isComingBack: 0
   SpellDirection: 1

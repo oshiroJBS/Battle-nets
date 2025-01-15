@@ -56,34 +56,34 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\CollectionDropdownAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\TypeBasedCacheHelper.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\ReflectionHelper.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Enums\InlinePropertyNameMode.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\HideLabelAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\HideIfAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\EditorOnlyLogger.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\StringBasedCacheHelper.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\MethodButtonAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\ShowIfAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IDefaultValueProvider\DefaultValueProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\RequiredAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\Base\ConditionalAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterValueDelegateProvider\Base\IParameterValueDelegateProvider.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\ParameterMethodManager.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IParameterOwner\IParameterOwner.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMemberInfoProvider\CacheMemberInfoProvider.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMemberInfoProvider\Base\IMemberInfoProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMemberOwner\IMemberOwner.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Base\CustomPropertyAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterProvider\OverwriteableParameterProvider.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IDefaultValueProvider\DefaultValueProvider.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Enums\InlinePropertyNameMode.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\OverwritableStringCache.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\HideLabelAttribute.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IDefaultValueProvider\Base\IDefaultValueProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterProvider\Base\IParameterProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMethodInvoker\DefaultMethodInvoker.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\ShowIfAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\ReflectionHelper.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\RequiredAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\HideIfAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\EditorOnlyLogger.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\MethodButtonAttribute.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterValueDelegateProvider\ParameterValueDelegateProvider.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMethodInvoker\Base\IMethodInvoker.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterProvider\OverwriteableParameterProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterValueDelegateProvider\Base\IParameterValueDelegateProvider.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Base\CustomPropertyAttribute.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\InlinePropertyAttribute.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\OverwritableStringCache.cs" />
-    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\Conditional\Base\ConditionalAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\StringBasedCacheHelper.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMemberInfoProvider\CacheMemberInfoProvider.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMemberOwner\IMemberOwner.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\Interfaces\IMethodInvoker\DefaultMethodInvoker.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\ParameterManagers\IParameterProvider\Base\IParameterProvider.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Attributes\CollectionDropdownAttribute.cs" />
+    <Compile Include="Assets\Nenn\InspectorEnhancements\Runtime\Helpers\General\TypeBasedCacheHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Nenn\InspectorEnhancements\Runtime\InspectorEnhancements.Runtime.asmdef" />
