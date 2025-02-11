@@ -16,19 +16,23 @@ MonoBehaviour:
   ManaCost: 2
   castingTime: 0.4
   _Damage: 20
-  nbWave: 2
-  waveCooldown: 0.4
+  _Shield: 0
+  nbWave: 3
+  waveCooldown: 0.6
   fstWaveCooldown: 0
   isWaveStatic: 1
-  _StartingPosition: {x: 1, y: 0}
+  _StartingPosition: {x: 0, y: 0}
   _NbObject: {x: 1, y: 4}
   _ForcedMouvement: {x: 1, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
-  StunTime: 0
-  _isFriendly: 1
+  StunTime: 0.2
+  _isFriendly: 0
+  _aimed: 0
+  _OppositeTile: 0
   _isStatic: 1
   _Charm: 0
   _FireStack: 0

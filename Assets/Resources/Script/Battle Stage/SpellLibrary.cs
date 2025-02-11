@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class SpellLibrary : MonoBehaviour
 {
@@ -77,15 +76,19 @@ public class SpellLibrary : MonoBehaviour
                     ProjectileScriptableObject pso = (ProjectileScriptableObject)_Library[i];
 
                     if (!Enemy && pso.MoveToEnnemyGridForTime != 0) _Player.MouveToEnnemySpace((int)pso._TpOnCast.x, (int)pso._TpOnCast.y, pso.MoveToEnnemyGridForTime);
-                    if (!Enemy && pso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)pso._TpOnCast.x, (int)pso._TpOnCast.y);
+                    else if (!Enemy && pso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)pso._TpOnCast.x, (int)pso._TpOnCast.y);
 
                     StartCoroutine(CastProjectile(pso, Positon, Enemy));
 
                     if (pso.RandomTpOnCast)
                     {
-                        int randx = UnityEngine.Random.Range(0, 3);
-                        int randy = UnityEngine.Random.Range(0, 3);
-                        _Player.ForcedMovement(randx, randy);
+                        int randx = Random.Range(0, 3);
+                        int randy = Random.Range(0, 3);
+                        _Player.Teleport(randx, randy);
+                    }
+                    else if (pso.TpOnOpposite && !Enemy)
+                    {
+                        _Player.Teleport(Mathf.Abs((int)_Player.TilePosition.x - 3), Mathf.Abs((int)_Player.TilePosition.y - 3));
                     }
 
                     return true;
@@ -101,8 +104,8 @@ public class SpellLibrary : MonoBehaviour
 
                     if (iso.RandomTpOnCast)
                     {
-                        int randx = UnityEngine.Random.Range(0, 3);
-                        int randy = UnityEngine.Random.Range(0, 3);
+                        int randx = Random.Range(0, 3);
+                        int randy = Random.Range(0, 3);
                         _Player.ForcedMovement(randx, randy);
                     }
 
@@ -119,7 +122,7 @@ public class SpellLibrary : MonoBehaviour
     IEnumerator CastProjectile(ProjectileScriptableObject pso, Vector2 CastingPositon, bool enemy)
     {
         bool first = true;
-        Vector2 Positon = CastingPositon;
+        Vector2 _Position = CastingPositon;
 
         if (!enemy)
         {
@@ -127,16 +130,49 @@ public class SpellLibrary : MonoBehaviour
             this._Player.CurrentMana -= pso.ManaCost;
         }
 
+
+        if (pso._aimed && enemy)
+        {
+            _Position.y = _Player.TilePosition.y;
+        }
+        else if (pso._OppositeTile)
+        {
+            if (CastingPositon.x > 3 || enemy)
+                _Position.x = 0;
+            else
+            {
+                _Position.x = 7;
+            }
+
+            _Position.y = 3 - CastingPositon.y;
+        }
+
         for (int i = 0; i < pso.nbWave; i++)
         {
             if (!pso.isWaveStatic && !enemy)
             {
-                Positon = _Player.TilePosition;
-            }
-            else if (pso._aimed && enemy)
-            {
+                _Position = _Player.TilePosition;
 
-                Positon.x = _Player.TilePosition.x;
+                if (pso._OppositeTile)
+                {
+                    if (CastingPositon.x > 3)
+                        _Position.x = 0;
+                    else
+                    {
+                        _Position.x = 7;
+                        enemy = true;
+                    }
+
+                    _Position.y = 3 - _Player.TilePosition.y;
+                }
+            }
+
+            if (!pso.isWaveStatic && enemy)
+            {
+                if (pso._aimed)
+                {
+                    _Position.y = _Player.TilePosition.y;
+                }
             }
 
             if (first && pso.fstWaveCooldown)
@@ -144,7 +180,8 @@ public class SpellLibrary : MonoBehaviour
                 first = false;
                 yield return new WaitForSeconds(pso.waveCooldown);
             }
-            CreateProjectileOnCast(pso, Positon, enemy);
+
+            CreateProjectileOnCast(pso, _Position, enemy);
 
             yield return new WaitForSeconds(pso.waveCooldown);
         }
@@ -157,7 +194,7 @@ public class SpellLibrary : MonoBehaviour
     {
         bool first = true;
 
-        Vector2 Positon = CastingPositon;
+        Vector2 _Position = CastingPositon;
 
         if (!enemy)
         {
@@ -165,17 +202,37 @@ public class SpellLibrary : MonoBehaviour
             this._Player.CurrentMana -= iso.ManaCost;
         }
 
+        else if (iso._aimed && enemy)
+        {
+            _Position.x = _Player.TilePosition.x;
+            _Position.y = _Player.TilePosition.y;
+        }
+        else if (iso._OppositeTile)
+        {
+            _Position.x = 7 - CastingPositon.x;
+            _Position.y = 3 - CastingPositon.y;
+        }
+
+
         for (int i = 0; i < iso.nbWave; i++)
         {
-
-            if ((!iso.isWaveStatic && !enemy))
+            if (!iso.isWaveStatic)
             {
-                Positon = _Player.TilePosition;
-            }
-            else if (iso._aimed && enemy)
-            {
+                if (!enemy)
+                {
+                    _Position = _Player.TilePosition;
 
-                Positon.x = _Player.TilePosition.x;
+                    if (iso._OppositeTile)
+                    {
+                        _Position.x = 7 - _Player.TilePosition.x;
+                        _Position.y = 3 - _Player.TilePosition.y;
+                    }
+                }
+                else if (iso._aimed && enemy)
+                {
+                    _Position.x = _Player.TilePosition.x;
+                    _Position.y = _Player.TilePosition.y;
+                }
             }
 
             if (first && iso.fstWaveCooldown)
@@ -184,7 +241,7 @@ public class SpellLibrary : MonoBehaviour
                 yield return new WaitForSeconds(iso.waveCooldown);
             }
 
-            CreateInstanceOncast(iso, Positon, enemy);
+            CreateInstanceOncast(iso, _Position, enemy);
 
             yield return new WaitForSeconds(iso.waveCooldown);
         }
@@ -223,8 +280,16 @@ public class SpellLibrary : MonoBehaviour
 
                 if (!CastingProjectile._isStatic)
                 {
-                    xInstance = (int)(Positon.x + (CastingProjectile._StartingPosition.x + x) * SpellDirection);
-                    yInstance = (int)(Positon.y + (CastingProjectile._StartingPosition.y + y) * SpellDirection);
+                    if (CastingProjectile._resetStartPoint)
+                    {
+                        xInstance = (int)(Positon.x + x * SpellDirection);
+                        yInstance = (int)(Positon.y + y * SpellDirection);
+                    }
+                    else
+                    {
+                        xInstance = (int)(Positon.x + (CastingProjectile._StartingPosition.x + x) * SpellDirection);
+                        yInstance = (int)(Positon.y + (CastingProjectile._StartingPosition.y + y) * SpellDirection);
+                    }
                 }
                 else
                 {
@@ -297,15 +362,26 @@ public class SpellLibrary : MonoBehaviour
                 ///
                 if (CastingInstance.isRandom)
                 {
-                    xInstance = Random.Range(0, 4);
+                    if (enemy)
+                        xInstance = Random.Range(0, 3);
+                    else
+                        xInstance = Random.Range(4, 7);
                     yInstance = Random.Range(0, 4);
                 }
                 else
                 {
                     if (!CastingInstance._isStatic)
                     {
-                        xInstance = (int)(Positon.x + (CastingInstance._StartingPosition.x + x) * SpellDirection);
-                        yInstance = (int)(Positon.y + (CastingInstance._StartingPosition.y + y) * SpellDirection);
+                        if (CastingInstance._resetStartPoint)
+                        {
+                            xInstance = (int)(Positon.x + x * SpellDirection);
+                            yInstance = (int)(Positon.y + y * SpellDirection);
+                        }
+                        else
+                        {
+                            xInstance = (int)(Positon.x + (CastingInstance._StartingPosition.x + x) * SpellDirection);
+                            yInstance = (int)(Positon.y + (CastingInstance._StartingPosition.y + y) * SpellDirection);
+                        }
                     }
                     else
                     {

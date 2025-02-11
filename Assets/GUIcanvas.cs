@@ -92,7 +92,6 @@ public class GUIcanvas : MonoBehaviour
         //level
         if (GameObject.FindObjectOfType<EnemyBasics>() == null && !LevelEnded)
         {
-            Debug.Log("levelUP");
             LevelEnded = true;
             Invoke("GainLevel", 2f);
         }
@@ -123,15 +122,12 @@ public class GUIcanvas : MonoBehaviour
     private void GainLevel()
     {
         _player.clearStatus();
-        ActiveScreen(LVScreen);
 
         _SpellLibrary._InGame = false;
         bool canGainSkill = false;
 
         for (int i = 0; i < tempExp; i++)
         {
-            lvBar.fillAmount = playerExp / ExpBarMax;
-
             playerExp++;
             if (playerExp >= ExpBarMax)
             {
@@ -140,8 +136,12 @@ public class GUIcanvas : MonoBehaviour
                 ExpBarMax += 3;
                 canGainSkill = true;
             }
-            LVtxt.text = "Level " + playerLV.ToString();
         }
+
+        tempExp = 0;
+        lvBar.fillAmount = playerExp / ExpBarMax;
+        LVtxt.text = "Level " + playerLV.ToString();
+        ActiveScreen(LVScreen);
 
         if (canGainSkill)
         {
@@ -152,7 +152,6 @@ public class GUIcanvas : MonoBehaviour
             Invoke("CreateSpellPanels", 3f);
         }
 
-        tempExp = 0;
     }
 
     public void GainBasicSkill(int skill)

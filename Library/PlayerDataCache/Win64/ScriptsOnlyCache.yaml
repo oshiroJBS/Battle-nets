@@ -3,12 +3,16 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - DamageBehaviour
     - EnemyBasics
+    - GUIcanvas
     - InstanceScriptableObject
     - Player
     - ProjectileBehaviour
     - ProjectileScriptableObject
     - SpellLibrary
+    - TalentManager
+    - TalentScriptableObject
     - TilesManager
+    - obstacleBehaviour
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -17,14 +21,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -32,6 +28,7 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
@@ -53,15 +50,85 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Style
     - TMPro.VertexGradient
     UnityEngine.CoreModule:
+    - UnityEngine.Events.ArgumentCache
     - UnityEngine.Events.PersistentCallGroup
+    - UnityEngine.Events.PersistentListenerMode
     UnityEngine.TextCoreFontEngineModule:
     - UnityEngine.TextCore.FaceInfo
     - UnityEngine.TextCore.Glyph
     - UnityEngine.TextCore.GlyphMetrics
     - UnityEngine.TextCore.GlyphRect
     UnityEngine.UI:
+    - UnityEngine.UI.AnimationTriggers
+    - UnityEngine.UI.Button/ButtonClickedEvent
+    - UnityEngine.UI.ColorBlock
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
-  methodsToPreserve: []
+    - UnityEngine.UI.Navigation
+    - UnityEngine.UI.SpriteState
+  methodsToPreserve:
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: StartCooldown
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: StartGame
+  - assembly: Assembly-CSharp
+    fullTypeName: Player
+    methodName: InstantiatePlayer
+  - assembly: Unity.TextMeshPro
+    fullTypeName: TMPro.TMP_Text
+    methodName: set_text
+  - assembly: UnityEngine.UI
+    fullTypeName: UnityEngine.UI.Selectable
+    methodName: set_interactable
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainNewSpell
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainNewSpell
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainNewSpell
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: SelectCharacter
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: Return
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: Option
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: Option
+  - assembly: Assembly-CSharp
+    fullTypeName: Player
+    methodName: InstantiatePlayer
+  - assembly: Unity.TextMeshPro
+    fullTypeName: TMPro.TMP_Text
+    methodName: set_text
+  - assembly: UnityEngine.UI
+    fullTypeName: UnityEngine.UI.Selectable
+    methodName: set_interactable
+  - assembly: Assembly-CSharp
+    fullTypeName: GUIcanvas
+    methodName: GainBasicSkill
   sceneClasses:
     Assets/Scenes/GameScene.unity:
     - Class: 1
@@ -92,6 +159,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -100,44 +169,56 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+    - Class: 111
+      Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1546}
+      Script: {instanceID: 1600}
     - Class: 114
-      Script: {instanceID: 1592}
+      Script: {instanceID: 1602}
     - Class: 114
-      Script: {instanceID: 2206}
+      Script: {instanceID: 1604}
     - Class: 114
-      Script: {instanceID: 2640}
+      Script: {instanceID: 2050}
     - Class: 114
-      Script: {instanceID: 3448}
+      Script: {instanceID: 2276}
     - Class: 114
-      Script: {instanceID: 3978}
+      Script: {instanceID: 2728}
     - Class: 114
-      Script: {instanceID: 4228}
+      Script: {instanceID: 3570}
     - Class: 114
-      Script: {instanceID: 4274}
+      Script: {instanceID: 3660}
     - Class: 114
-      Script: {instanceID: 4506}
+      Script: {instanceID: 3820}
     - Class: 114
-      Script: {instanceID: 4988}
+      Script: {instanceID: 4118}
     - Class: 114
-      Script: {instanceID: 5268}
+      Script: {instanceID: 4370}
     - Class: 114
-      Script: {instanceID: 5272}
+      Script: {instanceID: 4418}
     - Class: 114
-      Script: {instanceID: 5880}
+      Script: {instanceID: 4656}
     - Class: 114
-      Script: {instanceID: 6032}
+      Script: {instanceID: 4674}
     - Class: 114
-      Script: {instanceID: 6036}
+      Script: {instanceID: 5156}
     - Class: 114
-      Script: {instanceID: 6380}
+      Script: {instanceID: 5446}
     - Class: 114
-      Script: {instanceID: 6484}
+      Script: {instanceID: 5450}
     - Class: 114
-      Script: {instanceID: 6980}
+      Script: {instanceID: 6066}
     - Class: 114
-      Script: {instanceID: 7202}
+      Script: {instanceID: 6222}
+    - Class: 114
+      Script: {instanceID: 6228}
+    - Class: 114
+      Script: {instanceID: 6598}
+    - Class: 114
+      Script: {instanceID: 6706}
+    - Class: 114
+      Script: {instanceID: 7206}
+    - Class: 114
+      Script: {instanceID: 7436}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -163,22 +244,28 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
+      Hash: a6e561615949734e9f12f9b61661f43e
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Image
+  - hash:
+      serializedVersion: 2
       Hash: ae83e830e7a90c0aff918c4c2e520825
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 69415240821be7986b27e72bf9609a30
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UIElements
     className: PanelRaycaster
-  - hash:
-      serializedVersion: 2
-      Hash: a6e561615949734e9f12f9b61661f43e
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Image
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -221,6 +308,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnMouseExitMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: b328e3088c854ac0260a813d693429a6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: obstacleBehaviour
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -349,7 +442,7 @@ ScriptsOnlyBuild:
     className: UnityOnInputFieldEndEditMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: a2c64892e4f11f5cd71d15a4eb9793e1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SpellScriptableObject
@@ -371,12 +464,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ToggleGroup
-  - hash:
-      serializedVersion: 2
-      Hash: 69415240821be7986b27e72bf9609a30
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Button
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -433,7 +520,7 @@ ScriptsOnlyBuild:
     className: UnityOnSelectMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 392c450efa97c15f2d88cc2bf3ad9a01
+      Hash: 88485190c6499ba673057d4698b3c691
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DamageBehaviour
@@ -449,6 +536,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
+  - hash:
+      serializedVersion: 2
+      Hash: a36b3eb08e54b62811f81aab5bafc0f4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TalentScriptableObject
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -473,6 +566,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnCollisionExit2DMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 0c37655b60d5af49e4a764b102de9bd4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GUIcanvas
   - hash:
       serializedVersion: 2
       Hash: 2574ac7d50617d23cdefe4ad22f5e1ad
@@ -553,7 +652,7 @@ ScriptsOnlyBuild:
     className: UnityOnJointBreak2DMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 33e546204fb00e928762bbfe0f2561b8
+      Hash: 1ee8389c1c56cd9f8d16d98575261bb5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ProjectileBehaviour
@@ -581,6 +680,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnCancelMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: d3cad34fa8672805564c30a92d071a3f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TalentManager
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -619,7 +724,7 @@ ScriptsOnlyBuild:
     className: UnityOnEndDragMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 426e997d30582f350dc6599ca463f2fb
+      Hash: 5d69fbb8eeafe04f61614e3a7f888618
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Player
@@ -739,7 +844,7 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
-      Hash: 0f369f4dc27c1db7130fd88679071736
+      Hash: f66971bc9136cef23921ee8c98aabf9b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyBasics
@@ -787,7 +892,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: 8158f917722424b0f10f72032f5ef8a3
+      Hash: 114383b7e3e6a1a5f23105901a1bb173
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ProjectileScriptableObject
@@ -841,7 +946,7 @@ ScriptsOnlyBuild:
     className: UnityOnCollisionExitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 2784eccfa95e943829446bcb38ed8d19
+      Hash: 364e961ddcc593b995943ea4c5f1bbc8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SpellLibrary
@@ -901,7 +1006,7 @@ ScriptsOnlyBuild:
     className: UnityOnSubmitMessageListener
   - hash:
       serializedVersion: 2
-      Hash: fad60312b5d9dbcdac0b512f152a097d
+      Hash: 32f23b6c73e5045b47efae6020e58b8a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: InstanceScriptableObject
@@ -1001,7 +1106,31 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
+  - hash:
+      serializedVersion: 2
+      Hash: 198c8d094b465351f24304cbf1087123
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemyAi
+  - hash:
+      serializedVersion: 2
+      Hash: 3f023c0429d345c46a303882dd7df10f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
+  - hash:
+      serializedVersion: 2
+      Hash: 8216ca00094987954bcf22fd5ccf9bfd
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: UnityStandardAssets.Cameras
+    className: FreeLookCam
+  - hash:
+      serializedVersion: 2
+      Hash: 8d1d1f2a07e4306a123e9efb4c9ad842
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Face
   platform: 19
   scenePathNames:
   - Assets/Scenes/GameScene.unity
-  playerPath: C:/Users/Lctay/Documents/Fan games/Demo no Network/Kou's battle Net.exe
+  playerPath: C:/Users/Lctay/Documents/Fan games/battleNet0.2/Kou's battle Net.exe

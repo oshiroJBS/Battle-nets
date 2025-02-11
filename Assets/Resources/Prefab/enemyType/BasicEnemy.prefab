@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: ExpValue
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
+      propertyPath: _CooldownAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384057, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: m_RootOrder
       value: 0

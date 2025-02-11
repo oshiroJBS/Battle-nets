@@ -14,27 +14,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterDeckStarter: pina
   ManaCost: 1
-  castingTime: 0.2
-  _Damage: 20
+  castingTime: 0.1
+  _Damage: 25
+  _Shield: 0
   nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 1
-  _StartingPosition: {x: 0, y: 0}
+  _StartingPosition: {x: 1, y: 0}
   _NbObject: {x: 1, y: 3}
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 1
+  _aimed: 0
+  _OppositeTile: 0
   _isStatic: 0
   _Charm: 1
   _FireStack: 0
   _PoisonStack: 0
   Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
-  p_speed: 0
+  p_speed: 40
   p_IsLaser: 0
   _isComingBack: 0
   SpellDirection: 0

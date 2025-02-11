@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
 
 
     [HideInInspector] public int _PoisonStack = 0;
+    private int _LastPoisonStack = 0;
     private const float _PoisonTick = 0.8f;
     private float _PoisonTimer = 0f;
     [SerializeField] private TextMeshProUGUI _PoisonText;
@@ -141,6 +142,11 @@ public class Player : MonoBehaviour
 
             _PoisonTimer += Time.deltaTime;
 
+            if (_LastPoisonStack < _PoisonStack)
+            {
+                _PoisonTimer = 0;
+            }
+
             if (_PoisonTimer >= _PoisonTick)
             {
                 HP -= _PoisonStack;
@@ -150,6 +156,7 @@ public class Player : MonoBehaviour
             if (_PoisonStack < 0)
                 _PoisonStack = 0;
 
+            _LastPoisonStack = _PoisonStack;
             _PoisonText.text = _PoisonStack.ToString();
         }
         else
@@ -187,7 +194,7 @@ public class Player : MonoBehaviour
             if (_FireStack < 0)
                 _FireStack = 0;
 
-            _FireText.text = _FireText.ToString();
+            _FireText.text = _FireStack.ToString();
         }
         else
         {
@@ -537,6 +544,20 @@ public class Player : MonoBehaviour
         this.TilePosition = new Vector2(newX, newY);
         this.lastTilePosition = TilePosition;
     }
+    public void Teleport(int x, int y)
+    {
+
+        if (IsOnEnnemyTile) return;
+
+        newX = Mathf.Clamp(x, 0, 3);
+        newY = Mathf.Clamp(y, 0, 3);
+
+        this.m_Player.position = Position(newX, newY);
+        this.m_Player.parent = _TileManager.Tiles[newX][newY];
+
+        this.TilePosition = new Vector2(newX, newY);
+        this.lastTilePosition = TilePosition;
+    }    
 
     public Vector3 Position(int Xtile, int Ytile)
     {

@@ -104,8 +104,8 @@ public class ProjectileBehaviour : MonoBehaviour
 
             if (RandomTPonHit)
             {
-                _ForcedMouvement.x = UnityEngine.Random.Range(-3, 3);
-                _ForcedMouvement.y = UnityEngine.Random.Range(-3, 3);
+                _ForcedMouvement.x = Random.Range(-3, 3);
+                _ForcedMouvement.y = Random.Range(-3, 3);
             }
 
             player.ForcedMovement((int)_ForcedMouvement.x, (int)_ForcedMouvement.y);

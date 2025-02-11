@@ -15,20 +15,24 @@ MonoBehaviour:
   CharacterDeckStarter: 
   ManaCost: 3
   castingTime: 0.2
-  _Damage: 20
-  nbWave: 5
+  _Damage: 25
+  _Shield: 0
+  nbWave: 7
   waveCooldown: 1
   fstWaveCooldown: 0
   isWaveStatic: 1
   _StartingPosition: {x: 0, y: 0}
-  _NbObject: {x: 7, y: 1}
+  _NbObject: {x: 9, y: 1}
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 1
+  _aimed: 0
+  _OppositeTile: 0
   _isStatic: 0
   _Charm: 0
   _FireStack: 7

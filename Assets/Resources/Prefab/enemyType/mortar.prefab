@@ -25,15 +25,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _AttackStagger
-      value: 0
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
+      propertyPath: RandomMouvement
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _CooldownAttack
-      value: 2
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
+      propertyPath: _RandomMouvement
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _CooldownMouvement
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5222455024252384056, guid: 025988acb756143478e44a0b3ce873cf, type: 3}
       propertyPath: _TargetOfMouvement.x

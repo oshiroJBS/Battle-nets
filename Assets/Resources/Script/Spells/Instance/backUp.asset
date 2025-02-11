@@ -13,22 +13,26 @@ MonoBehaviour:
   m_Name: backUp
   m_EditorClassIdentifier: 
   CharacterDeckStarter: 
-  ManaCost: 0
+  ManaCost: 2
   castingTime: 0.2
-  _Damage: 0
+  _Damage: 20
+  _Shield: 0
   nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 1
-  _StartingPosition: {x: 3, y: 0}
+  _StartingPosition: {x: 4, y: 0}
   _NbObject: {x: 2, y: 4}
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 1
+  _aimed: 0
+  _OppositeTile: 0
   _isStatic: 1
   _Charm: 0
   _FireStack: 0

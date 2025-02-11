@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpellsScriptableObject", menuName = "ScriptableObject/Instance")]
 public class InstanceScriptableObject : SpellScriptableObject
 {
-    public float _LifeSpan;
+    public float _LifeSpan = 0.2f;
     public bool isRandom = false;
 }

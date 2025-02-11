@@ -26,15 +26,17 @@ MonoBehaviour:
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 0
   _aimed: 1
+  _OppositeTile: 0
   _isStatic: 0
   _Charm: 0
   _FireStack: 0
   _PoisonStack: 0
   Icon: {fileID: 21300000, guid: 37e07b1bd28380b4f9cbfa0fc8bd564c, type: 3}
-  _LifeSpan: 0.2
+  _LifeSpan: 0.05
   isRandom: 0

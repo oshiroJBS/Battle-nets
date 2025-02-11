@@ -24,13 +24,17 @@ public class SpellScriptableObject : ScriptableObject
     public bool RandomTPonHit = false;
 
     public float MoveToEnnemyGridForTime;
+    public bool TpOnOpposite = false;
     public bool RandomTpOnCast = false;
     public Vector2 _TpOnCast = new Vector2(0,0);
     public float StunTime = 0f;
 
     public bool _isFriendly =true;
-    [Header("only if friendly off")]
+    [Header("Y = player Y")]
     public bool _aimed =false;
+    public bool _resetStartPoint =false;
+    [Header("start on the opposite tile")]
+    public bool _OppositeTile =false;
     public bool _isStatic;
 
     public bool _Charm = false;

@@ -13,7 +13,7 @@ public class EnemyBasics : MonoBehaviour
 
     public SpellScriptableObject _SpellToCast;
 
-    [SerializeField] private TilesManager _TileManager;
+    private TilesManager _TileManager;
     private SpellLibrary _Library = null;
     private GUIcanvas _GUI = null;
 
@@ -29,6 +29,8 @@ public class EnemyBasics : MonoBehaviour
 
 
     [SerializeField] private float _CooldownMouvement = 0.5f;
+    [SerializeField] private bool _RandomMouvement = false;
+    [SerializeField] private bool _isScared = false;
     [SerializeField] private Vector2 _TargetOfMouvement;
     private Vector2 _TargetTile;
 
@@ -43,20 +45,21 @@ public class EnemyBasics : MonoBehaviour
     //Status
     public int _Shield = 0;
 
-    public int _FireStack = 0;
+    [HideInInspector] public int _FireStack = 0;
     private const float _FireTick = 0.5f;
     private float _FireTimer = 0f;
 
-    public int _PoisonStack = 0;
+    [HideInInspector] public int _PoisonStack = 0;
+    private int _LastPoisonStack = 0;
     private const float _PoisonTick = 0.8f;
     private float _PoisonTimer = 0f;
 
-    public bool _isStun = false;
-    public float stunCooldown;
+    [HideInInspector] public bool _isStun = false;
+    [HideInInspector] public float stunCooldown;
     private float stunTimer;
 
-    public int charmCount = 0;
-    public bool isCharmed = false;
+    [HideInInspector] public int charmCount = 0;
+    [HideInInspector] public bool isCharmed = false;
     private int _Stuck = 0;
     //
 
@@ -91,13 +94,13 @@ public class EnemyBasics : MonoBehaviour
         _TimerMouvement = 0;
         _StartingMaterial = this.GetComponent<MeshRenderer>().material;
 
-        this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
-        //
-
         this._TileX = Random.Range(0, 3);
         this._TileY = Random.Range(0, 3);
         _NormedTileX = this._TileX + 4;
 
+        this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
+        
+        
         //new starting point if occupied
         while (_TileManager.Tiles[_NormedTileX][_TileY].childCount > 1)
         {
@@ -136,7 +139,6 @@ public class EnemyBasics : MonoBehaviour
                 stunTimer = 0;
                 stunCooldown = 0;
             }
-            Debug.Log("Stunned" + stunTimer);
         }
         else
         {
@@ -175,6 +177,11 @@ public class EnemyBasics : MonoBehaviour
 
             _PoisonTimer += Time.deltaTime;
 
+            if (_LastPoisonStack < _PoisonStack)
+            {
+                _PoisonTimer = 0;
+            }
+
             if (_PoisonTimer >= _PoisonTick)
             {
                 HP -= _PoisonStack;
@@ -185,6 +192,7 @@ public class EnemyBasics : MonoBehaviour
             if (_PoisonStack < 0)
                 _PoisonStack = 0;
 
+            _LastPoisonStack = _PoisonStack;
             PoisonText.text = _PoisonStack.ToString();
         }
         else
@@ -345,7 +353,26 @@ public class EnemyBasics : MonoBehaviour
         }
         else
         {
-            _TargetTile = _Player.TilePosition + _TargetOfMouvement;
+            if (_RandomMouvement)
+            {
+                _TargetTile = new Vector2(4 + Random.Range(0, 3), Random.Range(0, 3));
+            }
+            else if (_isScared)
+            {
+
+                if (_Player.TilePosition.x > 1)
+                    _TargetTile.x = 7;
+                else
+                    _TargetTile.x = 4;
+
+                if (_Player.TilePosition.y > 1)
+                    _TargetTile.y = 0;
+                else
+                    _TargetTile.y = 3;
+
+            }
+            else
+                _TargetTile = _Player.TilePosition + _TargetOfMouvement;
         }
 
         if (_NormedTileX != _TargetTile.x || _TilePosition.y != _TargetTile.y)
@@ -408,6 +435,7 @@ public class EnemyBasics : MonoBehaviour
     private void Die()
     {
         _GUI.tempExp += ExpValue;
+        Debug.Log(_GUI.tempExp);
         Destroy(this.gameObject);
     }
 }
