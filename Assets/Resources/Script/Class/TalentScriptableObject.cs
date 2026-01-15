@@ -23,13 +23,16 @@ public class TalentScriptableObject : ScriptableObject
     [Header("trigger when immobile for X sec")]
     public int imobile = 0;
 
-    [Header("trigger if did'nt atk for X sec")]
+    [Header("trigger if didn't atk for X sec")]
     public float atkCooldown;
-    [Header("trigger if did'nt got hit for X sec")]
+    [Header("trigger if didn't got hit for X sec")]
     public float hitCooldown;
 
     [Header("always active")]
     public bool always = false;
+    [Header("sec between each activation")]
+    public float coolDown;
+
 
     [Header("Effect")]
     [Header("//")]
@@ -44,7 +47,7 @@ public class TalentScriptableObject : ScriptableObject
     public float HealOverTime = 0;
 
     public int burnModifier = 0;
-    public float burnMultiplier = 0;
+    public float combustModifier = 0;
 
     public int PoisonModifier = 0;
     public float PoisonMultiplier = 0;

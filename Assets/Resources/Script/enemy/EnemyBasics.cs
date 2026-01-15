@@ -45,6 +45,8 @@ public class EnemyBasics : MonoBehaviour
     //Status
     public int _Shield = 0;
 
+    private const int FireDamage = 2;
+    private const int CombustDamage = 30;
     [HideInInspector] public int _FireStack = 0;
     private const float _FireTick = 0.5f;
     private float _FireTimer = 0f;
@@ -99,8 +101,8 @@ public class EnemyBasics : MonoBehaviour
         _NormedTileX = this._TileX + 4;
 
         this.transform.parent = _TileManager.Tiles[_NormedTileX][_TileY];
-        
-        
+
+
         //new starting point if occupied
         while (_TileManager.Tiles[_NormedTileX][_TileY].childCount > 1)
         {
@@ -206,27 +208,25 @@ public class EnemyBasics : MonoBehaviour
 
             _FireTimer += Time.deltaTime;
 
+
             if (_FireTimer >= _FireTick)
             {
                 if (_FireStack >= 10)
                 {
-                    GetDamaged(40);
+                    GetDamaged((int)(CombustDamage + _Manager.GetCombustModifier()));
                     _FireStack -= 10;
                 }
                 else
                 {
+                    GetDamaged((int)(FireDamage + _Manager.GetBurnModifier()));
                     _FireStack--;
                 }
+
+                if (_FireStack < 0)
+                    _FireStack = 0;
+
                 _FireTimer = 0;
             }
-
-            if (_FireStack == 0)
-            {
-                GetDamaged(10);
-            }
-
-            if (_FireStack < 0)
-                _FireStack = 0;
 
             BurnText.text = _FireStack.ToString();
         }

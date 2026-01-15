@@ -30,8 +30,9 @@ MonoBehaviour:
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
-  _isFriendly: 1
+  _isFriendly: 0
   _aimed: 0
+  _resetStartPoint: 0
   _OppositeTile: 0
   _isStatic: 0
   _Charm: 0

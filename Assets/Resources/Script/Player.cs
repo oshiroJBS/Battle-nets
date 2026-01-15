@@ -52,7 +52,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public int _FireStack = 0;
     private const float _FireTick = 0.5f;
     private float _FireTimer = 0f;
-    private const int FireDamage = 40;
+    private const int FireDamage = 2;
+    private const int CombustDamage = 30;
     [SerializeField] private TextMeshProUGUI _FireText;
 
 
@@ -168,31 +169,28 @@ public class Player : MonoBehaviour
         {
             _FireText.transform.parent.gameObject.SetActive(true);
 
-
-
             _FireTimer += Time.deltaTime;
+
 
             if (_FireTimer >= _FireTick)
             {
+
+
                 if (_FireStack >= 10)
                 {
-                    GetDamaged((int)((FireDamage + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
+                    GetDamaged(CombustDamage);
                     _FireStack -= 10;
                 }
                 else
                 {
+                    GetDamaged(FireDamage);
                     _FireStack--;
                 }
+
+                if (_FireStack < 0)
+                    _FireStack = 0;
                 _FireTimer = 0;
             }
-
-            if (_FireStack == 0)
-            {
-                GetDamaged((int)((10 + _Manager.GetBurnModifier()) * _Manager.GetBurnMultiplier()));
-            }
-
-            if (_FireStack < 0)
-                _FireStack = 0;
 
             _FireText.text = _FireStack.ToString();
         }
@@ -247,10 +245,16 @@ public class Player : MonoBehaviour
 
         // first Spells
         SpellA = GetNewSpell();
-        A_Cost = _Library.GetCost(SpellA);
+        if (SpellA != null)
+            A_Cost = _Library.GetCost(SpellA);
+        else
+            A_Cost = null;
 
         SpellB = GetNewSpell();
-        B_Cost = _Library.GetCost(SpellB);
+        if (SpellB != null)
+            B_Cost = _Library.GetCost(SpellB);
+        else
+            B_Cost = null;
     }
 
     #region basic (mouvement + weapon)
@@ -389,8 +393,12 @@ public class Player : MonoBehaviour
         {
             if (_Library.cast(SpellA, TilePosition))
             {
+
                 SpellA = GetNewSpell();
-                A_Cost = _Library.GetCost(SpellA);
+                if (SpellA != null)
+                    A_Cost = _Library.GetCost(SpellA);
+                else
+                    A_Cost = null;
             }
 
         }
@@ -400,7 +408,11 @@ public class Player : MonoBehaviour
             if (_Library.cast(SpellB, TilePosition))
             {
                 SpellB = GetNewSpell();
-                B_Cost = _Library.GetCost(SpellB);
+
+                if (SpellB != null)
+                    B_Cost = _Library.GetCost(SpellB);
+                else
+                    B_Cost = null;
             }
         }
 
@@ -500,6 +512,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region special mouvement
+
     public void MouveToEnnemySpace(int x, int y, float Timer)
     {
         if (IsOnEnnemyTile) return;
@@ -557,7 +570,7 @@ public class Player : MonoBehaviour
 
         this.TilePosition = new Vector2(newX, newY);
         this.lastTilePosition = TilePosition;
-    }    
+    }
 
     public Vector3 Position(int Xtile, int Ytile)
     {
@@ -590,9 +603,12 @@ public class Player : MonoBehaviour
         p_Deck = new ArrayList(_StartingDeck);
 
         SpellA = GetNewSpell();
-        A_Cost = _Library.GetCost(SpellA);
+        if (SpellA != null)
+            A_Cost = _Library.GetCost(SpellA);
+
         SpellB = GetNewSpell();
-        B_Cost = _Library.GetCost(SpellB);
+        if (SpellB != null)
+            B_Cost = _Library.GetCost(SpellB);
     }
 
     public static Transform GetClosestObject(Vector3 position, string Tag = "", float ScaleMin = 0.001f) // used to search for object

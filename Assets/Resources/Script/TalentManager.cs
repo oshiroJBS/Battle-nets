@@ -13,7 +13,7 @@ public class TalentManager : MonoBehaviour
     private float _ManaRecupUp = 0;
     private float _HealOverTime = 0;
     private int _BurnModifier = 0;
-    private float _BurnMultiplier = 0;
+    private float _CombustModifier = 0;
     private int _PoisonModifier = 0;
     private float _PoisonMultiplier = 0;
 
@@ -168,20 +168,20 @@ public class TalentManager : MonoBehaviour
         return _BurnModifier;
     }
 
-    public float GetBurnMultiplier()
+    public float GetCombustModifier()
     {
-        _BurnMultiplier = 1;
+        _CombustModifier = 1;
         if (talentInUse.Length > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
                 if (item.isConditionMet())
                 {
-                    _BurnMultiplier += item.burnMultiplier;
+                    _CombustModifier += item.combustModifier;
                 }
             }
         }
-        return _BurnMultiplier;
+        return _CombustModifier;
     }
 
     public float GetPoisonModifier()

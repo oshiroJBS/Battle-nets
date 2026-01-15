@@ -1,9 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpellLibrary : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    private Dictionary<string, SpellScriptableObject> SpellTable = new Dictionary<string, SpellScriptableObject>();
 
     public SpellScriptableObject[] _Library;
     public ArrayList _SpellAvailable;
@@ -21,16 +25,22 @@ public class SpellLibrary : MonoBehaviour
     private void Awake()
     {
         _SpellAvailable = new ArrayList();
-        for (int i = 0; i < _Library.Length; i++)
+
+        foreach (SpellScriptableObject SpellBF in _Library)
         {
-            _SpellAvailable.Add(_Library[i]);
+            SpellTable[SpellBF.name] = SpellBF;
+            _SpellAvailable.Add(SpellBF);
         }
+        _Library = new SpellScriptableObject[0];
+        Debug.Log(SpellTable.Count);
     }
 
     private void Start()
     {
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
+
+        Debug.Log("Spell Count : " + SpellTable.Count);
         Debug.Log(_Manager.GetDamageMultiplier());
     }
 
@@ -39,20 +49,17 @@ public class SpellLibrary : MonoBehaviour
     public string GetCost(string SpellName)
     {
         int _cost = 0;
-        for (int i = 0; i < _Library.Length; i++)
+        if (SpellTable[SpellName] != null)
         {
-            if (_Library[i].name == SpellName)
+            if (SpellTable[SpellName] is ProjectileScriptableObject)
             {
-                if (_Library[i] is ProjectileScriptableObject)
-                {
-                    _cost = ((ProjectileScriptableObject)_Library[i]).ManaCost;
-                    return "(" + _cost + ")";
-                }
-                else if (_Library[i] is InstanceScriptableObject)
-                {
-                    _cost = ((InstanceScriptableObject)_Library[i]).ManaCost;
-                    return "(" + _cost + ")";
-                }
+                _cost = ((ProjectileScriptableObject)SpellTable[SpellName]).ManaCost;
+                return "(" + _cost + ")";
+            }
+            else if (SpellTable[SpellName] is InstanceScriptableObject)
+            {
+                _cost = ((InstanceScriptableObject)SpellTable[SpellName]).ManaCost;
+                return "(" + _cost + ")";
             }
         }
         return "";
@@ -61,58 +68,50 @@ public class SpellLibrary : MonoBehaviour
     public bool cast(string spellToCast, Vector2 Positon, bool Enemy = false)
     {
         if (spellToCast == null) { return false; }
+        SpellScriptableObject BFspell = SpellTable[spellToCast];
 
-        for (int i = 0; i < _Library.Length; i++)
+        if (BFspell.ManaCost > _Player.CurrentMana)
+            return false;
+
+        if (BFspell is ProjectileScriptableObject)
         {
-            if (_Library[i].name == spellToCast)
+            ProjectileScriptableObject pso = (ProjectileScriptableObject)BFspell;
+
+            if (!Enemy && pso.MoveToEnnemyGridForTime != 0) _Player.MouveToEnnemySpace((int)pso._TpOnCast.x, (int)pso._TpOnCast.y, pso.MoveToEnnemyGridForTime);
+            else if (!Enemy && pso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)pso._TpOnCast.x, (int)pso._TpOnCast.y);
+
+            StartCoroutine(CastProjectile(pso, Positon, Enemy));
+
+            if (pso.RandomTpOnCast)
             {
-                if (_Library[i].ManaCost > _Player.CurrentMana)
-                {
-                    return false;
-                }
-
-                if (_Library[i] is ProjectileScriptableObject)
-                {
-                    ProjectileScriptableObject pso = (ProjectileScriptableObject)_Library[i];
-
-                    if (!Enemy && pso.MoveToEnnemyGridForTime != 0) _Player.MouveToEnnemySpace((int)pso._TpOnCast.x, (int)pso._TpOnCast.y, pso.MoveToEnnemyGridForTime);
-                    else if (!Enemy && pso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)pso._TpOnCast.x, (int)pso._TpOnCast.y);
-
-                    StartCoroutine(CastProjectile(pso, Positon, Enemy));
-
-                    if (pso.RandomTpOnCast)
-                    {
-                        int randx = Random.Range(0, 3);
-                        int randy = Random.Range(0, 3);
-                        _Player.Teleport(randx, randy);
-                    }
-                    else if (pso.TpOnOpposite && !Enemy)
-                    {
-                        _Player.Teleport(Mathf.Abs((int)_Player.TilePosition.x - 3), Mathf.Abs((int)_Player.TilePosition.y - 3));
-                    }
-
-                    return true;
-                }
-                else if (_Library[i] is InstanceScriptableObject)
-                {
-                    InstanceScriptableObject iso = (InstanceScriptableObject)_Library[i];
-
-                    if (!Enemy && iso.MoveToEnnemyGridForTime != 0) _Player.MouveToEnnemySpace((int)iso._TpOnCast.x, (int)iso._TpOnCast.y, iso.MoveToEnnemyGridForTime);
-                    else if (!Enemy && iso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)iso._TpOnCast.x, (int)iso._TpOnCast.y);
-
-                    StartCoroutine(CastInstance(iso, Positon, Enemy));
-
-                    if (iso.RandomTpOnCast)
-                    {
-                        int randx = Random.Range(0, 3);
-                        int randy = Random.Range(0, 3);
-                        _Player.ForcedMovement(randx, randy);
-                    }
-
-                    return true;
-                }
-                return false;
+                int randx = Random.Range(0, 3);
+                int randy = Random.Range(0, 3);
+                _Player.Teleport(randx, randy);
             }
+            else if (pso.TpOnOpposite && !Enemy)
+            {
+                _Player.Teleport(Mathf.Abs((int)_Player.TilePosition.x - 3), Mathf.Abs((int)_Player.TilePosition.y - 3));
+            }
+
+            return true;
+        }
+        else if (BFspell is InstanceScriptableObject)
+        {
+            InstanceScriptableObject iso = (InstanceScriptableObject)BFspell;
+
+            if (!Enemy && iso.MoveToEnnemyGridForTime != 0) _Player.MouveToEnnemySpace((int)iso._TpOnCast.x, (int)iso._TpOnCast.y, iso.MoveToEnnemyGridForTime);
+            else if (!Enemy && iso._TpOnCast != Vector2.zero) _Player.ForcedMovement((int)iso._TpOnCast.x, (int)iso._TpOnCast.y);
+
+            StartCoroutine(CastInstance(iso, Positon, Enemy));
+
+            if (iso.RandomTpOnCast)
+            {
+                int randx = Random.Range(0, 3);
+                int randy = Random.Range(0, 3);
+                _Player.ForcedMovement(randx, randy);
+            }
+
+            return true;
         }
 
         Debug.LogError("Spell is not in library");
@@ -252,7 +251,7 @@ public class SpellLibrary : MonoBehaviour
 
     private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon, bool enemy)
     {
-        ///BAsic
+        ///Basic
         int SpellDirection = 1;
 
         if (enemy)
@@ -273,7 +272,6 @@ public class SpellLibrary : MonoBehaviour
                 //{
 
                 //}
-
 
                 int xInstance = 0;
                 int yInstance = 0;
@@ -431,13 +429,13 @@ public class SpellLibrary : MonoBehaviour
     {
         ArrayList NameList = new ArrayList();
 
-        for (int i = 0; i < _Library.Length; i++)
+        foreach (var spellBF in SpellTable)
         {
-            if (_Library[i].CharacterDeckStarter == charName)
+            if(spellBF.Value.CharacterDeckStarter == charName)
             {
-                NameList.Add(_Library[i]);
+                NameList.Add(spellBF.Value);
 
-                _SpellAvailable.Remove(_Library[i]);
+                _SpellAvailable.Remove(spellBF.Value);
             }
         }
 
@@ -446,23 +444,13 @@ public class SpellLibrary : MonoBehaviour
 
     public void AddSpellToPlayerDeck(string spellName)
     {
-        for (int i = 0; i < _Library.Length; i++)
-        {
-            if (_Library[i].name == spellName)
-            {
-                _Player._StartingDeck.Add(_Library[i]);
-            }
-        }
+        _Player._StartingDeck.Add(SpellTable[spellName]);
+        _SpellAvailable.Remove(SpellTable[spellName]);
     }
     /////////////////////////////// UI/////////////////////////////
     public Sprite GetIcone(string SpellName)
     {
-        for (int i = 0; i < _Library.Length; i++)
-        {
-            if (_Library[i].name == SpellName)
-                return _Library[i].Icon;
-        }
-        return null;
+        return SpellTable[SpellName].Icon;
     }
 
     // For Later

@@ -24,6 +24,7 @@ MonoBehaviour:
   atkCooldown: 0
   hitCooldown: 0
   always: 0
+  coolDown: 0
   damageModifier: 0
   damageMultiplier: 0
   defenceUP: 0
