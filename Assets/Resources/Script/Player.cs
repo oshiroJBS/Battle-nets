@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
 
     //Spell related
     public SpellLibrary _Library = null;
-    private TalentManager _Manager;
+    private TalentManager _Manager = null;
 
     private const float resetTimer = 1.5f;
     private bool ResetOnce = true;
@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
+        if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
 
         this.ShuffleIcon.gameObject.SetActive(false);
 
@@ -105,7 +106,6 @@ public class Player : MonoBehaviour
         this.lastTilePosition = new Vector2(newX, newY);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_Library._InGame) { return; }
@@ -199,12 +199,20 @@ public class Player : MonoBehaviour
             _FireText.transform.parent.gameObject.SetActive(false);
         }
 
-        this.TilePosition = new Vector2(newX, newY);
+        this.TilePosition = new Vector2(newX, newY);*
+
+        if (TilePosition != lastTilePosition)
+            _Manager.UpdateTalentCondition(true);
+        else
+            _Manager.UpdateTalentCondition(false);
+
         this.lastTilePosition = TilePosition;
     }
 
 
 
+
+    
 
 
     ////////////////////////// FONCTION ///////////////////////////////////

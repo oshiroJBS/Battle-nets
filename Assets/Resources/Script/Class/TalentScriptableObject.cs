@@ -12,6 +12,7 @@ public class TalentScriptableObject : ScriptableObject
     public int HpPercentMax;
     public int shieldMax;
     public int shieldMin;
+
     public enum StatusEffect
     {
         none, Poison, burn, either, both
@@ -32,6 +33,8 @@ public class TalentScriptableObject : ScriptableObject
     public bool always = false;
     [Header("sec between each activation")]
     public float coolDown;
+    [Header("///")]
+    [Header(" ")]
 
 
     [Header("Effect")]
@@ -52,6 +55,17 @@ public class TalentScriptableObject : ScriptableObject
     public int PoisonModifier = 0;
     public float PoisonMultiplier = 0;
 
+    ////////////values//////////
+
+    [HideInInspector] public int step = 0;
+    [HideInInspector] public float timer = 0;
+
+
+
+
+
+
+    ///////////////////////fonctions/////////////////////////////////
     public bool isConditionMet()
     {
         //if (item.Moved != 0)
@@ -79,6 +93,7 @@ public class TalentScriptableObject : ScriptableObject
             else
                 return false;
         }
+
         if (HpPercentMin != 0)
         {
             if (_Player.HP / _Player.HPMax > HpPercentMin / 100)

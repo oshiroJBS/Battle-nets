@@ -7,7 +7,7 @@ public class SpellLibrary : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    private Dictionary<string, SpellScriptableObject> SpellTable = new Dictionary<string, SpellScriptableObject>();
+    private Dictionary<string, SpellScriptableObject> dic_SpellTable = new Dictionary<string, SpellScriptableObject>();
 
     public SpellScriptableObject[] _Library;
     public ArrayList _SpellAvailable;
@@ -28,11 +28,11 @@ public class SpellLibrary : MonoBehaviour
 
         foreach (SpellScriptableObject SpellBF in _Library)
         {
-            SpellTable[SpellBF.name] = SpellBF;
+            dic_SpellTable[SpellBF.name] = SpellBF;
             _SpellAvailable.Add(SpellBF);
         }
         _Library = new SpellScriptableObject[0];
-        Debug.Log(SpellTable.Count);
+        Debug.Log(dic_SpellTable.Count);
     }
 
     private void Start()
@@ -40,7 +40,7 @@ public class SpellLibrary : MonoBehaviour
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
 
-        Debug.Log("Spell Count : " + SpellTable.Count);
+        Debug.Log("Spell Count : " + dic_SpellTable.Count);
         Debug.Log(_Manager.GetDamageMultiplier());
     }
 
@@ -49,16 +49,16 @@ public class SpellLibrary : MonoBehaviour
     public string GetCost(string SpellName)
     {
         int _cost = 0;
-        if (SpellTable[SpellName] != null)
+        if (dic_SpellTable[SpellName] != null)
         {
-            if (SpellTable[SpellName] is ProjectileScriptableObject)
+            if (dic_SpellTable[SpellName] is ProjectileScriptableObject)
             {
-                _cost = ((ProjectileScriptableObject)SpellTable[SpellName]).ManaCost;
+                _cost = ((ProjectileScriptableObject)dic_SpellTable[SpellName]).ManaCost;
                 return "(" + _cost + ")";
             }
-            else if (SpellTable[SpellName] is InstanceScriptableObject)
+            else if (dic_SpellTable[SpellName] is InstanceScriptableObject)
             {
-                _cost = ((InstanceScriptableObject)SpellTable[SpellName]).ManaCost;
+                _cost = ((InstanceScriptableObject)dic_SpellTable[SpellName]).ManaCost;
                 return "(" + _cost + ")";
             }
         }
@@ -68,7 +68,7 @@ public class SpellLibrary : MonoBehaviour
     public bool cast(string spellToCast, Vector2 Positon, bool Enemy = false)
     {
         if (spellToCast == null) { return false; }
-        SpellScriptableObject BFspell = SpellTable[spellToCast];
+        SpellScriptableObject BFspell = dic_SpellTable[spellToCast];
 
         if (BFspell.ManaCost > _Player.CurrentMana)
             return false;
@@ -429,7 +429,7 @@ public class SpellLibrary : MonoBehaviour
     {
         ArrayList NameList = new ArrayList();
 
-        foreach (var spellBF in SpellTable)
+        foreach (var spellBF in dic_SpellTable)
         {
             if(spellBF.Value.CharacterDeckStarter == charName)
             {
@@ -444,13 +444,13 @@ public class SpellLibrary : MonoBehaviour
 
     public void AddSpellToPlayerDeck(string spellName)
     {
-        _Player._StartingDeck.Add(SpellTable[spellName]);
-        _SpellAvailable.Remove(SpellTable[spellName]);
+        _Player._StartingDeck.Add(dic_SpellTable[spellName]);
+        _SpellAvailable.Remove(dic_SpellTable[spellName]);
     }
     /////////////////////////////// UI/////////////////////////////
     public Sprite GetIcone(string SpellName)
     {
-        return SpellTable[SpellName].Icon;
+        return dic_SpellTable[SpellName].Icon;
     }
 
     // For Later
