@@ -14,4 +14,11 @@ public class ProjectileScriptableObject : SpellScriptableObject
         Forward, Backward, Up, Down
     }
     public Direction SpellDirection;
+
+
+    public enum OutOfBoundStart
+    {
+        None,Up,Down,Right,Left
+    }
+    public OutOfBoundStart OOB_start = OutOfBoundStart.None;
 }

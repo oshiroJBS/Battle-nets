@@ -13,6 +13,9 @@ public class TalentScriptableObject : ScriptableObject
     public int shieldMax;
     public int shieldMin;
 
+    private int[] ConditionTab = new int[6];
+
+
     public enum StatusEffect
     {
         none, Poison, burn, either, both
@@ -24,6 +27,8 @@ public class TalentScriptableObject : ScriptableObject
     [Header("trigger when immobile for X sec")]
     public int imobile = 0;
 
+    [Header("trigger every X spell used")]
+    public float nbAtkNecessary;
     [Header("trigger if didn't atk for X sec")]
     public float atkCooldown;
     [Header("trigger if didn't got hit for X sec")]
@@ -58,11 +63,10 @@ public class TalentScriptableObject : ScriptableObject
     ////////////values//////////
 
     [HideInInspector] public int step = 0;
-    [HideInInspector] public float timer = 0;
-
-
-
-
+    [HideInInspector] public float immobileTimer = 0;
+    [HideInInspector] public float AtkTimer = 0;
+    [HideInInspector] public float nbAtk = 0;
+    [HideInInspector] public float hitTimer = 0;
 
 
     ///////////////////////fonctions/////////////////////////////////
@@ -80,6 +84,8 @@ public class TalentScriptableObject : ScriptableObject
         //if (item.hitCooldown != 0)
         //{
         //}
+
+
 
         if (always) return true;
        bool conditionMet = false;
@@ -110,7 +116,7 @@ public class TalentScriptableObject : ScriptableObject
         }
         if (HpPercentMax != 0)
         {
-            if (_Player.HP / _Player.HPMax < HpPercentMax)
+            if (_Player.HP / _Player.HPMax < HpPercentMax /100)
                 conditionMet = true;
             else return false;
         }
@@ -163,7 +169,11 @@ public class TalentScriptableObject : ScriptableObject
                     break;
             }
         }
-
         return conditionMet;
+    }
+
+    public void Activate()
+    {
+
     }
 }

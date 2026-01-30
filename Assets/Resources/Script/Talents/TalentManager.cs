@@ -28,7 +28,6 @@ public class TalentManager : MonoBehaviour
 
     private void Awake()
     {
-
         foreach (TalentScriptableObject TalentBF in _TalentLibrary)
         {
             dic_TalentList[TalentBF.name] = TalentBF;
@@ -223,7 +222,7 @@ public class TalentManager : MonoBehaviour
 
     #region ConditionManager
 
-    public void UpdateTalentCondition(bool AsMoved)
+    public void UpdateTalentCondition(bool AsMoved,bool AsAtked, bool GotHit)
     {
         if (talentInUse.Length > 0)
         {
@@ -231,20 +230,27 @@ public class TalentManager : MonoBehaviour
             {
                 if (AsMoved)
                 {
-                    item.timer = 0;
+                    item.immobileTimer = 0;
                     item.step++;
                 }
+                else 
+                    item.immobileTimer += Time.deltaTime;
+
+                if (AsAtked)
+                {
+                    item.nbAtk++;
+                    item.AtkTimer = 0;
+                }
                 else
-                    item.timer += Time.deltaTime;
+                    item.AtkTimer += Time.deltaTime;
 
-                if(item.step >= item.Moved)
+
+                if (AsAtked)
                 {
-
+                    item.hitTimer = 0;
                 }
-                if(item.timer>= item.imobile)
-                {
-
-                }
+                else
+                    item.hitTimer += Time.deltaTime;
             }
         }
     }

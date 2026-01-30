@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class SpellLibrary : MonoBehaviour
@@ -299,7 +298,12 @@ public class SpellLibrary : MonoBehaviour
                 if (xInstance >= 0 && xInstance <= 7
                     && yInstance >= 0 && yInstance <= 3)
                 {
-                    Projectile = Instantiate(ProjectileSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
+                    if (enemy)
+                    {
+                        Projectile = Instantiate(ProjectileSphere, _Player.OOBposition(xInstance, yInstance, CastingProjectile.OOB_start), Quaternion.identity);
+                    }
+                    else
+                        Projectile = Instantiate(ProjectileSphere, _Player.Position(xInstance, yInstance), Quaternion.identity);
                 }
 
 
@@ -431,7 +435,7 @@ public class SpellLibrary : MonoBehaviour
 
         foreach (var spellBF in dic_SpellTable)
         {
-            if(spellBF.Value.CharacterDeckStarter == charName)
+            if (spellBF.Value.CharacterDeckStarter == charName)
             {
                 NameList.Add(spellBF.Value);
 

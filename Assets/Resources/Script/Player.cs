@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public string _characterName;
     public float HPMax = 100;
     [HideInInspector] public float HP = 100;
+    private float lastHP = 100;
     public float ManaMax = 3f;
     [HideInInspector] public float ManaRecuperation = 0.6f;
     [HideInInspector] public int Shield = 0;
@@ -199,7 +200,7 @@ public class Player : MonoBehaviour
             _FireText.transform.parent.gameObject.SetActive(false);
         }
 
-        this.TilePosition = new Vector2(newX, newY);*
+        this.TilePosition = new Vector2(newX, newY);
 
         if (TilePosition != lastTilePosition)
             _Manager.UpdateTalentCondition(true);
@@ -207,12 +208,14 @@ public class Player : MonoBehaviour
             _Manager.UpdateTalentCondition(false);
 
         this.lastTilePosition = TilePosition;
+
+
     }
 
 
 
 
-    
+
 
 
     ////////////////////////// FONCTION ///////////////////////////////////
@@ -583,6 +586,31 @@ public class Player : MonoBehaviour
     public Vector3 Position(int Xtile, int Ytile)
     {
         return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
+    }
+
+    public Vector3 OOBposition(int Xtile, int Ytile, ProjectileScriptableObject.OutOfBoundStart OOB_option)
+    {
+        switch (OOB_option)
+        {
+            case ProjectileScriptableObject.OutOfBoundStart.None:
+                return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
+
+            case ProjectileScriptableObject.OutOfBoundStart.Up:
+                return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x - 2, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
+
+            case ProjectileScriptableObject.OutOfBoundStart.Down:
+                return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x + 2, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z);
+
+            case ProjectileScriptableObject.OutOfBoundStart.Right:
+                return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z + 2);
+
+            case ProjectileScriptableObject.OutOfBoundStart.Left:
+                return new Vector3(this._TileManager.Tiles[Xtile][Ytile].position.x, this.m_Player.position.y, this._TileManager.Tiles[Xtile][Ytile].position.z - 2);
+
+            default:
+                break;
+        }
+        return Vector3.zero;
     }
 
     #endregion 

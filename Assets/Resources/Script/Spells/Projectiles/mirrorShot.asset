@@ -43,3 +43,4 @@ MonoBehaviour:
   p_IsLaser: 0
   _isComingBack: 0
   SpellDirection: 1
+  OOB_start: 4
