@@ -6,6 +6,10 @@ public class TalentManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private Player _Player;
+    public enum TalentStatus
+    {
+        Neutral, GotHit, Moved, DidAttacked
+    }
 
     private float _DamageMultiplier = 1;
     private int _DamageModifier = 0;
@@ -222,36 +226,50 @@ public class TalentManager : MonoBehaviour
 
     #region ConditionManager
 
-    public void UpdateTalentCondition(bool AsMoved,bool AsAtked, bool GotHit)
+    public void UpdateTalentCondition(TalentStatus newStatus)
     {
         if (talentInUse.Length > 0)
         {
-            foreach (TalentScriptableObject item in talentInUse)
+            switch (newStatus)
             {
-                if (AsMoved)
-                {
-                    item.immobileTimer = 0;
-                    item.step++;
-                }
-                else 
-                    item.immobileTimer += Time.deltaTime;
-
-                if (AsAtked)
-                {
-                    item.nbAtk++;
-                    item.AtkTimer = 0;
-                }
-                else
-                    item.AtkTimer += Time.deltaTime;
-
-
-                if (AsAtked)
-                {
-                    item.hitTimer = 0;
-                }
-                else
-                    item.hitTimer += Time.deltaTime;
+                case TalentStatus.Neutral:
+                    break;
+                case TalentStatus.GotHit:
+                    break;
+                case TalentStatus.Moved:
+                    break;
+                case TalentStatus.DidAttacked:
+                    break;
+                default:
+                    break;
             }
+
+            //foreach (TalentScriptableObject item in talentInUse)
+            //{
+            //    if (AsMoved)
+            //    {
+            //        item.immobileTimer = 0;
+            //        item.step++;
+            //    }
+            //    else 
+            //        item.immobileTimer += Time.deltaTime;
+
+            //    if (AsAtked)
+            //    {
+            //        item.nbAtk++;
+            //        item.AtkTimer = 0;
+            //    }
+            //    else
+            //        item.AtkTimer += Time.deltaTime;
+
+
+            //    if (AsAtked)
+            //    {
+            //        item.hitTimer = 0;
+            //    }
+            //    else
+            //        item.hitTimer += Time.deltaTime;
+        //}
         }
     }
 

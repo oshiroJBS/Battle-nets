@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public string _characterName;
     public float HPMax = 100;
     [HideInInspector] public float HP = 100;
-    private float lastHP = 100;
+    //private float lastHP = 100;
     public float ManaMax = 3f;
     [HideInInspector] public float ManaRecuperation = 0.6f;
     [HideInInspector] public int Shield = 0;
@@ -203,9 +203,9 @@ public class Player : MonoBehaviour
         this.TilePosition = new Vector2(newX, newY);
 
         if (TilePosition != lastTilePosition)
-            _Manager.UpdateTalentCondition(true);
+            _Manager.UpdateTalentCondition(TalentManager.TalentStatus.Neutral);
         else
-            _Manager.UpdateTalentCondition(false);
+            _Manager.UpdateTalentCondition(TalentManager.TalentStatus.Neutral);
 
         this.lastTilePosition = TilePosition;
 
