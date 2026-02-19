@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TalentManager;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TalentManager : MonoBehaviour
 {
@@ -56,6 +58,8 @@ public class TalentManager : MonoBehaviour
                 break;
         }
     }
+
+
 
 
     #region GET TargetModifier
@@ -226,53 +230,9 @@ public class TalentManager : MonoBehaviour
 
     #region ConditionManager
 
-    public void UpdateTalentCondition(TalentStatus newStatus)
+    public void UpdateTalentsCondition(TalentStatus newStatus)
     {
-        if (talentInUse.Length > 0)
-        {
-            switch (newStatus)
-            {
-                case TalentStatus.Neutral:
-                    break;
-                case TalentStatus.GotHit:
-                    break;
-                case TalentStatus.Moved:
-                    break;
-                case TalentStatus.DidAttacked:
-                    break;
-                default:
-                    break;
-            }
-
-            //foreach (TalentScriptableObject item in talentInUse)
-            //{
-            //    if (AsMoved)
-            //    {
-            //        item.immobileTimer = 0;
-            //        item.step++;
-            //    }
-            //    else 
-            //        item.immobileTimer += Time.deltaTime;
-
-            //    if (AsAtked)
-            //    {
-            //        item.nbAtk++;
-            //        item.AtkTimer = 0;
-            //    }
-            //    else
-            //        item.AtkTimer += Time.deltaTime;
-
-
-            //    if (AsAtked)
-            //    {
-            //        item.hitTimer = 0;
-            //    }
-            //    else
-            //        item.hitTimer += Time.deltaTime;
-        //}
-        }
     }
-
 
     #endregion
 
@@ -291,3 +251,122 @@ public class TalentManager : MonoBehaviour
         lastTab = talentInUse;
     }
 }
+
+
+
+
+
+
+
+
+//if (talentInUse.Length > 0)
+//{
+//    foreach (TalentScriptableObject item in talentInUse)
+//    {
+
+//        switch (newStatus)
+//        {
+//            case TalentStatus.Neutral:
+//                item.immobileTimer += Time.deltaTime;
+//                item.AtkTimer += Time.deltaTime;
+//                item.hitTimer += Time.deltaTime;
+
+//                break;
+
+//            case TalentStatus.GotHit:
+//                item.immobileTimer += Time.deltaTime;
+//                item.AtkTimer += Time.deltaTime;
+//                break;
+
+//            case TalentStatus.Moved:
+
+//                item.AtkTimer += Time.deltaTime;
+//                item.hitTimer += Time.deltaTime;
+
+//                item.step++;
+//                if (item.step >= item.stepsNecessary && item.stepsNecessary != 0)
+//                {
+
+//                }
+//                item.step = 0;
+
+//                break;
+
+//            case TalentStatus.DidAttacked:
+//                item.immobileTimer += Time.deltaTime;
+//                item.hitTimer += Time.deltaTime;
+
+//                item.nbAtk++;
+//                if (item.nbAtk >= item.nbAtkNecessary && item.nbAtkNecessary != 0)
+//                {
+
+//                }
+//                item.nbAtk = 0;
+//                break;
+
+//            default:
+//                break;
+//        }
+
+
+//        //if (_Player.Sta == item.Status) { }
+//        if (item.always == true) { }
+
+
+//        if (item.HpMin > 0)
+//        {
+//            if (_Player.HP >= item.HpMin)
+//            {
+
+//            }
+//        }
+
+//        if (item.HpPercentMin > 0)
+//        {
+//            if ((_Player.HP / _Player.HPMax) * 100 >= item.HpPercentMin)
+//            {
+
+//            }
+//        }
+
+//        if (item.HpMax > 0)
+//        {
+//            if (_Player.HP >= item.HpMax)
+//            {
+
+//            }
+//        }
+
+//        if (item.HpPercentMax > 0)
+//        {
+//            if ((_Player.HP / _Player.HPMax) * 100 <= item.HpPercentMax)
+//            {
+
+//            }
+//        }
+
+//        if (item.shieldMax > 0)
+//        {
+//            if (_Player.Shield <= item.shieldMax)
+//            {
+
+//            }
+//        }
+
+//        if (item.shieldMin > 0)
+//        {
+//            if (_Player.Shield >= item.shieldMin)
+//            {
+
+//            }
+//        }
+
+//        if (item.Status != TalentScriptableObject.StatusEffect.none) { }
+//        if (item.stepsNecessary > 0) { }
+//        if (item.imobile > 0) { }
+//        if (item.nbAtkNecessary > 0) { }
+//        if (item.atkCooldown > 0) { }
+//        if (item.hitCooldown > 0) { }
+//        if (item.coolDown > 0) { }
+//    }
+//}

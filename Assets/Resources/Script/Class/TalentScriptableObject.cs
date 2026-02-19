@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -13,9 +14,6 @@ public class TalentScriptableObject : ScriptableObject
     public int shieldMax;
     public int shieldMin;
 
-    private int[] ConditionTab = new int[6];
-
-
     public enum StatusEffect
     {
         none, Poison, burn, either, both
@@ -23,9 +21,9 @@ public class TalentScriptableObject : ScriptableObject
     public StatusEffect Status = StatusEffect.none;
 
     [Header("trigger every X Step")]
-    public int Moved = 0;
+    public int stepsNecessary = 0;
     [Header("trigger when immobile for X sec")]
-    public int imobile = 0;
+    public float imobile = 0;
 
     [Header("trigger every X spell used")]
     public float nbAtkNecessary;
@@ -41,6 +39,7 @@ public class TalentScriptableObject : ScriptableObject
     [Header("///")]
     [Header(" ")]
 
+    ////////////////////////////////////////////////
 
     [Header("Effect")]
     [Header("//")]
@@ -60,6 +59,8 @@ public class TalentScriptableObject : ScriptableObject
     public int PoisonModifier = 0;
     public float PoisonMultiplier = 0;
 
+    public SpellScriptableObject SpellToCast = null;
+
     ////////////values//////////
 
     [HideInInspector] public int step = 0;
@@ -68,6 +69,8 @@ public class TalentScriptableObject : ScriptableObject
     [HideInInspector] public float nbAtk = 0;
     [HideInInspector] public float hitTimer = 0;
 
+
+    private Dictionary<string, float> dic_Talents = new Dictionary<string, float>();
 
     ///////////////////////fonctions/////////////////////////////////
     public bool isConditionMet()

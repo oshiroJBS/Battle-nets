@@ -202,14 +202,7 @@ public class Player : MonoBehaviour
 
         this.TilePosition = new Vector2(newX, newY);
 
-        if (TilePosition != lastTilePosition)
-            _Manager.UpdateTalentCondition(TalentManager.TalentStatus.Neutral);
-        else
-            _Manager.UpdateTalentCondition(TalentManager.TalentStatus.Neutral);
-
         this.lastTilePosition = TilePosition;
-
-
     }
 
 

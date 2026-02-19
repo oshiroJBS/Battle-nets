@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ProjectileBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     //public string _Direction = "Forward";
     //public AnimatorController spellAnimation;
