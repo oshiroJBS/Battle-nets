@@ -112,6 +112,7 @@ public class GUIcanvas : MonoBehaviour
         NewLevel();
 
         _SpellLibrary._InGame = true;
+
     }
 
     public void SelectCharacter()

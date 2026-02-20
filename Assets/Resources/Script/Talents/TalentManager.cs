@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TalentManager;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class TalentManager : MonoBehaviour
 {
@@ -27,9 +24,7 @@ public class TalentManager : MonoBehaviour
 
     private Dictionary<string, TalentScriptableObject> dic_TalentList = new Dictionary<string, TalentScriptableObject>();
     [SerializeField] private TalentScriptableObject[] _TalentLibrary;
-    private ArrayList _TalentList = new ArrayList();
-    private TalentScriptableObject[] talentInUse = new TalentScriptableObject[0];
-    private TalentScriptableObject[] lastTab = new TalentScriptableObject[0];
+    private List<TalentScriptableObject> talentInUse = new List<TalentScriptableObject>();
 
 
     private void Awake()
@@ -37,7 +32,6 @@ public class TalentManager : MonoBehaviour
         foreach (TalentScriptableObject TalentBF in _TalentLibrary)
         {
             dic_TalentList[TalentBF.name] = TalentBF;
-            _TalentList.Add(TalentBF);
         }
     }
 
@@ -46,11 +40,47 @@ public class TalentManager : MonoBehaviour
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
     }
 
+    private void Update()
+    {
+        foreach (TalentScriptableObject item in talentInUse)
+        {
+            bool ConditionIsMet = true;
+
+            for (int i = 0; i < item.ls_Conditions.Count; i++)
+            {
+                switch (item.ls_Conditions[i].conditionName)
+                {
+                    default:
+                        break;
+                    case "Always":
+                        ConditionIsMet = checkAlways(item.ls_Conditions[i].conditionValue);
+                        break;
+                }
+            }
+
+            if (ConditionIsMet)
+            {
+                for (int i = 0; i < item.ls_Conditions.Count; i++)
+                {
+                    switch (item.ls_Conditions[i].conditionName)
+                    {
+                        default:
+                            break;
+                        case "Always":
+                            ConditionIsMet = checkAlways(item.ls_Conditions[i].conditionValue);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
     public void GetInateTalent(string charName)
     {
         switch (charName)
         {
             case "kou":
+                AddTalent(_TalentLibrary[0].name);
                 break;
             case "pina":
                 break;
@@ -60,15 +90,13 @@ public class TalentManager : MonoBehaviour
     }
 
 
-
-
     #region GET TargetModifier
 
     public int GetDamageModifier()
     {
         _DamageModifier = 0;
 
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -84,7 +112,7 @@ public class TalentManager : MonoBehaviour
     public float GetDamageMultiplier()
     {
         _DamageMultiplier = 1;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -100,7 +128,7 @@ public class TalentManager : MonoBehaviour
     public int GetDefenseModifier()
     {
         _DefenceUP = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -116,7 +144,7 @@ public class TalentManager : MonoBehaviour
     public int GetWeponDamageModifier()
     {
         _WeaponDamageUP = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -132,7 +160,7 @@ public class TalentManager : MonoBehaviour
     public float GetManaRecupModifier()
     {
         _ManaRecupUp = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -148,7 +176,7 @@ public class TalentManager : MonoBehaviour
     public float GetHealOverTime()
     {
         _HealOverTime = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -164,7 +192,7 @@ public class TalentManager : MonoBehaviour
     public float GetBurnModifier()
     {
         _BurnModifier = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -180,7 +208,7 @@ public class TalentManager : MonoBehaviour
     public float GetCombustModifier()
     {
         _CombustModifier = 1;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -196,7 +224,7 @@ public class TalentManager : MonoBehaviour
     public float GetPoisonModifier()
     {
         _PoisonModifier = 0;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -212,7 +240,7 @@ public class TalentManager : MonoBehaviour
     public float GetPoisonMultiplier()
     {
         _PoisonMultiplier = 1;
-        if (talentInUse.Length > 0)
+        if (talentInUse.Count > 0)
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
@@ -234,21 +262,19 @@ public class TalentManager : MonoBehaviour
     {
     }
 
+    public bool checkAlways(float value)
+    {
+        Debug.Log("isAlways");
+        return true;
+    }
+
     #endregion
 
 
-    public void AddTalent(TalentScriptableObject talent)
+    public void AddTalent(string TalentName)
     {
-        talentInUse = new TalentScriptableObject[lastTab.Length + 1];
-        talentInUse[0] = talent;
-
-        for (int i = 0; i < lastTab.Length; i++)
-        {
-            talentInUse[i + 1] = lastTab[i];
-        }
-
-        lastTab = new TalentScriptableObject[talentInUse.Length];
-        lastTab = talentInUse;
+        talentInUse.Add(dic_TalentList[TalentName]);
+        dic_TalentList[TalentName].CreateConditions();
     }
 }
 

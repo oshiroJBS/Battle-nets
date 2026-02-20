@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
+        if (_Library == null) _Library = GameObject.FindObjectOfType<SpellLibrary>();
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
 
         this.ShuffleIcon.gameObject.SetActive(false);
@@ -246,6 +246,8 @@ public class Player : MonoBehaviour
         this._characterName = name;
         _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
         p_Deck = new ArrayList(_StartingDeck);
+
+        _Manager.GetInateTalent(_characterName);
 
         // first Spells
         SpellA = GetNewSpell();

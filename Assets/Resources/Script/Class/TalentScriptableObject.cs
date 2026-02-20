@@ -71,8 +71,34 @@ public class TalentScriptableObject : ScriptableObject
 
 
     private Dictionary<string, float> dic_Talents = new Dictionary<string, float>();
+    public class Condition
+    {
+        public string conditionName;
+        public float conditionValue;
+    }
 
+    public List<Condition> ls_Conditions = new List<Condition>();
+    
     ///////////////////////fonctions/////////////////////////////////
+   
+    
+    public void CreateConditions()
+    {
+        ls_Conditions = new List<Condition>();
+        if (always)
+        {
+            ls_Conditions.Add(new Condition { conditionName = "Always", conditionValue = 1f });
+            Debug.Log("Is always");
+            return;
+        }
+        else
+        {
+            Debug.Log("NOT ALWAYS");
+        }
+
+
+    }
+    
     public bool isConditionMet()
     {
         //if (item.Moved != 0)

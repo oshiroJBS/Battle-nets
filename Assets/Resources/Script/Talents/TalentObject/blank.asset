@@ -19,18 +19,26 @@ MonoBehaviour:
   shieldMax: 0
   shieldMin: 0
   Status: 0
-  Moved: 0
+  stepsNecessary: 0
   imobile: 0
+  nbAtkNecessary: 0
   atkCooldown: 0
   hitCooldown: 0
-  always: 0
-  damageModifier: 0
+  always: 1
+  coolDown: 0
+  damageModifier: 2
   damageMultiplier: 0
   defenceUP: 0
   WeaponDamageUP: 0
   manaRecupUp: 0
   HealOverTime: 0
   burnModifier: 0
-  burnMultiplier: 0
+  combustModifier: 0
   PoisonModifier: 0
   PoisonMultiplier: 0
+  SpellToCast: {fileID: 0}
+  step: 0
+  immobileTimer: 0
+  AtkTimer: 0
+  nbAtk: 0
+  hitTimer: 0
