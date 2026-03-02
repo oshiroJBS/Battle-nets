@@ -3,36 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\class\\talentscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\talentscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\battle stage\\spelllibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\battle stage\\spelllibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|c:\\users\\lctay\\documents\\github\\battle nets\\assets\\resources\\script\\talents\\talentmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\talents\\talentmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\class\\spellscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\spellscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|c:\\users\\lctay\\documents\\github\\battle nets\\assets\\resources\\script\\class\\instancescriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\instancescriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\class\\talentscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\talentscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\behaviour\\projectilebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\behaviour\\projectilebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\battle stage\\spelllibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\battle stage\\spelllibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\class\\spellscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\spellscriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\class\\instancescriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\class\\instancescriptableobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\enemy\\enemybasics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\enemy\\enemybasics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\behaviour\\projectilebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|solutionrelative:assets\\resources\\script\\behaviour\\projectilebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}|Assembly-CSharp.csproj|C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\assets\\resources\\script\\behaviour\\damagebehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,11 +50,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 241,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "InstanceScriptableObject.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Class\\InstanceScriptableObject.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Class\\InstanceScriptableObject.cs",
@@ -62,69 +62,66 @@
               "RelativeToolTip": "Assets\\Resources\\Script\\Class\\InstanceScriptableObject.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T20:40:52.527Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-19T20:40:52.527Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "TalentManager.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Talents\\TalentManager.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Talents\\TalentManager.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Talents\\TalentManager.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\Talents\\TalentManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAOEAAAAAAAAAAAAUwPkAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-16T21:26:41.707Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ProjectileBehaviour.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Behaviour\\ProjectileBehaviour.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Behaviour\\ProjectileBehaviour.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Behaviour\\ProjectileBehaviour.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\Behaviour\\ProjectileBehaviour.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwAUAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAQwAUAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T20:45:43.628Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-13T20:45:43.628Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "EnemyBasics.cs",
-              "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
-              "RelativeDocumentMoniker": "Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
-              "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
-              "RelativeToolTip": "Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAcwNwAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T18:18:57.859Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Player.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Player.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\Player.cs",
-              "ViewState": "AgIAALYAAAAAAAAAAAAuwMwAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAALQAAAAAAAAAAAAswNgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T13:05:33.048Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T13:05:33.048Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
+              "Title": "EnemyBasics.cs",
+              "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
+              "RelativeDocumentMoniker": "Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
+              "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
+              "RelativeToolTip": "Assets\\Resources\\Script\\enemy\\EnemyBasics.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAQwNwAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:18:57.859Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "TalentScriptableObject.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Class\\TalentScriptableObject.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Class\\TalentScriptableObject.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Class\\TalentScriptableObject.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\Class\\TalentScriptableObject.cs",
-              "ViewState": "AgIAADQAAAAAAAAAAAAAwEgAAABUAAAAAAAAAA==",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAkwJIAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-07T18:57:15.372Z",
               "EditorCaption": ""
@@ -137,7 +134,7 @@
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\GUIcanvas.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\GUIcanvas.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\GUIcanvas.cs",
-              "ViewState": "AgIAAE8AAAAAAAAAAAAswHYAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAQwHYAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-13T20:52:35.874Z"
             },
@@ -155,20 +152,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "SpellLibrary.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Battle Stage\\SpellLibrary.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Battle Stage\\SpellLibrary.cs",
               "ToolTip": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Battle Stage\\SpellLibrary.cs",
               "RelativeToolTip": "Assets\\Resources\\Script\\Battle Stage\\SpellLibrary.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-20T19:20:56.851Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-20T19:20:56.851Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SpellScriptableObject.cs",
               "DocumentMoniker": "C:\\Users\\Lctay\\Documents\\GitHub\\Battle nets\\Assets\\Resources\\Script\\Class\\SpellScriptableObject.cs",
               "RelativeDocumentMoniker": "Assets\\Resources\\Script\\Class\\SpellScriptableObject.cs",
@@ -176,8 +172,7 @@
               "RelativeToolTip": "Assets\\Resources\\Script\\Class\\SpellScriptableObject.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAxwAoAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-10T16:33:51.15Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-10T16:33:51.15Z"
             }
           ]
         }

@@ -100,7 +100,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _DamageModifier += item.damageModifier;
                 }
@@ -116,7 +116,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _DamageMultiplier += item.damageMultiplier;
                 }
@@ -132,7 +132,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _DefenceUP += item.defenceUP;
                 }
@@ -148,7 +148,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _WeaponDamageUP += item.WeaponDamageUP;
                 }
@@ -164,7 +164,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _ManaRecupUp += item.manaRecupUp;
                 }
@@ -180,7 +180,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _HealOverTime += item.HealOverTime;
                 }
@@ -196,7 +196,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _BurnModifier += item.burnModifier;
                 }
@@ -212,7 +212,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _CombustModifier += item.combustModifier;
                 }
@@ -228,7 +228,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _PoisonModifier += item.PoisonModifier;
                 }
@@ -244,7 +244,7 @@ public class TalentManager : MonoBehaviour
         {
             foreach (TalentScriptableObject item in talentInUse)
             {
-                if (item.isConditionMet())
+                if (item.isConditionMet(_Player))
                 {
                     _PoisonMultiplier += item.PoisonMultiplier;
                 }

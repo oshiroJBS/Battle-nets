@@ -18,7 +18,7 @@ public class TalentScriptableObject : ScriptableObject
     {
         none, Poison, burn, either, both
     }
-    public StatusEffect Status = StatusEffect.none;
+    public StatusEffect status = StatusEffect.none;
 
     [Header("trigger every X Step")]
     public int stepsNecessary = 0;
@@ -35,7 +35,7 @@ public class TalentScriptableObject : ScriptableObject
     [Header("always active")]
     public bool always = false;
     [Header("sec between each activation")]
-    public float coolDown;
+    public float cooldown;
     [Header("///")]
     [Header(" ")]
 
@@ -63,14 +63,13 @@ public class TalentScriptableObject : ScriptableObject
 
     ////////////values//////////
 
-    [HideInInspector] public int step = 0;
-    [HideInInspector] public float immobileTimer = 0;
-    [HideInInspector] public float AtkTimer = 0;
-    [HideInInspector] public float nbAtk = 0;
-    [HideInInspector] public float hitTimer = 0;
+    [HideInInspector] public float timer_Immobile = 0;
+    [HideInInspector] public float timer_Atk = 0;
+    [HideInInspector] public float timer_Hit = 0;
+    [HideInInspector] public float timer_cooldown = 0;
+    [HideInInspector] public float counter_Atk = 0;
+    [HideInInspector] public int counter_Step = 0;
 
-
-    private Dictionary<string, float> dic_Talents = new Dictionary<string, float>();
     public class Condition
     {
         public string conditionName;
@@ -78,126 +77,214 @@ public class TalentScriptableObject : ScriptableObject
     }
 
     public List<Condition> ls_Conditions = new List<Condition>();
-    
+
     ///////////////////////fonctions/////////////////////////////////
-   
-    
+
+
     public void CreateConditions()
     {
         ls_Conditions = new List<Condition>();
+
         if (always)
         {
-            ls_Conditions.Add(new Condition { conditionName = "Always", conditionValue = 1f });
-            Debug.Log("Is always");
+            ls_Conditions.Add(new Condition { conditionName = nameof(always), conditionValue = 1f });
             return;
         }
-        else
+
+        if (HpMin > 0)      /////// HP MIN /////////
         {
-            Debug.Log("NOT ALWAYS");
+            ls_Conditions.Add(new Condition { conditionName = nameof(HpMin), conditionValue = HpMin });
         }
 
+        if (HpPercentMin > 0)      /////// HpPercentMin /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(HpPercentMin), conditionValue = HpPercentMin });
+        }
+        if (HpMax > 0)      /////// HpMax /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(HpMax), conditionValue = HpMax });
+        }
+        if (HpPercentMax > 0)      /////// HpPercentMax /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(HpPercentMax), conditionValue = HpPercentMax });
+        }
+        if (shieldMax > 0)      /////// shieldMax /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(shieldMax), conditionValue = shieldMax });
+        }
+        if (shieldMin > 0)      /////// shieldMin /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(shieldMin), conditionValue = shieldMin });
+        }
 
+        if (stepsNecessary > 0)      /////// stepsNecessary /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(stepsNecessary), conditionValue = stepsNecessary });
+        }
+        if (imobile > 0)      /////// imobile /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(imobile), conditionValue = imobile });
+        }
+        if (nbAtkNecessary > 0)      /////// nbAtkNecessary /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(nbAtkNecessary), conditionValue = nbAtkNecessary });
+        }
+        if (atkCooldown > 0)      /////// atkCooldown /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(atkCooldown), conditionValue = atkCooldown });
+        }
+        if (hitCooldown > 0)      /////// hitCooldown /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(hitCooldown), conditionValue = hitCooldown });
+        }
+        if (cooldown > 0)      /////// coolDown /////////
+        {
+            ls_Conditions.Add(new Condition { conditionName = nameof(cooldown), conditionValue = cooldown });
+        }
     }
-    
-    public bool isConditionMet()
+
+
+    public bool isConditionMet(Player TargetPlayer)
     {
-        //if (item.Moved != 0)
-        //{
-        //}
-        //if (item.imobile != 0)
-        //{
-        //}
-        //if (item.atkCooldown != 0)
-        //{
-        //}
-        //if (item.hitCooldown != 0)
-        //{
-        //}
+        bool conditionMet = true;
 
-
-
-        if (always) return true;
-       bool conditionMet = false;
-        Player _Player = GameObject.FindObjectOfType<Player>();
-
-
-        if (HpMin != 0)
+        foreach (Condition c in ls_Conditions)
         {
-            if (_Player.HP > HpMin)
-                conditionMet = true;
-            else
-                return false;
-        }
-
-        if (HpPercentMin != 0)
-        {
-            if (_Player.HP / _Player.HPMax > HpPercentMin / 100)
-                conditionMet = true;
-            else
-                return false;
-        }
-        if (HpMax != 0)
-        {
-            if (_Player.HP < HpMax)
-                conditionMet = true;
-            else
-                return false;
-        }
-        if (HpPercentMax != 0)
-        {
-            if (_Player.HP / _Player.HPMax < HpPercentMax /100)
-                conditionMet = true;
-            else return false;
-        }
-        if (shieldMin != 0)
-        {
-            if (_Player.Shield > shieldMin)
-                conditionMet = true;
-            else return false;
-        }
-        if (shieldMax != 0)
-        {
-            if (_Player.Shield < shieldMax)
-                conditionMet = true;
-            else return false;
-        }
-
-        if (Status != StatusEffect.none)
-        {
-            switch (Status)
+            switch (c.conditionName)
             {
-                case StatusEffect.Poison:
-                    if (_Player._PoisonStack != 0)
-                        conditionMet = true;
-                    else
-                        return false;
-                    break;
+                case "always":
+                    return conditionMet;
 
-                case StatusEffect.burn:
-                    if (_Player._FireStack != 0)
-                        conditionMet = true;
-                    else
-                        return false;
+                case "HpMin":
+                    if (HpMin > TargetPlayer.HP)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
                     break;
-
-                case StatusEffect.either:
-                    if (_Player._FireStack != 0 || _Player._PoisonStack != 0)
-                        conditionMet = true;
-                    else
-                        return false;
+                case "HpPercentMin":
+                    if (HpPercentMin > (TargetPlayer.HP / TargetPlayer.HPMax) * 100)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
                     break;
-
-                case StatusEffect.both:
-                    if (_Player._FireStack != 0 && _Player._PoisonStack != 0)
-                        conditionMet = true;
-                    else
-                        return false;
+                case "HpMax":
+                    if (HpMax < TargetPlayer.HP)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "HpPercentMax":
+                    if (HpPercentMax < (TargetPlayer.HP / TargetPlayer.HPMax) * 100)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "shieldMax":
+                    if (shieldMax < TargetPlayer.Shield)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "shieldMin":
+                    if (shieldMin > TargetPlayer.Shield)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "stepsNecessary":
+                    if (stepsNecessary > counter_Step)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "imobile":
+                    if (imobile > timer_Immobile)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "nbAtkNecessary":
+                    if (nbAtkNecessary > counter_Atk)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "atkCooldown":
+                    if (atkCooldown > timer_Atk)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "hitCooldown":
+                    if (hitCooldown > timer_Hit)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
+                    break;
+                case "coolDown":
+                    if (cooldown > timer_cooldown)
+                    {
+                        conditionMet = false;
+                        return conditionMet;
+                    }
                     break;
 
                 default:
                     break;
             }
         }
+
+        switch (status)
+        {
+            case StatusEffect.either:
+                if (TargetPlayer.CheckStatut() == StatusEffect.none)
+                {
+                    conditionMet = false;
+                }
+                break;
+
+            case StatusEffect.none:
+                if (TargetPlayer.CheckStatut() != StatusEffect.none)
+                {
+                    conditionMet = false;
+                }
+                break;
+            case StatusEffect.Poison:
+                if (TargetPlayer.CheckStatut() != StatusEffect.Poison
+                    && TargetPlayer.CheckStatut() != StatusEffect.both)
+                {
+                    conditionMet = false;
+                }
+                break;
+            case StatusEffect.burn:
+                if (TargetPlayer.CheckStatut() != StatusEffect.burn
+                    && TargetPlayer.CheckStatut() != StatusEffect.both)
+                {
+                    conditionMet = false;
+                }
+                break;
+            case StatusEffect.both:
+                if (TargetPlayer.CheckStatut() != StatusEffect.both)
+                {
+                    conditionMet = false;
+                }
+                break;
+            default:
+                break;
+        }
+
+
         return conditionMet;
     }
 

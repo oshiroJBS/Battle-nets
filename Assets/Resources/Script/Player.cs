@@ -213,6 +213,28 @@ public class Player : MonoBehaviour
 
     ////////////////////////// FONCTION ///////////////////////////////////
 
+
+
+    public TalentScriptableObject.StatusEffect CheckStatut()
+    {
+        TalentScriptableObject.StatusEffect playerStatut = TalentScriptableObject.StatusEffect.none;
+
+        if (_FireStack != 0 && _PoisonStack != 0)
+        {
+            playerStatut = TalentScriptableObject.StatusEffect.both;
+        }
+        else if (_FireStack != 0) 
+        {
+            playerStatut = TalentScriptableObject.StatusEffect.burn;
+        }
+        else if (_PoisonStack != 0)
+        {
+            playerStatut = TalentScriptableObject.StatusEffect.Poison;
+        }
+
+        return playerStatut;
+    }
+
     public void InstantiatePlayer(string name)
     {
         switch (name)
