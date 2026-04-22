@@ -6,7 +6,15 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public string _characterName;
+
+    public enum CharacterName
+    {
+        none,
+        kou, pina, cyon
+    }
+
+    public CharacterName _characterName;
+    //public string _characterName;
     public float HPMax = 100;
     [HideInInspector] public float HP = 100;
     //private float lastHP = 100;
@@ -223,7 +231,7 @@ public class Player : MonoBehaviour
         {
             playerStatut = TalentScriptableObject.StatusEffect.both;
         }
-        else if (_FireStack != 0) 
+        else if (_FireStack != 0)
         {
             playerStatut = TalentScriptableObject.StatusEffect.burn;
         }
@@ -237,6 +245,8 @@ public class Player : MonoBehaviour
 
     public void InstantiatePlayer(string name)
     {
+        var enumBuffer = CharacterName.none;
+
         switch (name)
         {
             default:
@@ -247,6 +257,7 @@ public class Player : MonoBehaviour
                 ManaMax = 3f;
                 ManaRecuperation = 0.6f;
                 Defence = 0;
+                enumBuffer = CharacterName.kou;
                 break;
 
             case "pina":
@@ -254,6 +265,7 @@ public class Player : MonoBehaviour
                 ManaMax = 4f;
                 ManaRecuperation = 0.8f;
                 Defence = 0;
+                enumBuffer = CharacterName.pina;
                 break;
 
             case "cyon":
@@ -261,11 +273,17 @@ public class Player : MonoBehaviour
                 ManaMax = 3f;
                 ManaRecuperation = 0.75f;
                 Defence = 0;
+                enumBuffer = CharacterName.cyon;
                 break;
         }
 
+
         HP = HPMax;
-        this._characterName = name;
+
+        if (enumBuffer == CharacterName.none)
+        { Debug.Log("no corresponding Name, check instatiate Button"); return; }
+
+        this._characterName = enumBuffer;
         _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
         p_Deck = new ArrayList(_StartingDeck);
 
@@ -343,7 +361,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float weapon(string name)
+    private float weapon(CharacterName name)
     {
         float weaponCD = 0f;
 
@@ -353,8 +371,7 @@ public class Player : MonoBehaviour
                 ProjectileBehaviour Projectile = null;
                 DamageBehaviour Instance = null;
                 break;
-
-            case "kou":
+            case CharacterName.kou:
                 if (this.CurrentMana < 1f) { break; }
                 this.CurrentMana -= 1f;
 
@@ -366,8 +383,7 @@ public class Player : MonoBehaviour
 
                 weaponCD = 0.3f;
                 break;
-
-            case "pina":
+            case CharacterName.pina:
                 if (this.CurrentMana < 0.5f) { break; }
                 this.CurrentMana -= 0.5f;
 
@@ -383,7 +399,7 @@ public class Player : MonoBehaviour
 
                 weaponCD = 0.3f;
                 break;
-            case "cyon":
+            case CharacterName.cyon:
                 if (this.CurrentMana < 1f) { break; }
 
                 this.CurrentMana -= 1f;

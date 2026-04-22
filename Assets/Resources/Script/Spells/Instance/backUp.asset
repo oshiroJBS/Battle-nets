@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a6946680ead145b4fc0c49bdd45db, type: 3}
   m_Name: backUp
   m_EditorClassIdentifier: 
-  CharacterDeckStarter: 
-  ManaCost: 2
+  CharacterDeckStarter: 0
+  ManaCost: 10
   castingTime: 0.2
   _Damage: 20
   _Shield: 0
@@ -21,6 +21,10 @@ MonoBehaviour:
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 1
+  _FirstRaw: 0000000000000000
+  _SecondRaw: 0000000000000000
+  _ThirdRaw: 0000000000000000
+  _ForthRaw: 0000000000000000
   _StartingPosition: {x: 4, y: 0}
   _NbObject: {x: 2, y: 4}
   _ForcedMouvement: {x: 0, y: 0}
@@ -32,6 +36,7 @@ MonoBehaviour:
   StunTime: 0
   _isFriendly: 1
   _aimed: 0
+  _resetStartPoint: 0
   _OppositeTile: 0
   _isStatic: 1
   _Charm: 0

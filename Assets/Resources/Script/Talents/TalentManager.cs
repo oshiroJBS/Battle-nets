@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Player;
 
 public class TalentManager : MonoBehaviour
 {
@@ -75,16 +76,16 @@ public class TalentManager : MonoBehaviour
         }
     }
 
-    public void GetInateTalent(string charName)
+    public void GetInateTalent(CharacterName charName)
     {
         switch (charName)
         {
-            case "kou":
+            case CharacterName.kou:
                 AddTalent(_TalentLibrary[0].name);
                 break;
-            case "pina":
+            case CharacterName.pina:
                 break;
-            case "cyon":
+            case CharacterName.cyon:
                 break;
         }
     }

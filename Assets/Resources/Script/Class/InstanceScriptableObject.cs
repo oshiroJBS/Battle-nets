@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SpellsScriptableObject", menuName = "ScriptableObject/Instance")]
-public class InstanceScriptableObject : SpellScriptableObject
+public class InstanceScriptableObject  : SpellScriptableObject
 {
     public float _LifeSpan = 0.2f;
     public bool isRandom = false;

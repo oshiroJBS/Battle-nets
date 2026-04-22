@@ -72,7 +72,7 @@ public class SpellLibrary : MonoBehaviour
         if (BFspell.ManaCost > _Player.CurrentMana)
             return false;
 
-        if (BFspell is ProjectileScriptableObject)
+        if (BFspell is ProjectileScriptableObject)     ///////////////////////////// PROJECTILE ///////////////////////////////////
         {
             ProjectileScriptableObject pso = (ProjectileScriptableObject)BFspell;
 
@@ -94,7 +94,7 @@ public class SpellLibrary : MonoBehaviour
 
             return true;
         }
-        else if (BFspell is InstanceScriptableObject)
+        else if (BFspell is InstanceScriptableObject)     ///////////////////////////// INASTANCE ///////////////////////////////////
         {
             InstanceScriptableObject iso = (InstanceScriptableObject)BFspell;
 
@@ -188,7 +188,7 @@ public class SpellLibrary : MonoBehaviour
         //return returnValue;
     }
 
-    IEnumerator CastInstance(InstanceScriptableObject iso, Vector2 CastingPositon, bool enemy)
+    IEnumerator CastInstance(InstanceScriptableObject iso, Vector2 CastingPositon, bool enemy)     ///////////////////////////// INSTANCE ///////////////////////////////////
     {
         bool first = true;
 
@@ -248,7 +248,7 @@ public class SpellLibrary : MonoBehaviour
         //return returnValue;
     }
 
-    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon, bool enemy)
+    private bool CreateProjectileOnCast(ProjectileScriptableObject CastingProjectile, Vector2 Positon, bool enemy)     ///////////////////////////// PROJECTILE ///////////////////////////////////
     {
         ///Basic
         int SpellDirection = 1;
@@ -429,7 +429,7 @@ public class SpellLibrary : MonoBehaviour
     #endregion
 
 
-    public ArrayList CreateStartingDeck(string charName)
+    public ArrayList CreateStartingDeck(Player.CharacterName charName)
     {
         ArrayList NameList = new ArrayList();
 

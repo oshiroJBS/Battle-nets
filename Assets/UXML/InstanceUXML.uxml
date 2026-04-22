@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <uie:EnumField label="Starter Deck" value="Center" binding-path="CharacterDeckStarter" name="StarterDeck" />
+    <ui:SliderInt label="Mana Cost" value="1" high-value="10" binding-path="ManaCost" name="ManaCost">
+        <ui:Label text="YO&#10;" display-tooltip-when-elided="true" name="Label" binding-path="ManaCost" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 71px; top: 2px;" />
+    </ui:SliderInt>
+    <uie:FloatField label="Time for Cast" value="0.2" name="CastingTime" binding-path="castingTime" />
+    <uie:IntegerField label="Damage (Heal if negatif)" value="30" binding-path="_Damage" name="Damage" />
+    <uie:IntegerField label="Shield (remove if negatif)" value="10" binding-path="_Shield" name="Shield" />
+    <ui:Toggle label="is Friendly" binding-path="_isFriendly" value="true" name="friendly" />
+    <ui:Foldout text="Wave parameters" name="WaveManager" value="true">
+        <ui:SliderInt label="Nb of Wave" value="1" high-value="5" binding-path="nbWave" name="NBWave" low-value="1">
+            <ui:Label text="YO&#10;" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 71px; top: 2px;" />
+        </ui:SliderInt>
+        <uie:FloatField label="CoolDownWave" value="0.2" name="coolDown" binding-path="waveCooldown" style="height: 19px;" />
+        <ui:Toggle label="apply to first Wave" binding-path="fstWaveCooldown" name="FstWaveCooldown" style="width: 174px;" />
+        <ui:Toggle label="is wave static" binding-path="isWaveStatic" name="ResetPos" />
+    </ui:Foldout>
+    <ui:Foldout text="Instantiation Panel" name="InstantiateParameters">
+        <uie:FloatField label="LisfeSpan" value="42,2" binding-path="_LifeSpan" />
+        <uie:Vector2Field label="Starting Position" binding-path="_StartingPosition" name="positioning" />
+        <uie:Vector2Field label="Nb Objects (min 1,1)" binding-path="_NbObject" x="1" y="1" name="NbObject" />
+    </ui:Foldout>
+    <ui:Foldout text="Positioning Parameters" name="PositionnigParameters">
+        <ui:Toggle label="Get Random Pos" binding-path="isRandom" />
+        <ui:Toggle label="Reverse Position" binding-path="_OppositeTile" name="ReversePos" />
+        <ui:Toggle label="MovingWave" binding-path="_resetStartPoint" name="MoveWave" />
+        <ui:Toggle label="lock On Player (OOP only)" binding-path="_aimed" name="LockOnPlayer" />
+        <ui:Toggle label="Lock Pos of the Spell" binding-path="_isStatic" focusable="false" value="false" name="WaveLock" style="width: 174px;" />
+    </ui:Foldout>
+    <ui:Foldout text="Effects On Cast" name="EffectsOnCast">
+        <ui:Toggle label="RandomTP on Cast" binding-path="RandomTpOnCast" name="randomTpOncast" />
+        <uie:Vector2Field label="TP on Cast" binding-path="_TpOnCast" name="Vector2Field" />
+        <ui:Toggle label="TP on the opposite side on Cast" binding-path="TpOnOpposite" name="TpOnOpposite" />
+        <uie:FloatField label="move to OPP grid for :" value="0" binding-path="MoveToEnnemyGridForTime" name="toOPPgrid" />
+    </ui:Foldout>
+    <ui:Foldout text="Effects on Hit" name="HitParameters">
+        <uie:IntegerField label="PoisonStack" value="0" binding-path="_PoisonStack" name="Poison" />
+        <uie:IntegerField label="FireStack" value="0" binding-path="_FireStack" name="Fire" style="height: 19px;" />
+        <ui:Toggle label="Charm Opp" binding-path="_charm" name="Charm" />
+        <uie:FloatField label="stunTime" value="42,2" binding-path="StunTime" name="Stun" style="height: 18px;" />
+        <uie:Vector2Field label="Force Move in dir" binding-path="_ForcedMouvement" name="ForceMove" />
+        <ui:Toggle label="RandomTP on HIT" binding-path="RandomTPonHit" name="RandomTP" value="0.2" />
+    </ui:Foldout>
+</ui:UXML>

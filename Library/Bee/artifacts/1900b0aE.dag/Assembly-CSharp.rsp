@@ -392,6 +392,8 @@
 "Assets/Resources/Script/Class/TalentScriptableObject.cs"
 "Assets/Resources/Script/enemy/EnemyBasics.cs"
 "Assets/Resources/Script/GUIcanvas.cs"
+"Assets/Resources/Script/Inspectors/InstanceInspector.cs"
+"Assets/Resources/Script/Inspectors/ProjectileInspector.cs"
 "Assets/Resources/Script/Player.cs"
 "Assets/Resources/Script/Talents/TalentManager.cs"
 "Assets/UIBars/Scripts/ControlBar.cs"

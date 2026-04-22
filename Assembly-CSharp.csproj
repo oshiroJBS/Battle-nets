@@ -97,6 +97,8 @@
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\EnemyAi.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
+    <Compile Include="Assets\Resources\Script\Inspectors\ProjectileInspector.cs" />
+    <Compile Include="Assets\Resources\Script\Inspectors\InstanceInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -109,6 +111,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\Kawaii Slimes\Shader\UnityURPToonLitShader\SimpleURPToonLitOutlineExample_LightingEquation.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\UXML\InstanceUXML.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\Kawaii Slimes\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -126,6 +129,7 @@
     <None Include="Assets\Kawaii Slimes\Shader\Unity-chan Shader Ver 1.2.1\Unitychan_chara_eye.shader" />
     <None Include="Assets\Kawaii Slimes\Shader\UnityURPToonLitShader\NiloInvLerpRemap.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\UXML\ProjectileUXML.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\Modern GDR - Free icons pack\01_Demo\Font\Jost_OFL.txt" />

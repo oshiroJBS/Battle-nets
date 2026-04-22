@@ -12,23 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a6946680ead145b4fc0c49bdd45db, type: 3}
   m_Name: lightning
   m_EditorClassIdentifier: 
-  CharacterDeckStarter: kou
+  CharacterDeckStarter: 1
   ManaCost: 1
   castingTime: 0.2
   _Damage: 40
-  nbWave: 1
+  _Shield: 0
+  nbWave: 3
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 1
+  _FirstRaw: 0000000000000000
+  _SecondRaw: 0000000000000000
+  _ThirdRaw: 0000000000000000
+  _ForthRaw: 0000000000000000
   _StartingPosition: {x: 4, y: 0}
   _NbObject: {x: 1, y: 1}
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 1
+  _aimed: 0
+  _resetStartPoint: 0
+  _OppositeTile: 1
   _isStatic: 0
   _Charm: 0
   _FireStack: 0
