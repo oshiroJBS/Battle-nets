@@ -10,7 +10,7 @@
     <ui:Toggle label="is Friendly" binding-path="_isFriendly" value="true" name="friendly" />
     <ui:Foldout text="Wave parameters" name="WaveManager" value="true">
         <ui:SliderInt label="Nb of Wave" value="1" high-value="5" binding-path="nbWave" name="NBWave" low-value="1">
-            <ui:Label text="YO&#10;" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 71px; top: 2px;" />
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 71px; top: 2px;" />
         </ui:SliderInt>
         <uie:FloatField label="CoolDownWave" value="0.2" name="coolDown" binding-path="waveCooldown" style="height: 19px;" />
         <ui:Toggle label="apply to first Wave" binding-path="fstWaveCooldown" name="FstWaveCooldown" style="width: 174px;" />

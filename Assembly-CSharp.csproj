@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BD1D318F-03C1-2B6A-EE16-1EAAA0B86322}</ProjectGuid>
+    <ProjectGuid>{39FE4F7F-7E4B-ED04-B678-17DA2B40029C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,9 +53,10 @@
     <UnityVersion>2021.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Script\Inspectors\InstanceInspector.cs" />
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\Face.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example3.cs" />
     <Compile Include="Assets\Kawaii Slimes\Scripts\GameManager.cs" />
@@ -93,12 +94,12 @@
     <Compile Include="Assets\UIBars\Scripts\ControlBar.cs" />
     <Compile Include="Assets\Resources\Script\Battle Stage\SpellLibrary.cs" />
     <Compile Include="Assets\Resources\Script\Class\InstanceScriptableObject.cs" />
+    <Compile Include="Assets\Resources\Script\Inspectors\ProjectileInspector.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\Required\R_Example1.cs" />
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\EnemyAi.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
-    <Compile Include="Assets\Resources\Script\Inspectors\ProjectileInspector.cs" />
-    <Compile Include="Assets\Resources\Script\Inspectors\InstanceInspector.cs" />
+    <Compile Include="Assets\Resources\Script\Inspectors\TalentInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -113,6 +114,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\UXML\InstanceUXML.uxml" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\UXML\TalentUXML.uxml" />
     <None Include="Assets\Kawaii Slimes\Cameras\CameraGuidelines.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
@@ -394,12 +396,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Android.Types">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
@@ -857,11 +853,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="InspectorEnhancements.Runtime.csproj">
-      <Project>{A6344ABC-D4C1-B42B-34A7-936A7C22B591}</Project>
+      <Project>{5CF9885D-5145-AC53-01EA-488074057FF2}</Project>
       <Name>InspectorEnhancements.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="InspectorEnhancements.Editor.csproj">
-      <Project>{F5706FB6-636F-FB2D-0C99-2FA96D3405B2}</Project>
+      <Project>{CCAAA954-97C1-978F-F440-BA42BEA3BAFD}</Project>
       <Name>InspectorEnhancements.Editor</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Foldout text="Basic condition" name="BasicCondition" value="true">
+        <uie:IntegerField label="HP Min" value="0" name="HPMin" binding-path="HpMin" />
+        <uie:IntegerField label="HP Max" value="0" name="HPMax" binding-path="HpMax" />
+        <ui:SliderInt picking-mode="Ignore" label="HP Min%" value="0" high-value="100" name="HPMinPercent" binding-path="HpPercentMin" direction="Horizontal" inverted="false" style="opacity: 1;">
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 3px;" />
+        </ui:SliderInt>
+        <ui:SliderInt picking-mode="Ignore" label="HP Max%" value="0" high-value="100" name="HpPercentMax" binding-path="HpPercentMax">
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 2px;" />
+        </ui:SliderInt>
+        <uie:IntegerField label="Shield Max" value="0" name="shieldMax" binding-path="shieldMax" />
+        <uie:IntegerField label="Shield Min" value="0" name="shieldMin" binding-path="shieldMin" />
+        <uie:EnumField label="Status" binding-path="status" name="StatusEffect" value="StatusEffect" />
+    </ui:Foldout>
+</ui:UXML>

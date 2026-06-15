@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: testInstance
   m_EditorClassIdentifier: 
   CharacterDeckStarter: 0
-  ManaCost: 6
+  ManaCost: 0
   castingTime: 0
   _Damage: 0
   _Shield: 0

@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: blank
   m_EditorClassIdentifier: 
   HpMin: 0
-  HpPercentMin: 0
+  HpPercentMin: 20
   HpMax: 0
   HpPercentMax: 0
   shieldMax: 0
   shieldMin: 0
-  Status: 0
+  status: 0
   stepsNecessary: 0
   imobile: 0
   nbAtkNecessary: 0
   atkCooldown: 0
   hitCooldown: 0
   always: 1
-  coolDown: 0
+  cooldown: 0
   damageModifier: 2
   damageMultiplier: 0
   defenceUP: 0
@@ -37,8 +37,9 @@ MonoBehaviour:
   PoisonModifier: 0
   PoisonMultiplier: 0
   SpellToCast: {fileID: 0}
-  step: 0
-  immobileTimer: 0
-  AtkTimer: 0
-  nbAtk: 0
-  hitTimer: 0
+  timer_Immobile: 0
+  timer_Atk: 0
+  timer_Hit: 0
+  timer_cooldown: 0
+  counter_Atk: 0
+  counter_Step: 0

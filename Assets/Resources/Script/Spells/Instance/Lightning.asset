@@ -17,14 +17,10 @@ MonoBehaviour:
   castingTime: 0.2
   _Damage: 40
   _Shield: 0
-  nbWave: 3
+  nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
   isWaveStatic: 1
-  _FirstRaw: 0000000000000000
-  _SecondRaw: 0000000000000000
-  _ThirdRaw: 0000000000000000
-  _ForthRaw: 0000000000000000
   _StartingPosition: {x: 4, y: 0}
   _NbObject: {x: 1, y: 1}
   _ForcedMouvement: {x: 0, y: 0}
