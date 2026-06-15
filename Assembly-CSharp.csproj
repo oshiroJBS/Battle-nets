@@ -56,6 +56,7 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Resources\Script\Inspectors\TalentInspector.cs" />
     <Compile Include="Assets\Resources\Script\Inspectors\InstanceInspector.cs" />
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\Face.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example3.cs" />
@@ -99,7 +100,6 @@
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\EnemyAi.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
-    <Compile Include="Assets\Resources\Script\Inspectors\TalentInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

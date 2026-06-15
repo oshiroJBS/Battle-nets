@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: blank
   m_EditorClassIdentifier: 
   HpMin: 0
-  HpPercentMin: 20
+  HpPercentMin: 0
   HpMax: 0
   HpPercentMax: 0
   shieldMax: 0

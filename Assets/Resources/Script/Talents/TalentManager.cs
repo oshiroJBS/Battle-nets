@@ -183,7 +183,7 @@ public class TalentManager : MonoBehaviour
             {
                 if (item.isConditionMet(_Player))
                 {
-                    _HealOverTime += item.HealOverTime;
+                    _HealOverTime += item.Heal;
                 }
             }
         }

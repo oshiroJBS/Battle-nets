@@ -1,15 +1,44 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <ui:Foldout text="Basic condition" name="BasicCondition" value="true">
+    <ui:GroupBox />
+    <ui:Toggle label="is always active" binding-path="always" name="NeedCondition" />
+    <ui:Foldout text="Basic conditions" name="BasicCondition" value="false">
         <uie:IntegerField label="HP Min" value="0" name="HPMin" binding-path="HpMin" />
         <uie:IntegerField label="HP Max" value="0" name="HPMax" binding-path="HpMax" />
         <ui:SliderInt picking-mode="Ignore" label="HP Min%" value="0" high-value="100" name="HPMinPercent" binding-path="HpPercentMin" direction="Horizontal" inverted="false" style="opacity: 1;">
-            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 3px;" />
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="HpPercentMin" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 3px;" />
         </ui:SliderInt>
         <ui:SliderInt picking-mode="Ignore" label="HP Max%" value="0" high-value="100" name="HpPercentMax" binding-path="HpPercentMax">
-            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbWave" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 2px;" />
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="HpPercentMax" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 2px;" />
         </ui:SliderInt>
         <uie:IntegerField label="Shield Max" value="0" name="shieldMax" binding-path="shieldMax" />
         <uie:IntegerField label="Shield Min" value="0" name="shieldMin" binding-path="shieldMin" />
         <uie:EnumField label="Status" binding-path="status" name="StatusEffect" value="StatusEffect" />
+    </ui:Foldout>
+    <ui:Foldout text="Complex conditions" name="ComplexCondition" value="false">
+        <ui:SliderInt picking-mode="Ignore" label="Step Count" value="0" high-value="20" name="StepCount" binding-path="stepsNecessary" direction="Horizontal" inverted="false" style="opacity: 1;">
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="stepsNecessary" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 3px;" />
+        </ui:SliderInt>
+        <uie:FloatField label="don&apos;t move for :" value="0" binding-path="imobile" name="imobile" />
+        <ui:SliderInt picking-mode="Ignore" label="Atk Count" value="0" high-value="20" name="nbAtk" binding-path="nbAtkNecessary" direction="Horizontal" inverted="false" style="opacity: 1;">
+            <ui:Label text="YO" display-tooltip-when-elided="true" name="Label" binding-path="nbAtkNecessary" enable-rich-text="true" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 95px; top: 3px;" />
+        </ui:SliderInt>
+        <uie:FloatField label="don&apos;t atk for :" value="42,2" binding-path="atkCooldown" name="atkCooldown" />
+        <uie:FloatField label="don&apos;t get hit for :" value="42,2" binding-path="hitCooldown" name="hitCooldown" />
+        <uie:FloatField label="trigger every :" value="42,2" binding-path="cooldown" name="Cooldown" />
+    </ui:Foldout>
+    <ui:GroupBox name="GroupBox" />
+    <ui:Foldout text="Effects" name="Effects" value="true">
+        <uie:IntegerField label="Damage Modifier" value="0" binding-path="damageModifier" name="damageModifier" />
+        <uie:FloatField label="Damage Multiplier" value="42,2" name="damageMultiplier" binding-path="damageMultiplier" />
+        <uie:IntegerField label="Defence Modifier" value="0" binding-path="defenceUP" name="defenceUP" />
+        <uie:IntegerField label="Weapon Dmg Modifier" value="0" binding-path="WeaponDamageUP" name="WeaponDamageUP" />
+        <uie:IntegerField label="Mana Recup Modifier" value="0" binding-path="manaRecupUp" name="manaRecupUp" />
+        <uie:FloatField label="Mana Recup Modifier" value="42,2" name="manaRecupUp" binding-path="manaRecupUp" />
+        <uie:IntegerField label="Healing" value="0" binding-path="Heal" name="HealOverTime" />
+        <uie:IntegerField label="Burn Modifier" value="0" binding-path="burnModifier" name="burnModifier" />
+        <uie:IntegerField label="Combust Modifier" value="0" binding-path="combustModifier" name="combustModifier" />
+        <uie:IntegerField label="Poison Modifier" value="0" binding-path="PoisonModifier" name="PoisonModifier" />
+        <uie:FloatField label="Poison Multiplier" value="42,2" name="PoisonMultiplier" binding-path="PoisonMultiplier" />
+        <uie:ObjectField label="Cast this Spell" binding-path="SpellToCast" name="SpellToCast" allow-scene-objects="true" type="SpellScriptableObject, Assembly-CSharp" />
     </ui:Foldout>
 </ui:UXML>

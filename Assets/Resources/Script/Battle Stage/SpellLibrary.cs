@@ -72,6 +72,8 @@ public class SpellLibrary : MonoBehaviour
         if (BFspell.ManaCost > _Player.CurrentMana)
             return false;
 
+        Debug.Log(BFspell.GetType().AssemblyQualifiedName);
+
         if (BFspell is ProjectileScriptableObject)     ///////////////////////////// PROJECTILE ///////////////////////////////////
         {
             ProjectileScriptableObject pso = (ProjectileScriptableObject)BFspell;

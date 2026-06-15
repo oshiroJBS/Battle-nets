@@ -26,7 +26,7 @@ public class TalentScriptableObject : ScriptableObject
     public float imobile = 0;
 
     [Header("trigger every X spell used")]
-    public float nbAtkNecessary;
+    public int nbAtkNecessary;
     [Header("trigger if didn't atk for X sec")]
     public float atkCooldown;
     [Header("trigger if didn't got hit for X sec")]
@@ -45,16 +45,16 @@ public class TalentScriptableObject : ScriptableObject
     [Header("//")]
 
     public int damageModifier = 0;
-    public int damageMultiplier = 0;
+    public float damageMultiplier = 0;
 
     public int defenceUP = 0;
     public int WeaponDamageUP = 0;
 
     public float manaRecupUp = 0;
-    public float HealOverTime = 0;
+    public int Heal = 0;
 
     public int burnModifier = 0;
-    public float combustModifier = 0;
+    public int combustModifier = 0;
 
     public int PoisonModifier = 0;
     public float PoisonMultiplier = 0;
@@ -67,7 +67,7 @@ public class TalentScriptableObject : ScriptableObject
     [HideInInspector] public float timer_Atk = 0;
     [HideInInspector] public float timer_Hit = 0;
     [HideInInspector] public float timer_cooldown = 0;
-    [HideInInspector] public float counter_Atk = 0;
+    [HideInInspector] public int counter_Atk = 0;
     [HideInInspector] public int counter_Step = 0;
 
     public class Condition
