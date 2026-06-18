@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e09a6946680ead145b4fc0c49bdd45db, type: 3}
-  m_Name: cut
+  m_Name: Cut
   m_EditorClassIdentifier: 
-  CharacterDeckStarter: 
+  CharacterDeckStarter: 0
   ManaCost: 1
   castingTime: 0.2
   _Damage: 40
+  _Shield: 0
   nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
@@ -25,10 +26,14 @@ MonoBehaviour:
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0.6
+  TpOnOpposite: 0
   RandomTpOnCast: 0
   _TpOnCast: {x: 3, y: 0}
   StunTime: 0
   _isFriendly: 1
+  _aimed: 0
+  _resetStartPoint: 0
+  _OppositeTile: 0
   _isStatic: 0
   _Charm: 0
   _FireStack: 0

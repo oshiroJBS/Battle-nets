@@ -1901,7 +1901,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1416373680}
         m_TargetAssemblyTypeName: GUIcanvas, Assembly-CSharp
-        m_MethodName: StartCooldown
+        m_MethodName: UnPauseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4296,10 +4296,10 @@ MonoBehaviour:
       - m_Target: {fileID: 457096821}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: InstantiatePlayer
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 0cd975aea08cc1a41af9203d5c2cbe2c, type: 2}
+          m_ObjectArgumentAssemblyTypeName: PlayerScriptableObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: kou
@@ -9097,6 +9097,7 @@ MonoBehaviour:
   tempExp: 0
   lvBar: {fileID: 1468076807}
   LVtxt: {fileID: 1155774235}
+  LevelSplitter: {fileID: 3303484362025998097, guid: 0adb5248815f5cd4c8d56d83b3da7267, type: 3}
   EnemyLv1:
   - {fileID: 598189142617606031, guid: f6633e8abd6c2344ab69bef988553d97, type: 3}
   - {fileID: 598189142617606031, guid: da180f3b9a21ac4428edbd7cdcb5ca89, type: 3}
@@ -11869,10 +11870,10 @@ MonoBehaviour:
       - m_Target: {fileID: 457096821}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: InstantiatePlayer
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 27e4a41cae577ab4ea70f4fe85e0302d, type: 2}
+          m_ObjectArgumentAssemblyTypeName: PlayerScriptableObject, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: pina
@@ -13077,6 +13078,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d455890f5b49df941a70426b0bb41ad8, type: 2}
   - {fileID: 11400000, guid: 8b7201e4c1999aa4bad16e68d348a6ea, type: 2}
   - {fileID: 11400000, guid: 61dd76aaf6cd9ef47b5ab75b4fb1de75, type: 2}
+  - {fileID: 11400000, guid: 57bf8d46dc311484bbb1a212e98bbdbf, type: 2}
+  - {fileID: 11400000, guid: 770a603121251054fa44c0d74e26c632, type: 2}
   DamageSphere: {fileID: 4648252368489437962, guid: 7f9dfb9793240e840ac2ac846b1159cd, type: 3}
   ProjectileSphere: {fileID: 4648252368489437962, guid: 6add46ce5b36b3344b3aba5a3d2eee88, type: 3}
   _InGame: 0

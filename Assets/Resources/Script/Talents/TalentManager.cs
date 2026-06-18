@@ -76,20 +76,6 @@ public class TalentManager : MonoBehaviour
         }
     }
 
-    public void GetInateTalent(CharacterName charName)
-    {
-        switch (charName)
-        {
-            case CharacterName.kou:
-                AddTalent(_TalentLibrary[0].name);
-                break;
-            case CharacterName.pina:
-                break;
-            case CharacterName.cyon:
-                break;
-        }
-    }
-
 
     #region GET TargetModifier
 

@@ -6,14 +6,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-
-    public enum CharacterName
-    {
-        none,
-        kou, pina, cyon
-    }
-
-    public CharacterName _characterName;
+    public string _characterName;
     //public string _characterName;
     public float HPMax = 100;
     [HideInInspector] public float HP = 100;
@@ -22,7 +15,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float ManaRecuperation = 0.6f;
     [HideInInspector] public int Shield = 0;
     [HideInInspector] public float WeaponModifier;
-    [HideInInspector] public float Defence;
+    [HideInInspector] public int Defence;
 
 
     [SerializeField] private TextMeshProUGUI HPText;
@@ -132,7 +125,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Iscasting(weapon(_characterName));
+               // Iscasting(weapon(_characterName));
             }
         }
         else if (_isStun)
@@ -243,51 +236,19 @@ public class Player : MonoBehaviour
         return playerStatut;
     }
 
-    public void InstantiatePlayer(string name)
+    public void InstantiatePlayer(PlayerScriptableObject _PlayerTemplate)
     {
-        var enumBuffer = CharacterName.none;
-
-        switch (name)
-        {
-            default:
-                break;
-
-            case "kou":
-                HPMax = 900;
-                ManaMax = 3f;
-                ManaRecuperation = 0.6f;
-                Defence = 0;
-                enumBuffer = CharacterName.kou;
-                break;
-
-            case "pina":
-                HPMax = 700;
-                ManaMax = 4f;
-                ManaRecuperation = 0.8f;
-                Defence = 0;
-                enumBuffer = CharacterName.pina;
-                break;
-
-            case "cyon":
-                HPMax = 1000;
-                ManaMax = 3f;
-                ManaRecuperation = 0.75f;
-                Defence = 0;
-                enumBuffer = CharacterName.cyon;
-                break;
-        }
-
+        HPMax = _PlayerTemplate._HpMax;
+        ManaMax = _PlayerTemplate._ManaMax;
+        ManaRecuperation = _PlayerTemplate.ManaRecuperation;
+        Defence = _PlayerTemplate._Defense;
+        this._characterName = _PlayerTemplate._CharacterName;
 
         HP = HPMax;
 
-        if (enumBuffer == CharacterName.none)
-        { Debug.Log("no corresponding Name, check instatiate Button"); return; }
-
-        this._characterName = enumBuffer;
-        _StartingDeck = new ArrayList(_Library.CreateStartingDeck(_characterName));
+        _StartingDeck = new ArrayList(_PlayerTemplate.StartingDeck);
         p_Deck = new ArrayList(_StartingDeck);
 
-        _Manager.GetInateTalent(_characterName);
 
         // first Spells
         SpellA = GetNewSpell();
@@ -361,7 +322,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private float weapon(CharacterName name)
+    private float weapon(string name)
     {
         float weaponCD = 0f;
 
@@ -371,7 +332,7 @@ public class Player : MonoBehaviour
                 ProjectileBehaviour Projectile = null;
                 DamageBehaviour Instance = null;
                 break;
-            case CharacterName.kou:
+            case "kou":
                 if (this.CurrentMana < 1f) { break; }
                 this.CurrentMana -= 1f;
 
@@ -383,7 +344,7 @@ public class Player : MonoBehaviour
 
                 weaponCD = 0.3f;
                 break;
-            case CharacterName.pina:
+            case "pina":
                 if (this.CurrentMana < 0.5f) { break; }
                 this.CurrentMana -= 0.5f;
 
@@ -399,7 +360,7 @@ public class Player : MonoBehaviour
 
                 weaponCD = 0.3f;
                 break;
-            case CharacterName.cyon:
+            case "cyon":
                 if (this.CurrentMana < 1f) { break; }
 
                 this.CurrentMana -= 1f;
@@ -429,6 +390,7 @@ public class Player : MonoBehaviour
     {
         _FireStack = 0;
         _PoisonStack = 0;
+        Shield = 0;
     }
 
     private void spellManager()
@@ -518,6 +480,8 @@ public class Player : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
+
+            // Create split in mana gauge
             int Iinstance = 1;
             if ((ManaMax - 1) % 2 != 0)
             {
@@ -537,6 +501,7 @@ public class Player : MonoBehaviour
                     Split.transform.localPosition = new Vector3(50 * -(i / ManaMax), 0, 0);
                 }
             }
+            //
 
             LastManaMax = ManaMax;
         }
@@ -656,6 +621,7 @@ public class Player : MonoBehaviour
 
     public void GetDamaged(int damage)
     {
+        damage -= Defence;
         Shield -= damage;
 
         if (Shield < 0)

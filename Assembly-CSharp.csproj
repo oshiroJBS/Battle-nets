@@ -77,7 +77,7 @@
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example3.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example2.cs" />
     <Compile Include="Assets\Resources\Script\Class\TalentScriptableObject.cs" />
-    <Compile Include="Assets\Resources\Script\GUIcanvas.cs" />
+    <Compile Include="Assets\Resources\Script\MenuManager\GUIcanvas.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\CollectionDropdown\CD_Example3.cs" />
     <Compile Include="Assets\Kawaii Slimes\Cameras\Scripts\PivotBasedCameraRig.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\InlineProperty\IP_Example3.cs" />
@@ -100,6 +100,7 @@
     <Compile Include="Assets\Kawaii Slimes\Scripts\AI\EnemyAi.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\HideIfShowIf\HSI_Example1.cs" />
     <Compile Include="Assets\Nenn\InspectorEnhancements\Demo\Scripts\Preview\MethodButton\MB_Example4.cs" />
+    <Compile Include="Assets\Resources\Script\Class\PlayerScriptableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

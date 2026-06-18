@@ -38,9 +38,6 @@ public class SpellLibrary : MonoBehaviour
     {
         if (_Player == null) _Player = GameObject.FindObjectOfType<Player>();
         if (_Manager == null) _Manager = GameObject.FindObjectOfType<TalentManager>();
-
-        Debug.Log("Spell Count : " + dic_SpellTable.Count);
-        Debug.Log(_Manager.GetDamageMultiplier());
     }
 
 
@@ -71,8 +68,6 @@ public class SpellLibrary : MonoBehaviour
 
         if (BFspell.ManaCost > _Player.CurrentMana)
             return false;
-
-        Debug.Log(BFspell.GetType().AssemblyQualifiedName);
 
         if (BFspell is ProjectileScriptableObject)     ///////////////////////////// PROJECTILE ///////////////////////////////////
         {
@@ -431,21 +426,12 @@ public class SpellLibrary : MonoBehaviour
     #endregion
 
 
-    public ArrayList CreateStartingDeck(Player.CharacterName charName)
+    public void RemoveDeckFromLibrary(ArrayList StartingDeck)
     {
-        ArrayList NameList = new ArrayList();
-
-        foreach (var spellBF in dic_SpellTable)
+        foreach (var spellBF in StartingDeck)
         {
-            if (spellBF.Value.CharacterDeckStarter == charName)
-            {
-                NameList.Add(spellBF.Value);
-
-                _SpellAvailable.Remove(spellBF.Value);
-            }
+            _SpellAvailable.Remove(spellBF);
         }
-
-        return NameList;
     }
 
     public void AddSpellToPlayerDeck(string spellName)

@@ -3,7 +3,8 @@ using UnityEngine;
 public class SpellScriptableObject : ScriptableObject
 {
     [Header("Health Settings")]
-    public Player.CharacterName CharacterDeckStarter;//
+    public bool _IsAttack;
+
 
     public int ManaCost;//
     public float castingTime = 0.2f;//

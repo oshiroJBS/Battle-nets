@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
   m_Name: testProjectile
   m_EditorClassIdentifier: 
-  CharacterDeckStarter: 
+  CharacterDeckStarter: 1
   ManaCost: 0
   castingTime: 0.2
   _Damage: 0
+  _Shield: 0
   nbWave: 1
   waveCooldown: 0.2
   fstWaveCooldown: 0
@@ -25,10 +26,14 @@ MonoBehaviour:
   _ForcedMouvement: {x: 0, y: 0}
   RandomTPonHit: 0
   MoveToEnnemyGridForTime: 0
-  RandomTPonCAst: 0
+  TpOnOpposite: 0
+  RandomTpOnCast: 0
   _TpOnCast: {x: 0, y: 0}
   StunTime: 0
   _isFriendly: 0
+  _aimed: 0
+  _resetStartPoint: 0
+  _OppositeTile: 0
   _isStatic: 0
   _Charm: 0
   _FireStack: 0
@@ -38,3 +43,4 @@ MonoBehaviour:
   p_IsLaser: 0
   _isComingBack: 0
   SpellDirection: 0
+  OOB_start: 0

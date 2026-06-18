@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b8489b0f42fe441b5a86bcca9b0e3f, type: 3}
+  m_Name: Pina
+  m_EditorClassIdentifier: 
+  _CharacterName: Pina
+  _HpMax: 500
+  _Defense: 0
+  _ManaMax: 3
+  ManaRecuperation: 0.3
+  WeaponModifier: 0
+  StartingDeck: []
+  Weapon: {fileID: 0}
+  InateTalent: {fileID: 0}
+  Icone: {fileID: 0}
+  _description: 
+  Sprit: {fileID: 0}
+  SpritCycle: []
+  MovingSprit: {fileID: 0}
+  AttackingSprit: {fileID: 0}
+  DamagedSprit: {fileID: 0}
