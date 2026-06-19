@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class SpellScriptableObject : ScriptableObject
 {
-    [Header("Health Settings")]
-    public bool _IsAttack;
-
+    public bool _IsWeapon = false;
+    public float _WeaponCost = 0;
 
     public int ManaCost;//
     public float castingTime = 0.2f;//

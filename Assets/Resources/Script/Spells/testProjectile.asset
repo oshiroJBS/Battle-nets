@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5065b7a17d8b651499153f367e67515c, type: 3}
   m_Name: testProjectile
   m_EditorClassIdentifier: 
-  CharacterDeckStarter: 1
+  _IsWeapon: 0
+  _WeaponCost: 0
   ManaCost: 0
   castingTime: 0.2
   _Damage: 0

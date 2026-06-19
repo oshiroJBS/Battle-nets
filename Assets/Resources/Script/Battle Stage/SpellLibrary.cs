@@ -28,7 +28,8 @@ public class SpellLibrary : MonoBehaviour
         foreach (SpellScriptableObject SpellBF in _Library)
         {
             dic_SpellTable[SpellBF.name] = SpellBF;
-            _SpellAvailable.Add(SpellBF);
+            if (!SpellBF._IsWeapon)
+                _SpellAvailable.Add(SpellBF);
         }
         _Library = new SpellScriptableObject[0];
         Debug.Log(dic_SpellTable.Count);

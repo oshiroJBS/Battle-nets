@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09a6946680ead145b4fc0c49bdd45db, type: 3}
   m_Name: testInstance
   m_EditorClassIdentifier: 
+  _IsWeapon: 0
+  _WeaponCost: 0
   ManaCost: 0
   castingTime: 0
   _Damage: 0
@@ -39,4 +41,4 @@ MonoBehaviour:
   _PoisonStack: 0
   Icon: {fileID: 0}
   _LifeSpan: 0.2
-  isRandom: 0
+  isRandom: 1

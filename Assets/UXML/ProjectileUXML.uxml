@@ -1,5 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
-    <uie:EnumField label="Starter Deck" value="Center" binding-path="CharacterDeckStarter" name="StarterDeck" />
+    <ui:Toggle label="Is a weapon :" name="_IsWeapon" binding-path="_IsWeapon" />
+    <ui:Slider picking-mode="Ignore" label="Weapon Cost" value="0" high-value="3" binding-path="_WeaponCost" name="_WeaponCost">
+        <ui:Label text="YO&#10;" display-tooltip-when-elided="true" name="Label" binding-path="_WeaponCost" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 100px; top: 2px;" />
+    </ui:Slider>
     <ui:SliderInt label="Mana Cost" value="1" high-value="10" binding-path="ManaCost" name="ManaCost">
         <ui:Label text="YO&#10;" display-tooltip-when-elided="true" name="Label" binding-path="ManaCost" style="white-space: normal; width: 29px; -unity-text-align: upper-right; height: 16px; position: absolute; left: 71px; top: 2px;" />
     </ui:SliderInt>
@@ -44,4 +47,5 @@
         <uie:Vector2Field label="Force Move in dir" binding-path="_ForcedMouvement" name="ForceMove" />
         <ui:Toggle label="RandomTP on HIT" binding-path="RandomTPonHit" name="RandomTP" />
     </ui:Foldout>
+    <ui:GroupBox />
 </ui:UXML>
